@@ -1,2 +1,2 @@
-# youthfulindrescretion
+# Youthful Indiscretion Team
 SoftEng Project
