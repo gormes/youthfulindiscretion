@@ -1,4 +1,4 @@
-package java.db;
+package player.db;
 
 public class VideoSegmentDAO {
 

@@ -1,4 +1,4 @@
-package java.model;
+package player.model;
 
 public class Site {
 
