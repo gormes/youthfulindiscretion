@@ -30,6 +30,8 @@ paths:
       responses:
         200:
           description: playlists retrieved
+        404:
+          description: playlists not found
     post:
       tags:
       - users
@@ -94,6 +96,8 @@ paths:
       responses:
         200:
           description: list of video segments returned
+        404:
+          description: video segments not found
     post:
       tags:
       - users
@@ -262,6 +266,8 @@ paths:
       responses:
         200:
           description: list of sites returned
+        404:
+          description: sites not found
     post:
       tags:
       - admins
@@ -325,13 +331,13 @@ definitions:
     type: object
     required:
     - fileName
-    - character
+    - actor
     - phrase
     properties:
       fileName:
         type: string
         example: vid1.ogg
-      character:
+      actor:
         type: string
         example: McCoy
       phrase:
@@ -360,10 +366,10 @@ definitions:
   VideoSegmentSearchRequest:
     type: object
     required:
-    - character
+    - actor
     - phrase
     properties:
-      character:
+      actor:
         type: string
         example: Spock
       phrase:
