@@ -2,6 +2,7 @@ package player.model;
 
 import java.util.UUID;
 
+
 public class VideoSegment {
 	public final String fileName;
 	public final String actor;
@@ -23,5 +24,19 @@ public class VideoSegment {
 		this.phrase = phrase;
 		this.id = id;
 		this.marked = marked;
+	}
+	
+	public boolean getMarked() {return marked;}
+	public void setMarked( boolean m) {marked = m;}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) { return false; }
+		if (o instanceof VideoSegment) {
+			VideoSegment other = (VideoSegment) o;
+			return id.equals(other.id);
+		}
+		
+		return false;  // not a Video Segment
 	}
 }
