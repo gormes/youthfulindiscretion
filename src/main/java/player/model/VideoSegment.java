@@ -4,15 +4,13 @@ import java.util.UUID;
 
 
 public class VideoSegment {
-	public final String fileName;
 	public final String actor;
 	public final String phrase;
 	public final String url;
 	public final UUID id;
 	public boolean marked;
 
-	public VideoSegment (String fileName, String actor, String phrase, String url) {
-		this.fileName = fileName;
+	public VideoSegment (String actor, String phrase, String url) {
 		this.actor = actor;
 		this.phrase = phrase;
 		this.url = url;
@@ -20,8 +18,15 @@ public class VideoSegment {
 		this.marked = false;
 	}
 	
-	public VideoSegment (String fileName, String actor, String phrase, String url, UUID id, boolean marked) {
-		this.fileName = fileName;
+	public VideoSegment (String actor, String phrase, String url, UUID id) {
+		this.actor = actor;
+		this.phrase = phrase;
+		this.url = url;
+		this.id = id;
+		this.marked = false;
+	}
+
+	public VideoSegment (String actor, String phrase, String url, UUID id, boolean marked) {
 		this.actor = actor;
 		this.phrase = phrase;
 		this.url = url;
