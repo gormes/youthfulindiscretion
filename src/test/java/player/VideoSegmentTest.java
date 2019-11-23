@@ -12,9 +12,13 @@ public class VideoSegmentTest {
 	
 	@Test
 	public void test() {
-		VideoSegment vs = new VideoSegment("testFile", "Kirk", "Are you");
-		System.out.println(vs.id.toString());
-		assertEquals(1, 1);
+		try {
+			VideoSegment vs = new VideoSegment("testFile", "Kirk", "Are you", "url");
+			System.out.println(vs.id.toString());
+		}
+		catch(Exception e) {
+			fail("test failed: " + e.getMessage());
+		}
 	}
 
 }
