@@ -18,9 +18,8 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import player.db.*;
-import player.handler.*;
 import player.model.*;
+import player.db.*;
 
 public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, String> {
 
@@ -31,7 +30,7 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
     public ListAllVideoSegmentsHandler() {}
 
     // Test purpose only.
-    ListAllVideoSegmentsHandler(AmazonS3 s3) {
+    public ListAllVideoSegmentsHandler(AmazonS3 s3) {
         this.s3 = s3;
     }
 

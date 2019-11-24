@@ -3,11 +3,15 @@ package player.handler;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import player.db.*;
+import player.handler.ListAllVideoSegmentsHandler;
+import player.model.*;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
