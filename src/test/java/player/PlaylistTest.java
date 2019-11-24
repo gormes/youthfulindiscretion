@@ -2,6 +2,8 @@ package player;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import player.db.PlaylistDAO;
@@ -23,6 +25,26 @@ public class PlaylistTest {
 				System.out.println("\t url: " + v.url);
 			}
 			
+		}
+		catch (Exception e) {
+			fail("test failed: " + e.getMessage());
+		}
+	}
+
+	@Test
+	public void testAll() {
+		try {
+			PlaylistDAO pdao = new PlaylistDAO();
+			List<Playlist> retList = pdao.getAllPlaylists();
+			for(Playlist p : retList) {
+				System.out.println("playlist: " + p.id.toString());
+				for (VideoSegment v : p.videoSegments) {
+					System.out.println("vid seg: " + v.id.toString());
+					System.out.println("\t actor: " + v.actor);
+					System.out.println("\t phrase: " + v.phrase);
+					System.out.println("\t url: " + v.url);
+				}
+			}
 		}
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());

@@ -53,12 +53,16 @@ public class PlaylistDAO {
 		
 		while (resultSet.next()) {
 			UUID currID = UUID.fromString(resultSet.getString("playlistName"));
-			if (lastPlaylist == null || !lastPlaylist.id.equals(currID)) 
+			if (lastPlaylist == null)
 				currPlaylist = new Playlist(currID);
-			else
-				currPlaylist = lastPlaylist;
+			else if (!lastPlaylist.id.equals(currID)) { 
+				allPlaylists.add(lastPlaylist);
+				currPlaylist = new Playlist(currID);
+			} else currPlaylist = lastPlaylist;
 			appendToPlaylist(resultSet, currPlaylist);
+			lastPlaylist = currPlaylist;
         }
+		allPlaylists.add(currPlaylist);
         resultSet.close();
         statement.close();
 		return allPlaylists;
