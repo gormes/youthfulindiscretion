@@ -13,7 +13,7 @@ public class VideoSegmentTest {
 	@Test
 	public void test() {
 		try {
-			VideoSegment vs = new VideoSegment("testFile", "Kirk", "Are you", "url");
+			VideoSegment vs = new VideoSegment("testFile", "Kirk", "Are you", new UUID(16, 16));
 			System.out.println(vs.id.toString());
 		}
 		catch(Exception e) {
