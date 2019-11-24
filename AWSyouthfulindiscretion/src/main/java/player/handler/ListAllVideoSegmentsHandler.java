@@ -25,12 +25,12 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
 
 	public LambdaLogger logger;
    
-	private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
+	private AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
 
     public ListAllVideoSegmentsHandler() {}
 
     // Test purpose only.
-    public ListAllVideoSegmentsHandler(AmazonS3 s3) {
+   ListAllVideoSegmentsHandler(AmazonS3 s3) {
         this.s3 = s3;
     }
 
