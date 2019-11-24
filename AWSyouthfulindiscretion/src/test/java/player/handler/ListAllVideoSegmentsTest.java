@@ -52,14 +52,14 @@ public class ListAllVideoSegmentsTest {
         TestContext ctx = new TestContext();
 
         // TODO: customize your context here if needed.
-        ctx.setFunctionName("Your Function Name");
+        ctx.setFunctionName("listAllVideoSegments");
 
         return ctx;
     }
 
     @Test
     public void testListAllVideoSegments() {
-        ListAllVideoSegments handler = new ListAllVideoSegments(s3Client);
+        ListAllVideoSegmentsHandler handler = new ListAllVideoSegmentsHandler(s3Client);
         Context ctx = createContext();
 
         String output = handler.handleRequest(event, ctx);
