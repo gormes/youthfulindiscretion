@@ -9,6 +9,7 @@ public class Playlist {
 	
 	public Playlist(UUID id) {
 		this.id = id;
+		videoSegments = new ArrayList<VideoSegment>();
 	}
 	
 	public Playlist() {

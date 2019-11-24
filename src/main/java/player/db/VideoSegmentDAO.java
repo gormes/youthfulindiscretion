@@ -20,11 +20,11 @@ public class VideoSegmentDAO {
 		}
 	}
 		
-	public VideoSegment getVideoSegment(UUID id) throws Exception {	// not sure if I want it to take in String or UUID
-		try {														// will have to see based on implementation
+	public VideoSegment getVideoSegment(String id) throws Exception {	// not sure if I want it to take in String or UUID
+		try {															// will have to see based on implementation
 			VideoSegment vs = null;
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM videoSeg WHERE VideoSegID = ?;");
-			ps.setString(1, id.toString());
+			ps.setString(1, id);
 			ResultSet resultSet = ps.executeQuery();
 			
 			while(resultSet.next()) {
