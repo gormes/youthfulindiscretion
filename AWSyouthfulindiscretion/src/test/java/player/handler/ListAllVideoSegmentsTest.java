@@ -67,6 +67,12 @@ public class ListAllVideoSegmentsTest {
         Context ctx = createContext();
 
         String output = handler.handleRequest(event, ctx);
+        
+        try {
+			System.out.print(handler.listAllVideoSegments());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         System.out.print(output);
         Assert.assertEquals(CONTENT_TYPE, output);
