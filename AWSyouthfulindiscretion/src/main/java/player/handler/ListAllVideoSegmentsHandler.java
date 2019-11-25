@@ -20,8 +20,9 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import player.model.*;
 import player.db.*;
+import player.http.AllVideoSegmentsResponse;
 
-public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, String> {
+public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, AllVideoSegmentsResponse> {
    
 	private AmazonS3 s3 = null;
 
@@ -73,23 +74,16 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
     
     
     @Override
-    public String handleRequest(S3Event event, Context context) {
+    public AllVideoSegmentsResponse handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
-        // Get the object from the event and show its content type
-        String bucket = event.getRecords().get(0).getS3().getBucket().getName();
-        String key = event.getRecords().get(0).getS3().getObject().getKey();
+        AllVideoSegmentsResponse response;
         try {
-            S3Object response = s3.getObject(new GetObjectRequest(bucket, key));
-            String contentType = response.getObjectMetadata().getContentType();
-            context.getLogger().log("CONTENT TYPE: " + contentType);
-            return contentType;
+        	List<VideoSegment> list = listAllVideoSegments();
+        	response = new AllVideoSegmentsResponse(list, 200);
         } catch (Exception e) {
-            e.printStackTrace();
-            context.getLogger().log(String.format(
-                "Error getting object %s from bucket %s. Make sure they exist and"
-                + " your bucket is in the same region as this function.", key, bucket));
-            throw e;
+        	response = new AllVideoSegmentsResponse(404, e.getMessage());
         }
+        return response;
     }
 }
