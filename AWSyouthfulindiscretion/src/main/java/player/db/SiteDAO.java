@@ -19,7 +19,7 @@ public class SiteDAO {
 	    	}
 	 }
 
-	 public List<Site> getAllConstants() throws Exception {
+	 public List<Site> getAllSites() throws Exception {
 		List<Site> allSites = new ArrayList<Site>();
 		try {
 			Statement statement = conn.createStatement();
