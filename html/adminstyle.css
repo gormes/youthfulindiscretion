@@ -46,10 +46,26 @@ button  {
 
 }
 
-input {
-  height: 30px;
-  width: 500px;
-  margin-left: 10px;
+input[type="url"] {   
+	height: 30px;
+	width: 500px;
+ 	margin-left: 10px;
+}
+
+input[type="button"] {
+	height: 30px;
+	width: auto;
+	background-color: #1352b0;
+	color: white;
+	font-size: 16px;
+	border-radius: 8px;
+
+}
+
+
+video {
+	width: 300px;
+	height: 220px;
 }
 
 * {
@@ -60,18 +76,18 @@ input {
 .column {
   float: left;
   padding: 10px;
+  min-height: 500px;
+  max-height: auto;
 
 }
 
 .left {
   width: 40%;
-  min-height: 500px;
   background-color: #aaa;
 }
 
 .right {
   width: 60%;
-  min-height: 500px;
   background-color: #bbb;
 }
 

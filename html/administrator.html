@@ -13,19 +13,28 @@
   			<div class="column left">
     			<h2>Local Video Segments</h2>
     			
-    				<!-- Test Video Segemnt -->
-    				<video width="300" height="220" controls>
-						<source src="I Can't(McCoy).mp4" type="video/mp4">
+    				<!-- First Video Segemnt -->
+    				<video id="video1" width="300" height="220" controls>
+						<source src="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Are+you(Kirk).mp4" type="video/mp4">
+						Your browser does not support the video tag
 					</video>
 					 
 					 <!-- Toggle button for marking/unmarking video segments -->
-					<button id="markToggle" onClick=toggleMark();>Mark/Unmark</button>
-					<p id="markTag">Marked</p> 
+					<input type="button" onclick="toggleMark(this)" value="Marked" id="button1"></input>
+					
+					<!--  Second Video  -->
+					<video id="video2" width="300" height="220" controls>
+						<source src="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/AyeAye(Uhura).mp4" type="video/mp4">
+						Your browser does not support the video tag
+					</video>
+					<input type="button" onclick="toggleMark(this)" value="Marked" id="button2"></input>
+					
+					
 
   			</div>
   			<div class="column right">
     			<h2>Registered Remote Sites</h2>
-    			<input type="url" id="registeredURL" />
+    			<input type="url" id="registeredURL" height="30px" width= "500px" margin-left= "10px"/>
     			
     			<!-- Buttons for deleting or registering remote sites -->
     			<button id="registerSite" onClick=addSite();>Register Site</button> 
@@ -71,13 +80,14 @@
 				
 			}
 			//Function to toggle Marked/Unmarked status of the video segments
-			function toggleMark() {
-  				var tag = document.getElementById("markTag");
+			function toggleMark(tag) {
   				//Flip status when function is called
-				if (tag.innerHTML === "Marked") {
-    				tag.innerHTML = "Unmarked";
+				if (tag.value === "Marked") {
+    				tag.value = "Unmarked";
+    				tag.style.backgroundColor = "red";
   				} else {
-    				tag.innerHTML = "Marked";
+    				tag.value = "Marked";
+    				tag.style.backgroundColor = "#1352b0";
  					 }
 			}
 
