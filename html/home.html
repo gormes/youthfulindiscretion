@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html>
-<body>
-    <h1>Playlist App</h1>
+<head>
+<script type='text/javascript' src='../js/add.js'></script>
+<script type='text/javascript' src='../js/create.js'></script>
+<script type='text/javascript' src='../js/delete.js'></script>
 
-    <h2>Playlists:</h2>
-    <p>Playlist 1</p>
-    <p>Playlist 2</p>
-    <h2>Video Segments:</h2>
+<script type="text/javascript">
+	function initialize() {
+
+		// get all of the playlists (?) and video segments (?)
+		refreshConstantsList();
+	}
+</script>
+</head>
+
+
+
+
+
+
+
+
+
+<body onload="initialize()">
+<body>
+	<h1>Playlist App</h1>
+
+	<h2>Playlists:</h2>
+	<!--  get and display the current playlists -->
+	<p>Playlist 1</p>
+	<p>Playlist 2</p>
+	<h2>Video Segments:</h2>
+	<h3>Upload Video Segments</h3>
+	<!--Figure out the JavaScript:handleAddClick(this) for submiting a playlist  -->
+	<form name="addForm" method="post">
+		<input name="arg1" value="Character" /><input name="arg2"
+			value="Phrase" onClick="JavaScript:handleAddClick(this)" />
+	</form>
+	<form id="uploadFile" method="post" action="#">
+		<input id="fileupload" type="file" /> <input type="submit"
+			value="Submit" id="submit" />
+	</form>
+
+	<h3>Search Video Segment</h3>
+	<input name="arg1" value="Character" />
+	<input name="arg2" value="Phrase" />
+	<input type="button" value="Submit"
+		onClick="JavaScript:handleAddClick(this)">
 
 </body>
 </html>
