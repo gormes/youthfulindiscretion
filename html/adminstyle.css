@@ -1,0 +1,83 @@
+h1 {
+	font-family: Futura, Trebuchet MS;
+	font-weight: bold condensed;
+	font-size: 50px;
+	padding:20px;
+	color: #524545;
+	background-color: #78bfbf;
+}
+
+h2 {
+	font-family: Palatino, Arial, Helvetica, sans-serif;
+	font-weight: bold condensed;
+	color: black;
+	font-size: 30px;
+	padding: 10px;
+}
+
+body {
+	font-family: Palatino, Arial, Helvetica, Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 10px;
+	background-color: white;
+}
+
+p {
+	font-family: Palatino, Arial, Helvetica, Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 20px;
+	padding: 5px;
+}
+
+li {
+	font-family: Palatino, Arial, Helvetica, Verdana, sans-serif;
+	font-weight: normal;
+	font-size: 16px;
+	padding: 5px;
+}
+
+button  {
+	height: 30px;
+	width: auto;
+	background-color: #78bfbf;
+	color: white;
+	font-size: 16px;
+	border-radius: 8px;
+
+}
+
+input {
+  height: 30px;
+  width: 500px;
+  margin-left: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px;
+
+}
+
+.left {
+  width: 40%;
+  min-height: 500px;
+  background-color: #aaa;
+}
+
+.right {
+  width: 60%;
+  min-height: 500px;
+  background-color: #bbb;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
