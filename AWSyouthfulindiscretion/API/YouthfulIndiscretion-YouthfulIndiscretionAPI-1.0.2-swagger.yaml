@@ -1,0 +1,446 @@
+swagger: '2.0'
+info:
+  description: CS 3733 Group Project API
+  version: 1.0.2
+  title: YouthfulIndiscretionAPI
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: users
+  description: End user calls
+
+paths:
+  /playlist:
+    get:
+      tags:
+      - users
+      summary: request a list of all playlists
+      operationId: getPlaylists
+      description: |
+        Returns all playlists in library with all categorized video segments
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: playlists retrieved
+        404:
+          description: playlists not found
+    post:
+      tags:
+      - users
+      summary: request to create a playlist
+      operationId: requestCreatePlaylist
+      description: |
+       Requests to create a new playlist in the library
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: PlaylistCreateRequest
+        description: Create a playlist to add to library
+        required: false
+        schema:
+          $ref: '#/definitions/PlaylistRequest'
+      responses:
+        201:
+          description: playlist created
+        400:
+          description: invalid input, object invalid
+        409:
+          description: duplicate playlist
+  /playlistdelete:
+    post:
+      tags:
+      - users
+      summary: request to delete a playlist
+      operationId: requestDeletePlaylist
+      description: |
+        Requests to delete an existing playlist from the library
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: PlaylistDeleteRequest
+        description: Delete a playlist from library
+        required: false
+        schema:
+          $ref: '#/definitions/PlaylistRequest'
+      responses:
+        200:
+          description: playlist deleted
+        409:
+          description: playlist not found
+  /videosegment:
+    get:
+      tags:
+      - users
+      - admins
+      summary: request a list of all video segments
+      operationId: getVideoSegments
+      description: |
+        Returns a list of all video segments
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of video segments returned
+        404:
+          description: video segments not found
+    post:
+      tags:
+      - users
+      summary: request to create a new video segment
+      operationId: requestCreateVideoSegment
+      description: |
+        Requests to create a new video segment in the library with associated actor and phrase
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentCreateRequest
+        description: Create a video segment to add to library
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentCreateRequest'
+      responses:
+        201:
+          description: video segment created
+        400:
+          description: input invalid
+        409:
+          description: duplicate video segment
+  /videosegmentdelete:
+    post:
+      tags:
+      - users
+      - admins
+      summary: request to delete a video segment
+      operationId: requestDeleteVideoSegment
+      description: |
+        Requests to delete a video segment from the library
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentRequest
+        description: Delete a video segment from library
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentDeleteRequest'
+      responses:
+        200:
+          description: video segment deleted
+        400:
+          description: invalid input
+        409:
+          description: unable to deletevideo segment
+  /videosegmentappend:
+    post:
+      tags:
+      - users
+      summary: request to append a video segment to a playlist
+      operationId: requestAppendVideoSegment
+      description: |
+        Requests to append a video segment to the end of a playlist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentAppendRequest
+        description: Append a video segment to add to a playlist
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentAppendRequest'
+      responses:
+        200:
+          description: video segment appended
+        400:
+          description: invalid input
+        409:
+          description: unable to append video segment
+  /videosegmentremove:
+    post:
+      tags:
+      - users
+      summary: request to remove a video segment from a playlist
+      operationId: requestRemoveVideoSegment
+      description: |
+        Requests to remove a video segment from a playlist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentDeleteRequest
+        description: Deletes a playlist from the library
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentDeleteRequest'
+      responses:
+        200:
+          description: video segment removed from playlist
+        400:
+          description: invalid input
+        409:
+          description: unable to remove video segment
+  /videosegmentsearch:
+    post:
+      tags:
+      - users
+      summary: request a list of video segments matching search criteria
+      operationId: searchVideoSegments
+      description: |
+        Returns a list of video segments matching the search criteria
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentSearchRequest
+        description: Returns a list of video segments
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentSearchRequest'
+      responses:
+        200:
+          description: list of matching video segments returned
+        400:
+          description: invalid input
+  /videosegmentmark:
+    post:
+      tags:
+      - admins
+      summary: request to mark a video segment
+      operationId: requestMarkVideoSegment
+      description: |
+        Requests to mark (or unmark) a video segment to disable remote use
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentMarkRequest
+        description: Marks a Video Segment
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentMarkRequest'
+      responses:
+        200:
+          description: video segment (un)marked
+        400:
+          description: invalid input
+        409:
+          description: unable to mark video segment
+  /playlistvideosegment:
+    post:
+      tags:
+      - users
+      summary: request a video segment in a playlist
+      description: |
+        Returns a specific video segment from a playlist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: PlaylistVideoSegmentRequest
+        description: returns a video segments
+        schema:
+          $ref: '#/definitions/PlaylistVideoSegmentRequest'
+      responses:
+        200:
+          description: video segment returned
+        404:
+          description: video segment not found
+  /publicvideosegment:
+    get:
+      tags:
+      - users
+      summary: request a list of all public video segments
+      description: |
+        Returns a list of public video segments
+      parameters: []
+      responses:
+        200:
+          description: list of public video segments returned
+        404:
+          description: video segments not found
+  /site:
+    get:
+      tags:
+      - admins
+      summary: request a list of all sites
+      operationId: getSites
+      description: |
+        Returns a list of all remote sites
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of sites returned
+        404:
+          description: sites not found
+    post:
+      tags:
+      - admins
+      summary: request to add a site
+      operationId: requestCreateSite
+      description: |
+        Requests to add a new site to the list
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: SiteCreateRequest
+        description: Create a playlist to add to library
+        required: false
+        schema:
+          $ref: '#/definitions/SiteCreateRequest'
+      responses: 
+        201:
+          description: site added
+        400:
+          description: invalid input
+        409: #not sure if we need this one
+          description: duplicate site
+  /siteremove:
+    post:
+      tags:
+      - admins
+      summary: request to remove a site
+      operationId: requestRemoveSite
+      description: |
+        Requests to remove a site from the list
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: SiteRemoveRequest
+        description: Create a playlist to add to library
+        required: false
+        schema:
+          $ref: '#/definitions/SiteRemoveRequest'
+      responses:
+        200:
+          description: site removed from list
+        400:
+          description: invalid input
+        409:
+          description: unable to remove site
+definitions:
+  PlaylistRequest:
+    required:
+    - id
+    properties:
+      id:
+        type: object
+  VideoSegmentCreateRequest:
+    type: object
+    required:
+    - fileName
+    - actor
+    - phrase
+    properties:
+      fileName:
+        type: string
+      actor:
+        type: string
+      phrase:
+        type: string
+  VideoSegmentDeleteRequest:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: object
+  VideoSegmentAppendRequest:
+    type: object
+    required:
+    - playlistID
+    - vidsegID
+    properties:
+      vidid:
+        type: object
+      playlistid:
+        type: object
+  VideoSegmentSearchRequest:
+    type: object
+    required:
+    - actor
+    - phrase
+    properties:
+      actor:
+        type: string
+      phrase:
+        type: string
+  VideoSegmentMarkRequest:
+    type: object
+    required:
+    - id
+    - marked
+    properties:
+      id:
+        type: object
+      marked:
+        type: boolean
+  PlaylistVideoSegmentRequest:
+    type: object
+    required:
+    - playlistID
+    - vidsegID
+    properties:
+      playlistID:
+        type: string
+      vidsegID:
+        type: string
+  SiteCreateRequest:
+    type: object
+    required:
+    - id
+    - url
+    properties:
+      id:
+        type: object
+      url:
+        type: string
+  SiteRemoveRequest:
+    type: object
+    required:
+    - id
+    properties:
+      id:
+        type: object
+    
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /YouthfulIndiscretion/YouthfulIndiscretionAPI/1.0.0
+schemes:
+ - https
