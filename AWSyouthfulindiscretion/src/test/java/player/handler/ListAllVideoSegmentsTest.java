@@ -8,6 +8,7 @@ import java.io.IOException;
 import player.db.*;
 import player.handler.ListAllVideoSegmentsHandler;
 import player.model.*;
+import player.http.AllVideoSegmentsResponse;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -68,13 +69,13 @@ public class ListAllVideoSegmentsTest {
         ListAllVideoSegmentsHandler handler = new ListAllVideoSegmentsHandler(s3Client);
         Context ctx = createContext();
 
-        String output = handler.handleRequest(event, ctx);
+        AllVideoSegmentsResponse output = handler.handleRequest(event, ctx);
         
         try {
         	handler = new ListAllVideoSegmentsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
-        	java.util.List<VideoSegment> resultList = handler.listAllVideoSegmentsS3();
+        	java.util.List<VideoSegment> resultList = output.list;
         	for(int i = 0; i < resultList.size(); i ++) {
-        		System.out.println("Result" + i + ": " + resultList.get(i).actor + ", " + resultList.get(i).phrase + ", " +  resultList.get(i).url);
+        		System.out.println("Result" + i + ": " + resultList.get(i).actor + ", " + resultList.get(i).phrase + ", " +  resultList.get(i).url + ", " + resultList.get(i).marked);
         	}
 		} catch (Exception e) {
 			e.printStackTrace();
