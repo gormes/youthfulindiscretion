@@ -20,8 +20,9 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import player.model.*;
 import player.db.*;
+import player.http.AllVideoSegmentsResponse;
 
-public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, String> {
+public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, AllVideoSegmentsResponse> {public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, AllVideoSegmentsResponse> {
    
 	private AmazonS3 s3 = null;
 
@@ -73,12 +74,20 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
     
     
     @Override
-    public String handleRequest(S3Event event, Context context) {
+    public AllVideoSegmentsResponse handleRequest(S3Event event, Context context) {
     	try {
             //return listAllVideoSegments() + listAllVideoSegmentsS3();
             return "";
+        context.getLogger().log("Received event: " + event);
+
+        AllVideoSegmentsResponse response;
+        try {
+        	List<VideoSegment> list = listAllVideoSegments();
+        	response = new AllVideoSegmentsResponse(list, 200);
         } catch (Exception e) {
         	throw e;
+        	response = new AllVideoSegmentsResponse(404, e.getMessage());
         }
+        return response;
     }
 }
