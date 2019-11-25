@@ -11,11 +11,10 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 
 import player.db.PlaylistDAO;
-import player.db.VideoSegmentDAO;
+import player.http.AllPlaylistsResponse;
 import player.model.Playlist;
-import player.model.VideoSegment;
 
-public class ListAllPlaylistsHandler implements RequestHandler<S3Event, String> {
+public class ListAllPlaylistsHandler implements RequestHandler<S3Event, AllPlaylistsResponse> {
 
     private AmazonS3 s3 = null;
 
@@ -33,25 +32,16 @@ public class ListAllPlaylistsHandler implements RequestHandler<S3Event, String> 
     }
 
     @Override
-    public String handleRequest(S3Event event, Context context) {
-    	return "";
-    	
-        //.getLogger().log("Received event: " + event);
+    public AllPlaylistsResponse handleRequest(S3Event event, Context context) {
+    	context.getLogger().log("Received event: " + event);
 
-        // Get the object from the event and show its content type
-        //String bucket = event.getRecords().get(0).getS3().getBucket().getName();
-       // String key = event.getRecords().get(0).getS3().getObject().getKey();
-       // try {
-        //    S3Object response = s3.getObject(new GetObjectRequest(bucket, key));
-        //    String contentType = response.getObjectMetadata().getContentType();
-          //  context.getLogger().log("CONTENT TYPE: " + contentType);
-         //   return contentType;
-      //  } catch (Exception e) {
-         //   e.printStackTrace();
-         //   context.getLogger().log(String.format(
-         //       "Error getting object %s from bucket %s. Make sure they exist and"
-         //       + " your bucket is in the same region as this function.", key, bucket));
-        //    throw e;
-       // }
+        AllPlaylistsResponse response;
+        try {
+        	List<Playlist> list = listAllPlaylists();
+        	response = new AllPlaylistsResponse(list, 200);
+        } catch (Exception e) {
+        	response = new AllPlaylistsResponse(404, e.getMessage());
+        }
+        return response;
     }
 }
