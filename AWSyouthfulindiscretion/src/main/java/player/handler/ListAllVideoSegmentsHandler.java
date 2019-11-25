@@ -46,17 +46,17 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
     	if(s3 == null) {
     		//logger.log("attach to S3 request");
     		s3 = s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
-    		logger.log("attach to S3 to succeed");
+    		//logger.log("attach to S3 to succeed");
     	}
     	
     	ArrayList<VideoSegment> videoSeg = new ArrayList<>();
     	
-    	ListObjectsV2Request listAllObjRequest = new ListObjectsV2Request().withBucketName("3733youthfulindiscretion").withPrefix("videoSegments");
+    	ListObjectsV2Request listAllObjRequest = new ListObjectsV2Request().withBucketName("3733youthfulindiscretion").withPrefix("constants");
     	//logger.log("process request");
     	ListObjectsV2Result result = s3.listObjectsV2(listAllObjRequest);
     	//logger.log("process request succeeded");
-		List<S3ObjectSummary> objects = result.getObjectSummaries();
-		
+    	List<S3ObjectSummary> objects =  result.getObjectSummaries();
+    	
 		for (S3ObjectSummary os: objects) {
 		      String name = os.getKey();
 			//  logger.log("S3 found:" + name);
@@ -78,7 +78,6 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
 				//	logger.log("Unable to parse contents of " + name);
 				}
 		    }
-			
 			return videoSeg;
     }
     
