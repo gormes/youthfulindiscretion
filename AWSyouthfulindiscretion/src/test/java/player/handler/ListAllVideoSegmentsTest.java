@@ -69,7 +69,7 @@ public class ListAllVideoSegmentsTest {
         String output = handler.handleRequest(event, ctx);
         
         try {
-			System.out.print(handler.listAllVideoSegmentsS3());
+			System.out.print(handler.listAllVideoSegments());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
