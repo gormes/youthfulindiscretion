@@ -65,8 +65,9 @@ public class VideoSegmentDAO {
         String actor = resultSet.getString("actor");
         String phrase = resultSet.getString("phrase");
         String url = resultSet.getString("s3BucketURL");
+        boolean mark = (resultSet.getInt("marked")==1) ? true : false;
         
-        return new VideoSegment(actor, phrase, url, id);
+        return new VideoSegment(actor, phrase, url, id, mark);
 		
 	}
 }

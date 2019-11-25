@@ -2,18 +2,12 @@ package player.handler;
 
 import static org.mockito.Mockito.when;
 
-import java.awt.List;
-import java.util.*;
 import java.io.IOException;
-import player.db.*;
-import player.handler.ListAllVideoSegmentsHandler;
-import player.model.*;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
@@ -28,13 +22,16 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.model.Playlist;
+import player.model.VideoSegment;
+
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ListAllVideoSegmentsTest {
+public class ListAllPlaylistsHandlerTest {
 
-    private final String CONTENT_TYPE = "mp4";
+    private final String CONTENT_TYPE = "image/jpeg";
     private S3Event event;
 
     @Mock
@@ -48,6 +45,8 @@ public class ListAllVideoSegmentsTest {
     @Before
     public void setUp() throws IOException {
         event = TestUtils.parse("/s3-event.put.json", S3Event.class);
+
+        // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
         when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
@@ -58,29 +57,28 @@ public class ListAllVideoSegmentsTest {
         TestContext ctx = new TestContext();
 
         // TODO: customize your context here if needed.
-        ctx.setFunctionName("listAllVideoSegments");
+        ctx.setFunctionName("Your Function Name");
 
         return ctx;
     }
 
     @Test
-    public void testListAllVideoSegments() {
-        ListAllVideoSegmentsHandler handler = new ListAllVideoSegmentsHandler(s3Client);
-        Context ctx = createContext();
+    public void testListAllPlaylistsHandler() {
+        ListAllPlaylistsHandler handler = new ListAllPlaylistsHandler();
+       // Context ctx = createContext();
 
-        String output = handler.handleRequest(event, ctx);
+        //String output = handler.handleRequest(event, ctx);
         
         try {
-        	handler = new ListAllVideoSegmentsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
-        	java.util.List<VideoSegment> resultList = handler.listAllVideoSegmentsS3();
+        	handler = new ListAllPlaylistsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
+        	java.util.List<Playlist> resultList = handler.listAllPlaylists();
         	for(int i = 0; i < resultList.size(); i ++) {
-        		System.out.println("Result" + i + ": " + resultList.get(i).actor + ", " + resultList.get(i).phrase + ", " +  resultList.get(i).url);
+        		System.out.println("Result " + i + ": " + resultList.get(i).id);
         	}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-        System.out.print(output);
-        Assert.assertEquals(CONTENT_TYPE, output);
+        Assert.assertEquals(CONTENT_TYPE, "CONTENT");
     }
 }
