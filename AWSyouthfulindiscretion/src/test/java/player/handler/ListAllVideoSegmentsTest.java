@@ -2,6 +2,8 @@ package player.handler;
 
 import static org.mockito.Mockito.when;
 
+import java.awt.List;
+import java.util.*;
 import java.io.IOException;
 import player.db.*;
 import player.handler.ListAllVideoSegmentsHandler;
@@ -17,9 +19,11 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
@@ -44,8 +48,6 @@ public class ListAllVideoSegmentsTest {
     @Before
     public void setUp() throws IOException {
         event = TestUtils.parse("/s3-event.put.json", S3Event.class);
-
-        // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
         when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
@@ -69,7 +71,12 @@ public class ListAllVideoSegmentsTest {
         String output = handler.handleRequest(event, ctx);
         
         try {
-			System.out.print(handler.listAllVideoSegmentsS3());
+        	handler = new ListAllVideoSegmentsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
+        	java.util.List<VideoSegment> resultList = handler.listAllVideoSegmentsS3();
+        	for(int i = 0; i < resultList.size(); i ++) {
+        		System.out.println
+        		("Result" + i + ": " + resultList.get(i).actor + ", " + resultList.get(i).phrase + ", " +  resultList.get(i).url);
+        	}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

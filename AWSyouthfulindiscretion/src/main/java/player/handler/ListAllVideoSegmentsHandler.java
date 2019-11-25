@@ -25,13 +25,13 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
 
 	public LambdaLogger logger;
    
-	private AmazonS3 s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
+	private AmazonS3 s3 = null;
 
     public ListAllVideoSegmentsHandler() { }
 
     // Test purpose only.
    ListAllVideoSegmentsHandler(AmazonS3 s3) {
-        this.s3 = s3;
+	   this.s3 = s3;
     }
 
     List<VideoSegment> listAllVideoSegments() throws Exception{
@@ -50,11 +50,15 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
     	}
     	
     	ArrayList<VideoSegment> videoSeg = new ArrayList<>();
+    	//https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Are+you(Kirk).mp4
+    	ListObjectsV2Request listAllObjRequest = new ListObjectsV2Request().withBucketName("3733youthfulindiscretion").withPrefix("videoSegments");
     	
-    	ListObjectsV2Request listAllObjRequest = new ListObjectsV2Request().withBucketName("3733youthfulindiscretion").withPrefix("constants");
     	//logger.log("process request");
+    	
     	ListObjectsV2Result result = s3.listObjectsV2(listAllObjRequest);
     	//logger.log("process request succeeded");
+    	
+    	
     	List<S3ObjectSummary> objects =  result.getObjectSummaries();
     	
 		for (S3ObjectSummary os: objects) {
@@ -73,7 +77,7 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, Stri
 					
 					// just grab name *after* the slash. Note this is a SYSTEM constant
 					int postSlash = name.indexOf('/');
-					videoSeg.add(new VideoSegment("Actor", "Phrase", name));
+					videoSeg.add(new VideoSegment("Actor", "Phrase", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + name));
 				} catch (Exception e) {
 				//	logger.log("Unable to parse contents of " + name);
 				}
