@@ -28,6 +28,7 @@
 
 			<!-- List of registered remote sites -->
 			<ul id="oderedSites"></ul>
+			<div id="unorderedSites"></div>
 
 		</div>
 	</div>
@@ -122,9 +123,52 @@
 						}
 					};
 				}
+			//TODO
+				 /**
+				 * Respond to server JSON object.
+				 *
+				 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+				 */
+				function processListResponseS(result) {
+					console.log("res:" + result);
+					// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+					var js = JSON.parse(result);
+					var constList = document.getElementById('unorderedSites');
+
+					var output = "";
+					for (var i = 0; i < js.list.length; i++) {
+						var constantJson = js.list[i];
+						console.log(constantJson);
+
+						var url = constantJson["url"];
+						output = output + "<div id=\"const" + url + "\"><b>"+url+"</b> </div>";
+					}
+
+					// Update computation result
+					constList.innerHTML = output;
+				}
+
+					function refreshSites() {
+						var xhr = new XMLHttpRequest();
+						xhr.open("GET", lists_url, true);
+						xhr.send();
+
+						console.log("sent");
+
+						// This will process results and update HTML as appropriate. 
+						xhr.onloadend = function () {
+							if (xhr.readyState == XMLHttpRequest.DONE) {
+								console.log ("XHR:" + xhr.responseText);
+								processListResponseS(xhr.responseText);
+							} else {
+								processListResponseS("N/A");
+							}
+						};
+					}
 				
 			function initialize(){
 				refreshVideoSegments();
+				refreshSites();
 			}
 
 

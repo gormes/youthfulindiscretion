@@ -7,4 +7,5 @@ var create_url = base_url + "constant";     // POST
 var delete_url = base_url + "delete";       // Can't send JSON to DELETE request. This is POST
 var listp_url   = base_url + "playlist";    // GET
 var listv_url   = base_url + "videosegment";    // GET
+var lists_url = base_url + "site"; //GET
 
