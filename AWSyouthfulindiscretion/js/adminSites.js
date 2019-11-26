@@ -9,9 +9,9 @@ function refreshSites() {
 	xhr.onloadend = function () {
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
-			processListResponseS(xhr.responseText);
+			processListResponseSites(xhr.responseText);
 		} else {
-			processListResponseS("N/A");
+			processListResponseSites("N/A");
 		}
 	};
 }
@@ -23,7 +23,7 @@ function refreshSites() {
  *
  * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
  */
-function processListResponseS(result) {
+function processListResponseSites(result) {
 	console.log("res:" + result);
 	// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 	var js = JSON.parse(result);
