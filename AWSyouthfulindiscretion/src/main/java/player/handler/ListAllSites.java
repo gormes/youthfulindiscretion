@@ -17,7 +17,7 @@ import player.http.AllVideoSegmentsResponse;
 import player.model.Site;
 import player.model.VideoSegment;
 
-public class ListAllSites implements RequestHandler<S3Event, String> {
+public class ListAllSites implements RequestHandler<S3Event, AllSitesResponse> {
 
     private AmazonS3 s3 = null;
 
@@ -35,7 +35,7 @@ public class ListAllSites implements RequestHandler<S3Event, String> {
     }
     
     @Override
-    public String handleRequest(S3Event event, Context context) {
+    public AllSitesResponse handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
 
         AllSitesResponse response;
@@ -45,6 +45,6 @@ public class ListAllSites implements RequestHandler<S3Event, String> {
         } catch (Exception e) {
         	response = new AllSitesResponse(404, e.getMessage());
         }
-        return response.toString();
+        return response;
     }
 }

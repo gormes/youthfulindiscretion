@@ -10,7 +10,7 @@ import player.handler.ListAllVideoSegmentsHandler;
 import player.model.*;
 import player.http.AllVideoSegmentsResponse;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,8 +51,8 @@ public class ListAllVideoSegmentsTest {
         event = TestUtils.parse("/s3-event.put.json", S3Event.class);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-        when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-        when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
+        //when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
+        //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
@@ -78,10 +78,9 @@ public class ListAllVideoSegmentsTest {
         		System.out.println("Result" + i + ": " + resultList.get(i).actor + ", " + resultList.get(i).phrase + ", " +  resultList.get(i).url + ", " + resultList.get(i).marked);
         	}
 		} catch (Exception e) {
-			e.printStackTrace();
+			fail("test failed: " + e.getMessage());
 		}
 
         System.out.print(output);
-        Assert.assertEquals(CONTENT_TYPE, output);
     }
 }

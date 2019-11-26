@@ -1,5 +1,6 @@
 package player.handler;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
+
+import player.http.AllSitesResponse;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
@@ -44,8 +47,8 @@ public class ListAllSitesTest {
         // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-        when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-        when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
+        //when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
+        //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
@@ -59,12 +62,14 @@ public class ListAllSitesTest {
 
     @Test
     public void testListAllSites() {
-        ListAllSites handler = new ListAllSites(s3Client);
-        Context ctx = createContext();
-
-        String output = handler.handleRequest(event, ctx);
-
-        // TODO: validate output here if needed.
-        Assert.assertEquals(CONTENT_TYPE, output);
+    	try {
+	        ListAllSites handler = new ListAllSites(s3Client);
+	        Context ctx = createContext();
+	
+	        AllSitesResponse output = handler.handleRequest(event, ctx);
+    	}
+		catch (Exception e) {
+			fail("test failed: " + e.getMessage());
+		}
     }
 }

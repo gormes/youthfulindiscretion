@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,8 +49,8 @@ public class ListAllPlaylistsHandlerTest {
         // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-        when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-        when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
+        //when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
+        //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
@@ -65,20 +65,15 @@ public class ListAllPlaylistsHandlerTest {
     @Test
     public void testListAllPlaylistsHandler() {
         ListAllPlaylistsHandler handler = new ListAllPlaylistsHandler();
-       // Context ctx = createContext();
-
-        //String output = handler.handleRequest(event, ctx);
         
         try {
         	handler = new ListAllPlaylistsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
         	java.util.List<Playlist> resultList = handler.listAllPlaylists();
         	for(int i = 0; i < resultList.size(); i ++) {
-        		System.out.println("Result " + i + ": " + resultList.get(i).id);
+        		System.out.println("Result " + i + ": " + resultList.get(i).id + ", " + resultList.get(i).videoSegments.toString());
         	}
 		} catch (Exception e) {
-			e.printStackTrace();
+			fail("test failed: " + e.getMessage());
 		}
-
-        Assert.assertEquals(CONTENT_TYPE, "CONTENT");
     }
 }
