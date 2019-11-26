@@ -39,40 +39,6 @@ public class ListAllVideoSegmentsHandler implements RequestHandler<S3Event, AllV
     	return dao.getAllVideoSegments();
     }
     
-    List<VideoSegment> listAllVideoSegmentsS3() throws Exception {
-    	if(s3 == null) {
-    		s3 = s3 = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build();
-    	}
-    	
-    	ArrayList<VideoSegment> videoSeg = new ArrayList<>();
-    	ListObjectsV2Request listAllObjRequest = new ListObjectsV2Request().withBucketName("3733youthfulindiscretion").withPrefix("videoSegments");
-    	
-    	ListObjectsV2Result result = s3.listObjectsV2(listAllObjRequest);
-  
-    	
-    	List<S3ObjectSummary> objects =  result.getObjectSummaries();
-    	
-		for (S3ObjectSummary os: objects) {
-		      String name = os.getKey();
-		      
-		      if (name.endsWith("/")) { continue; }
-				
-		      S3Object obj = s3.getObject("3733youthfulindiscretion", name);
-		    	
-		    	try (S3ObjectInputStream constantStream = obj.getObjectContent()) {
-					Scanner sc = new Scanner(constantStream);
-					String val = sc.nextLine();
-					sc.close();
-					
-					int postSlash = name.indexOf('/');
-					videoSeg.add(new VideoSegment("Actor", "Phrase", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + name));
-				} catch (Exception e) {
-				}
-		    }
-			return videoSeg;
-    }
-    
-    
     @Override
     public AllVideoSegmentsResponse handleRequest(S3Event event, Context context) {
         context.getLogger().log("Received event: " + event);
