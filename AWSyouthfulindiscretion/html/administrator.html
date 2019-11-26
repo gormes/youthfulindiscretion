@@ -3,6 +3,8 @@
 
 <head>
 <script type='text/javascript' src='../js/api.js'></script>
+<script type='text/javascript' src='../js/adminVideoSegments.js'></script>
+<script type='text/javascript' src='../js/adminSites.js'></script>
 <link rel="stylesheet" type="text/css" href="adminstyle.css" />
 <title>Administrator View</title>
 </head>
@@ -13,164 +15,30 @@
 	<div class="row">
 		<div class="column left">
 			<h2>Local Video Segments</h2>
-			<div  id="VideoSegments"></div>
+			<div id="VideoSegments"></div>
 
 
 		</div>
 		<div class="column right">
 			<h2>Registered Remote Sites</h2>
-			<input type="url" id="registeredURL"/>
+			<input type="url" id="registeredURL" />
 
 			<!-- Buttons for deleting or registering remote sites -->
-			<button id="registerSite" onClick="alert('Unable to register')">Register Site</button>
+			<button id="registerSite" onClick="alert('Unable to register')">Register
+				Site</button>
 
 			<!-- List of registered remote sites -->
-			<ul id="oderedSites"></ul>
 			<div id="unorderedSites"></div>
 
 		</div>
 	</div>
 
 	<script type="text/javascript">
-		//Function to add site to list of registered sites
-			function addSite() {
-			//Create variable to store site entered in the URL space
-  				var newSite = document.getElementById("registeredURL").value;
-  				if (newSite!=""){
-  					/* Create a list item element and add inner HTML from the text entered in the URL box*/
- 					var ns=document.createElement("li"); 	
-					ns.innerHTML = newSite;
-					/* Reference list of sites then add new list element as a child to the list.*/
- 					var los = document.getElementById("oderedSites");
- 					los.appendChild(ns);
- 				}
- 				else{
- 					//Error message if nothing is enetered into URL space
- 					alert('Please input a URL for a remote site');
- 				}
-			}
-			//Function to delete site from the list of registered sites
-			function deleteSite() {
-				//Reference to the list of registered remote sites
-				var los = document.getElementById("oderedSites");
-				//reference to last site added to the list
-				var lastChild = los.lastChild;
-				if(lastChild!=null){
-					los.removeChild(lastChild);
-				}
-				else {
-					//Error message if list of sites is empty
-					alert('No remote sites currently registered');
-				}
-				
-			}
-			//Function to toggle Marked/Unmarked status of the video segments
-			function toggleMark(tag) {
-  				//Flip status when function is called
-				if (tag.value === "Marked") {
-    				tag.value = "Unmarked";
-    				tag.style.backgroundColor = "red";
-  				} else {
-    				tag.value = "Marked";
-    				tag.style.backgroundColor = "#78bfbf";
- 					 }
-			}
-			
-			 /**
-			 * Respond to server JSON object.
-			 *
-			 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
-			 */
-			function processListResponseV(result) {
-				console.log("res:" + result);
-				// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
-				var js = JSON.parse(result);
-				var constList = document.getElementById('VideoSegments');
-
-				var output = "";
-				for (var i = 0; i < js.list.length; i++) {
-					var constantJson = js.list[i];
-					console.log(constantJson);
-
-					var actor = constantJson["actor"];
-					var phrase = constantJson["phrase"];
-					var url = constantJson["url"];
-					var id = constantJson["id"];
-					output = output + "<div id=\"video" + actor + "" + phrase+ "\"><b>" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/mp4\" </video> </b> </div>";
-					output = output + "<div id=\"button" + actor + "" + phrase+ "\"><b>" + "<input type=\"button\" value=\"Marked\" onClick=\"toggleMark(this)\"> </input> </b> </div>";
-				}
-
-				// Update computation result
-				constList.innerHTML = output;
-			}
-
-				function refreshVideoSegments() {
-					var xhr = new XMLHttpRequest();
-					xhr.open("GET", listv_url, true);
-					xhr.send();
-
-					console.log("sent");
-
-					// This will process results and update HTML as appropriate. 
-					xhr.onloadend = function () {
-						if (xhr.readyState == XMLHttpRequest.DONE) {
-							console.log ("XHR:" + xhr.responseText);
-							processListResponseV(xhr.responseText);
-						} else {
-							processListResponseV("N/A");
-						}
-					};
-				}
-			//TODO
-				 /**
-				 * Respond to server JSON object.
-				 *
-				 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
-				 */
-				function processListResponseS(result) {
-					console.log("res:" + result);
-					// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
-					var js = JSON.parse(result);
-					var constList = document.getElementById('unorderedSites');
-
-					var output = "";
-					for (var i = 0; i < js.list.length; i++) {
-						var constantJson = js.list[i];
-						console.log(constantJson);
-
-						var url = constantJson["url"];
-						output = output + "<div id=\"const" + url + "\"><p>"+url + "<input type=\"button\" value=\"Delete Site\" onClick=\"alert('Unable to delete')\"> </input>" + "</p> </div>";
-					}
-
-					// Update computation result
-					constList.innerHTML = output;
-				}
-
-					function refreshSites() {
-						var xhr = new XMLHttpRequest();
-						xhr.open("GET", lists_url, true);
-						xhr.send();
-
-						console.log("sent");
-
-						// This will process results and update HTML as appropriate. 
-						xhr.onloadend = function () {
-							if (xhr.readyState == XMLHttpRequest.DONE) {
-								console.log ("XHR:" + xhr.responseText);
-								processListResponseS(xhr.responseText);
-							} else {
-								processListResponseS("N/A");
-							}
-						};
-					}
-				
-			function initialize(){
-				refreshVideoSegments();
-				refreshSites();
-			}
-
-
-		</script>
+		function initialize() {
+			refreshVideoSegments();
+			refreshSites();
+		}
+	</script>
 
 </body>
 
