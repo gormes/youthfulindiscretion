@@ -1,52 +1,38 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<link rel="stylesheet" type="text/css" href="adminstyle.css"/>
-		<title>Administrator View</title>
-	</head>
+<head>
+<script type='text/javascript' src='../js/api.js'></script>
+<link rel="stylesheet" type="text/css" href="adminstyle.css" />
+<title>Administrator View</title>
+</head>
 
-	<body>
-		<h1>PLAYLIST APP ADMINISTRATOR</h1>
+<body onload="initialize()">
+	<h1>PLAYLIST APP ADMINISTRATOR</h1>
 
-		<div class="row">
-  			<div class="column left">
-    			<h2>Local Video Segments</h2>
-    			
-    				<!-- First Video Segemnt -->
-    				<video id="video1" width="300" height="220" controls>
-						<source src="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Are+you(Kirk).mp4" type="video/mp4">
-						
-					</video>
-					 
-					 <!-- Toggle button for marking/unmarking video segments -->
-					<input type="button" onclick="toggleMark(this)" value="Marked" id="button1"></input>
-					
-					<!--  Second Video  -->
-					<video id="video2" width="300" height="220" controls>
-						<source src="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/AyeAye(Uhura).mp4" type="video/mp4">
-						
-					</video>
-					<input type="button" onclick="toggleMark(this)" value="Marked" id="button2"></input>
-					
-					
+	<div class="row">
+		<div class="column left">
+			<h2>Local Video Segments</h2>
+			<div  id="VideoSegments"></div>
 
-  			</div>
-  			<div class="column right">
-    			<h2>Registered Remote Sites</h2>
-    			<input type="url" id="registeredURL" height="30px" width= "500px" margin-left= "10px"/>
-    			
-    			<!-- Buttons for deleting or registering remote sites -->
-    			<button id="registerSite" onClick=addSite();>Register Site</button> 
-    			<button id="deleteSites" onClick=deleteSite();>Delete Last Site</button>
-    			
-    			<!-- List of registered remote sites -->
-    			<ul id="oderedSites"></ul>
 
-  			</div>
 		</div>
+		<div class="column right">
+			<h2>Registered Remote Sites</h2>
+			<input type="url" id="registeredURL"/>
 
-		<script>
+			<!-- Buttons for deleting or registering remote sites -->
+			<button id="registerSite" onClick=addSite();>Register Site</button>
+			<button id="deleteSites" onClick=deleteSite();>Delete Last
+				Site</button>
+
+			<!-- List of registered remote sites -->
+			<ul id="oderedSites"></ul>
+
+		</div>
+	</div>
+
+	<script type="text/javascript">
 		//Function to add site to list of registered sites
 			function addSite() {
 			//Create variable to store site entered in the URL space
@@ -90,9 +76,60 @@
     				tag.style.backgroundColor = "#1352b0";
  					 }
 			}
+			
+			 /**
+			 * Respond to server JSON object.
+			 *
+			 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+			 */
+			function processListResponseV(result) {
+				console.log("res:" + result);
+				// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+				var js = JSON.parse(result);
+				var constList = document.getElementById('VideoSegments');
+
+				var output = "";
+				for (var i = 0; i < js.list.length; i++) {
+					var constantJson = js.list[i];
+					console.log(constantJson);
+
+					var actor = constantJson["actor"];
+					var phrase = constantJson["phrase"];
+					var url = constantJson["url"];
+					var id = constantJson["id"];
+					output = output + "<div id=\"video" + actor + "" + phrase+ "\"><b>" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/mp4\" </video> </b> </div>";
+					output = output + "<div id=\"button" + actor + "" + phrase+ "\"><b>" + "<input type=\"button\" value=\"Marked\" onClick=\"toggleMark(this)\"> </input> </b> </div>";
+				}
+
+				// Update computation result
+				constList.innerHTML = output;
+			}
+
+				function refreshVideoSegments() {
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", listv_url, true);
+					xhr.send();
+
+					console.log("sent");
+
+					// This will process results and update HTML as appropriate. 
+					xhr.onloadend = function () {
+						if (xhr.readyState == XMLHttpRequest.DONE) {
+							console.log ("XHR:" + xhr.responseText);
+							processListResponseV(xhr.responseText);
+						} else {
+							processListResponseV("N/A");
+						}
+					};
+				}
+				
+			function initialize(){
+				refreshVideoSegments();
+			}
+
 
 		</script>
 
-	</body>
+</body>
 
 </html>
