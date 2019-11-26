@@ -67,21 +67,27 @@
 		console.log("res:" + result);
 		// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 		var js = JSON.parse(result);
-		var constList = document.getElementById('PlaylistList');
+		var playlistList = document.getElementById('PlaylistList');
 
 		var output = "";
 		for (var i = 0; i < js.list.length; i++) {
-			var constantJson = js.list[i];
-			console.log(constantJson);
+			var playlistJson = js.list[i];
+			console.log(playlistJson);
 
-			var cid = constantJson["id"];
-			var cvideo = constantJson["videoSegments"];
-			output = output + "<div id=\"const" + cid + "\"><b>"+cid+"</b> </div>";
+			var pid = playlistJson["id"];
+			var pvideo = playlistJson["videoSegments"];
+			var vidout = "";
+			for (var j = 0; j<pvideo.length; j++) {
+				var vidJson = pvideo[j];
+				var url = vidJson["url"];
+				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
+			}
+			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleDeleteClick(this)\">Delete Playlist</button> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
 		
 		}
 
 		// Update computation result
-		constList.innerHTML = output;
+		playlistList.innerHTML = output;
 	}
 	 
 	 /**
@@ -104,7 +110,7 @@
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output = output + "<div id=\"const" + actor + "" + phrase+ "\"><b>" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/mp4\" </video> </b> </div>";
+				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" </video> </div>";
 			}
 
 			// Update computation result
@@ -122,7 +128,6 @@
 
 	<h2>Playlists:</h2>
 	<button type="button" onClick="JavaScript:handleCreateClick(this)">Create New Playlist</button>
-	<button type="button" onClick="JavaScript:handleDeleteClick(this)">Delete Playlist</button>
 	<!--  get and display the current playlists -->
 	
 	<div id="PlaylistList"></div>
