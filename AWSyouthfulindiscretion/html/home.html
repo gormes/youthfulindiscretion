@@ -5,13 +5,15 @@
 <script type='text/javascript' src='../js/create.js'></script>
 <script type='text/javascript' src='../js/delete.js'></script>
 <script type='text/javascript' src='../js/getVideoSegment.js'></script>
-<script type='text/javascript' src='../js/getConstant.js'></script>
+<script type='text/javascript' src='../js/getPlaylist.js'></script>
+<script type='text/javascript' src='../js/api.js'></script>
 
 <script type="text/javascript">
 	function initialize() {
 
 		// get all of the playlists (?) and video segments (?)
-		refreshConstantsList();
+		refreshPlaylistList();
+		refreshVideoSegments();
 	}
 	/**
 	 * Refresh constant list from server
@@ -19,11 +21,9 @@
 	 *    GET list_url
 	 *    RESPONSE  list of [name, value] constants 
 	 */
-	function refreshConstantsList() {
-
-		list_url="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Are+you(Kirk).mp4";
+	function refreshPlaylistList() {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", list_url, true);
+		xhr.open("GET", listp_url, true);
 		xhr.send();
 
 		console.log("sent");
@@ -35,6 +35,25 @@
 				processListResponse(xhr.responseText);
 			} else {
 				processListResponse("N/A");
+			}
+		};
+	}
+	
+	
+	function refreshVideoSegments() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", listv_url, true);
+		xhr.send();
+
+		console.log("sent");
+
+		// This will process results and update HTML as appropriate. 
+		xhr.onloadend = function () {
+			if (xhr.readyState == XMLHttpRequest.DONE) {
+				console.log ("XHR:" + xhr.responseText);
+				processListResponseV(xhr.responseText);
+			} else {
+				processListResponseV("N/A");
 			}
 		};
 	}
@@ -55,19 +74,42 @@
 			var constantJson = js.list[i];
 			console.log(constantJson);
 
-			var cname = constantJson["name"];
-			var cval = constantJson["value"];
-			var sysvar = constantJson["system"];
-			if (sysvar) {
-				output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "<br></div>";
-			} else {
-				output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "(<a href='javaScript:requestDelete(\"" + cname + "\")'>;
-			}
+			var cid = constantJson["id"];
+			var cvideo = constantJson["videoSegments"];
+			output = output + "<div id=\"const" + cid + "\"><b>"+cid+"</b> </div>";
+		
 		}
 
 		// Update computation result
 		constList.innerHTML = output;
 	}
+	 
+	 /**
+		 * Respond to server JSON object.
+		 *
+		 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
+		 */
+		function processListResponseV(result) {
+			console.log("res:" + result);
+			// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+			var js = JSON.parse(result);
+			var constList = document.getElementById('VideoSegments');
+
+			var output = "";
+			for (var i = 0; i < js.list.length; i++) {
+				var constantJson = js.list[i];
+				console.log(constantJson);
+
+				var actor = constantJson["actor"];
+				var phrase = constantJson["phrase"];
+				var url = constantJson["url"];
+				var id = constantJson["id"];
+				output = output + "<div id=\"const" + actor + "" + phrase+ "\"><b>" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/mp4\" </video> </b> </div>";
+			}
+
+			// Update computation result
+			constList.innerHTML = output;
+		}
 
 
 </script>
@@ -84,21 +126,11 @@
 	<!--  get and display the current playlists -->
 	
 	<div id="PlaylistList"></div>
-	
-	<p>Playlist 1</p>
-	<p>Playlist 2</p>
-	
+
 	
 	<h2>Video Segments:</h2>
 	
 	<div id="VideoSegments"></div>
-	
-	<video id="video1" width="300" height="220" controls>
-		<source
-			src="https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Are+you(Kirk).mp4"
-			type="video/mp4">
-
-	</video>
 	
 	<h3>Upload Video Segments</h3>
 
