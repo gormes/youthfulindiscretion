@@ -23,7 +23,6 @@
 
 			<!-- Buttons for deleting or registering remote sites -->
 			<button id="registerSite" onClick="alert('Unable to register')">Register Site</button>
-			<button id="deleteSites" onClick="alert('Unable to delete')">Delete Site</button>
 
 			<!-- List of registered remote sites -->
 			<ul id="oderedSites"></ul>
@@ -73,7 +72,7 @@
     				tag.style.backgroundColor = "red";
   				} else {
     				tag.value = "Marked";
-    				tag.style.backgroundColor = "#1352b0";
+    				tag.style.backgroundColor = "#78bfbf";
  					 }
 			}
 			
@@ -140,7 +139,7 @@
 						console.log(constantJson);
 
 						var url = constantJson["url"];
-						output = output + "<div id=\"const" + url + "\"><b>"+url+"</b> </div>";
+						output = output + "<div id=\"const" + url + "\"><p>"+url + "<input type=\"button\" value=\"Delete Site\" onClick=\"alert('Unable to delete')\"> </input>" + "</p> </div>";
 					}
 
 					// Update computation result
