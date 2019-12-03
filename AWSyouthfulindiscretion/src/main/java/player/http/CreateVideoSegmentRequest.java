@@ -37,6 +37,6 @@ public class CreateVideoSegmentRequest {
 	}
 	
 	public String toString() {
-		return "CreateVideoSegment(" + fileName + "," + actor + "," + phrase + ")"; 
+		return "CreateVideoSegmentRequest(" + fileName + "," + actor + "," + phrase + ")"; 
 	}
 }
