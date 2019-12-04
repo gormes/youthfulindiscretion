@@ -20,13 +20,16 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.http.CreateVideoSegmentRequest;
+import player.http.CreateVideoSegmentResponse;
+
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class UploadVideoSegmentsHandlerTest {
 
-    private final String CONTENT_TYPE = "image/jpeg";
+    private final String CONTENT_TYPE = "ogg";
     private S3Event event;
 
     @Mock
@@ -44,27 +47,28 @@ public class UploadVideoSegmentsHandlerTest {
         // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-        when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-        when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
+       // when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
+        //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
         TestContext ctx = new TestContext();
 
         // TODO: customize your context here if needed.
-        ctx.setFunctionName("Your Function Name");
+        ctx.setFunctionName("uploadVideoSegments");
 
         return ctx;
     }
 
     @Test
     public void testUploadVideoSegmentsHandler() {
-        //UploadVideoSegmentsHandler handler = new UploadVideoSegmentsHandler(s);
+        UploadVideoSegmentsHandler handler = new UploadVideoSegmentsHandler();
         Context ctx = createContext();
-
-        //String output = handler.handleRequest(event, ctx);
-
-        // TODO: validate output here if needed.
-       // Assert.assertEquals(CONTENT_TYPE, output);
+        
+        byte[] contents = {1,2,3,4,5};
+        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("fileName", "actor", "phrase", contents);
+        
+        CreateVideoSegmentResponse output = handler.handleRequest(request, ctx);
+       Assert.assertEquals(409, output.statusCode);
     }
 }

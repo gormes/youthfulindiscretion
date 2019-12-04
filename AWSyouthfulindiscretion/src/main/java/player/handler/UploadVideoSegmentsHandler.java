@@ -25,7 +25,6 @@ import player.model.VideoSegment;
 public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSegmentRequest, CreateVideoSegmentResponse> {
 
     private AmazonS3 s3 = null;
-    private VideoSegment addedVS = null;
     public UploadVideoSegmentsHandler() {
     }
     
@@ -33,8 +32,7 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
     	VideoSegmentDAO dao = new VideoSegmentDAO();
 
     	//check if present
-    	VideoSegment exist = dao.getVideoSegment(fileName);
-    	VideoSegment vs = new VideoSegment(fileName, actor, phrase);
+    	VideoSegment exist = dao.getVideoSegmentFromName(fileName);
     	
     	if (exist == null) {
     		//add to the bucket
@@ -47,10 +45,10 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
         		
         	PutObjectResult res = s3.putObject(new PutObjectRequest("3733youthfulindiscretion", "videoSegments/" + fileName, bais, omd));
         	
-        	return dao.addVideoSegment("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + fileName, vs);
-        	
+        	VideoSegment vs = new VideoSegment(actor, phrase, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + fileName);
+        	return dao.addVideoSegment(vs);
     	} else {
-    		throw new Exception("Unable to add duplicate Video Segment");
+    		return false;
     	}
         
     }		
@@ -58,18 +56,16 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
     @Override
 	public CreateVideoSegmentResponse handleRequest(CreateVideoSegmentRequest input, Context context) {
 		CreateVideoSegmentResponse response;
-	
 		try {
 			if(createVideoSegment(input.fileName, input.actor, input.phrase, input.contents)) {
 				VideoSegmentDAO dao = new VideoSegmentDAO();
-				response = new CreateVideoSegmentResponse(dao.getVideoSegment(input.fileName), 201);
+				response = new CreateVideoSegmentResponse(dao.getVideoSegmentFromName(input.fileName), 201);
 			} else {
 				response = new CreateVideoSegmentResponse(409, "Uploaded duplicate segment file: " + input.fileName);
 			}
 		} catch (Exception e) {
 			response = new CreateVideoSegmentResponse(400, "Unable to create video segment file: " + input.fileName + "(" + e.getMessage() + ")");
 		}
-		// TODO Auto-generated method stub
 		return response;
 	}
 	
