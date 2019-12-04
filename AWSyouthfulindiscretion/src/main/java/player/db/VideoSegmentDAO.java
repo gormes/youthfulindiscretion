@@ -60,6 +60,18 @@ public class VideoSegmentDAO {
     }
 	}
 	
+	public boolean addVideoSegment(String url, VideoSegment vs) throws Exception {
+		boolean result = false;
+		try {
+			Statement statement = conn.createStatement();
+			String adding = "INSERT INTO videoSegments\r\n" + "VALUES (" + vs.id + "," + vs.actor + "," + vs.phrase + "," + url + ");";
+			result = statement.execute(adding);
+		} catch (Exception e) {
+			throw new Exception("Failed in adding Video Segment: " + e.getMessage());
+		}
+		return result;
+	}
+	
 	public VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
         UUID id  = UUID.fromString(resultSet.getString("VideoSegID"));
         String actor = resultSet.getString("actor");

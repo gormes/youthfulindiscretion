@@ -4,6 +4,7 @@ public class CreateVideoSegmentRequest {
 	public String fileName;
 	public String actor;
 	public String phrase;
+	public byte[]  contents;
 	
 	public String getFileName() {
 		return fileName;
@@ -26,14 +27,23 @@ public class CreateVideoSegmentRequest {
 		this.phrase = phrase;
 	}
 	
+	public byte[]  contents() {
+		return contents;
+	}
+	
+	public void setContents(byte[] contents) {
+		this.contents = contents;
+	}
+	
 	public CreateVideoSegmentRequest() {
 		
 	}
 	
-	public CreateVideoSegmentRequest(String fileName, String actor, String phrase) {
+	public CreateVideoSegmentRequest(String fileName, String actor, String phrase, byte[]  contents) {
 		this.fileName = fileName;
 		this.actor = actor;
 		this.phrase = phrase;
+		this.contents = contents;
 	}
 	
 	public String toString() {
