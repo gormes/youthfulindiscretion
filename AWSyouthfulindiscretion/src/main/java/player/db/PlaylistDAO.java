@@ -110,7 +110,8 @@ public class PlaylistDAO {
 		VideoSegmentDAO dao = new VideoSegmentDAO();
 		String currid = resultSet.getString("videoSegID");
 		VideoSegment currvs = dao.getVideoSegment(currid);
-		p.videoSegments.add(currvs);
+		if (currvs!=null)
+			p.videoSegments.add(currvs);
         return p;
 	}
 	
