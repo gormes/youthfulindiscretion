@@ -25,17 +25,15 @@ public class DeletePlaylistHandler implements RequestHandler<PlaylistRequest, De
 
 		PlaylistDAO dao = new PlaylistDAO();
 
-		// See how awkward it is to call delete with an object, when you only
-		// have one part of its information?
-		Playlist playlist = new Playlist(UUID.fromString(req.playlistName));
 		try {
+			Playlist playlist = new Playlist(UUID.fromString(req.playlistName));
 			if (dao.deletePlaylist(playlist)) {
 				response = new DeletePlaylistResponse(req.playlistName, 200);
 			} else {
-				response = new DeletePlaylistResponse(req.playlistName, 409, "Unable to delete playlist.");
+				response = new DeletePlaylistResponse(req.playlistName, 409, "Could not find Playlist: " + req.playlistName);
 			}
 		} catch (Exception e) {
-			response = new DeletePlaylistResponse(req.playlistName, 403, "Unable to delete playlist: " + req.playlistName + "(" + e.getMessage() + ")");
+			response = new DeletePlaylistResponse(req.playlistName, 400, "Unable to delete playlist: " + req.playlistName + "(" + e.getMessage() + ")");
 		}
 
 		return response;
