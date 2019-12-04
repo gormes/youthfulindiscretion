@@ -85,7 +85,7 @@ public class PlaylistDAO {
 	        return true;
 		}
 		catch (Exception e) {
-            throw new Exception("Failed to insert constant: " + e.getMessage());
+            throw new Exception("Failed to add Playlist: " + e.getMessage());
 		}
 	}
 	
@@ -102,7 +102,7 @@ public class PlaylistDAO {
 			return true;
 		}
 		catch(Exception e) {
-            throw new Exception("Failed to insert constant: " + e.getMessage());
+            throw new Exception("Failed to delete Playlist: " + e.getMessage());
 		}
 	}
 	
@@ -114,9 +114,18 @@ public class PlaylistDAO {
         return p;
 	}
 	
-	public Playlist appendToPlaylist(VideoSegment vs, Playlist p) throws Exception {
-		p.videoSegments.add(vs);
-        return p;
+	public boolean appendToPlaylist(String vsid, String pid) throws Exception {
+		try {
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO playlist (playlistName, videoSegID) values(?,?);");
+			ps.setString(1, pid);
+			ps.setString(2, vsid);
+			ps.execute();
+			ps.close();
+			return true;
+		}
+		catch (Exception e) {
+			throw new Exception("Failed to append video segment: " + vsid + " into playlist: " + pid + e.getMessage());
+		}
 	}
 	
 }
