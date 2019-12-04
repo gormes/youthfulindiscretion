@@ -40,6 +40,27 @@ public class VideoSegmentDAO {
         }
 	}
 	
+	
+	public VideoSegment getVideoSegmentFromName(String fileName) throws Exception {	// not sure if I want it to take in String or UUID
+		try {															// will have to see based on implementation
+			VideoSegment vs = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM videoSeg WHERE s3BucketURL = ?;");
+			ps.setString(1, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + fileName);
+			ResultSet resultSet = ps.executeQuery();
+			
+			while(resultSet.next()) {
+				vs = generateVideoSegment(resultSet);
+			}
+			resultSet.close();
+			ps.close();
+			
+			return vs;
+			
+        } catch (Exception e) {
+            throw new Exception("Failed in getting Video Segment: " + e.getMessage());
+        }
+	}
+	
 	public List<VideoSegment> getAllVideoSegments() throws Exception {
 		List<VideoSegment> allVideoSegments = new ArrayList<VideoSegment>();
 	try {	
@@ -58,6 +79,26 @@ public class VideoSegmentDAO {
     } catch (Exception e) {
         throw new Exception("Failed in getting Video Segments: " + e.getMessage());
     }
+	}
+	
+	public boolean addVideoSegment( VideoSegment vs) throws Exception {
+		boolean result = false;
+		PreparedStatement ps;
+		try {
+			
+			ps = conn.prepareStatement("INSERT INTO videoSeg (videoSegID, actor, phrase, s3BucketURL) values(?,?,?,?);");
+			ps.setString(1, vs.id.toString());
+			ps.setString(2, vs.actor);
+			ps.setString(3, vs.phrase);
+			ps.setString(4, vs.url);
+			ps.execute();
+			ps.close();
+			result = true;
+			
+		} catch (Exception e) {
+			throw new Exception("Failed in adding Video Segment: " + e.getMessage());
+		}
+		return result;
 	}
 	
 	public VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
