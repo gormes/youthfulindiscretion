@@ -22,6 +22,7 @@ import com.amazonaws.services.s3.model.S3Object;
 
 import player.http.CreateVideoSegmentRequest;
 import player.http.CreateVideoSegmentResponse;
+import player.http.SiteCreateRequest;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
@@ -43,18 +44,12 @@ public class UploadVideoSegmentsHandlerTest {
     @Before
     public void setUp() throws IOException {
         event = TestUtils.parse("/s3-event.put.json", S3Event.class);
-
-        // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-       // when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-        //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
         TestContext ctx = new TestContext();
-
-        // TODO: customize your context here if needed.
         ctx.setFunctionName("uploadVideoSegments");
 
         return ctx;
@@ -65,10 +60,15 @@ public class UploadVideoSegmentsHandlerTest {
         UploadVideoSegmentsHandler handler = new UploadVideoSegmentsHandler();
         Context ctx = createContext();
         
+        int x = (int)(Math.random()*(1000));
         byte[] contents = {1,2,3,4,5};
-        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("fileName", "actor", "phrase", contents);
-        
+        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
         CreateVideoSegmentResponse output = handler.handleRequest(request, ctx);
-       Assert.assertEquals(409, output.statusCode);
+        Assert.assertEquals(200, output.statusCode);      
+        Assert.assertEquals("File Name:" + x, output.vs.url);
+        
+        request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
+        output = handler.handleRequest(request, ctx);
+        Assert.assertEquals(409, output.statusCode);
     }
 }

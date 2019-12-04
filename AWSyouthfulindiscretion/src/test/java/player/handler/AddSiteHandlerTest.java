@@ -43,20 +43,13 @@ public class AddSiteHandlerTest {
     @Before
     public void setUp() throws IOException {
         event = TestUtils.parse("/s3-event.put.json", S3Event.class);
-
-        // TODO: customize your mock logic for s3 client
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentType(CONTENT_TYPE);
-       // when(s3Object.getObjectMetadata()).thenReturn(objectMetadata);
-       // when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
     private Context createContext() {
         TestContext ctx = new TestContext();
-
-        // TODO: customize your context here if needed.
-        ctx.setFunctionName("Add Site Request");
-
+        ctx.setFunctionName("addSiteRequest");
         return ctx;
     }
 
@@ -65,10 +58,14 @@ public class AddSiteHandlerTest {
         AddSiteHandler handler = new AddSiteHandler();
         Context ctx = createContext();
 
-        SiteCreateRequest request = new SiteCreateRequest("URL");
+        int x = (int)(Math.random()*(1000));
+        SiteCreateRequest request = new SiteCreateRequest("Test: " + x);
         SiteCreateResponse output = handler.handleRequest(request, ctx);
-
-        // TODO: validate output here if needed.
-        Assert.assertEquals("URL", output.url);
+        Assert.assertEquals("Test: " + x, output.url);
+        Assert.assertEquals(200, output.statusCode);
+        
+        request = new SiteCreateRequest("Test: " + x);
+        output = handler.handleRequest(request, ctx);
+        Assert.assertEquals(409, output.statusCode);
     }
 }
