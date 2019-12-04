@@ -91,6 +91,9 @@ public class PlaylistDAO {
 	
 	public boolean deletePlaylist(Playlist p) throws Exception {
 		try {
+			//check if it is in the database
+			if (getPlaylist(p.id.toString())==null)
+				return false;
 			PreparedStatement ps = conn.prepareStatement("DELETE FROM playlist WHERE playlistName=?;");
 			ps.setString(1, p.id.toString());
 			ps.execute();
