@@ -70,4 +70,24 @@ public class VideoSegmentDAO {
         return new VideoSegment(actor, phrase, url, id, mark);
 		
 	}
+	
+	public boolean deleteVideoSegment(VideoSegment vs) throws Exception {
+		try {
+			if (getVideoSegment(vs.id.toString())==null) {
+				return false;
+			}
+			else {
+				PreparedStatement ps = conn.prepareStatement("DELETE FROM videoSeg WHERE VideoSegID = ?;");
+				ps.setString(1, vs.id.toString());
+				ps.execute();
+				ps.close();
+				
+				return true;
+			}
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+            throw new Exception("Failed to insert constant: " + e.getMessage());
+		}
+	}
 }
