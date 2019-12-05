@@ -3,11 +3,13 @@ package player.http;
 import java.util.UUID;
 
 public class DeleteVideoSegmentRequest {
-	public final UUID vsId;
+	public UUID vsId;
 
-	public DeleteVideoSegmentRequest() {
-		vsId = UUID.randomUUID();
-	}
+	public UUID getvsID() {return this.vsId;}
+	
+	public void setvsId(UUID id) {this.vsId=id;}
+	
+	public DeleteVideoSegmentRequest() {}
 
 	public String toString() {
 		return "DeleteVideoSegment(" + vsId + ")";
