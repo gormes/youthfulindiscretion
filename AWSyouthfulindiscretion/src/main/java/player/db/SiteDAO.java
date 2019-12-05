@@ -37,4 +37,37 @@ public class SiteDAO {
 			throw new Exception("Failed in getting site URL: " + e.getMessage());
 		}
 	 }
+	 
+	public Site getSite(String url) throws Exception {
+		try {
+			Site site = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM sites WHERE siteName = ?;");
+			ps.setString(1, url);
+			ResultSet resultSet = ps.executeQuery();
+			while(resultSet.next()) {
+				site = new Site(resultSet.getString("siteName"));
+			}
+			resultSet.close();
+			ps.close();
+			return site;
+		} catch (Exception e) {
+			throw new Exception("Failed in getting site");
+		}
+	}
+	 
+	public boolean addSite(Site site) throws Exception {
+		boolean result = false;
+		PreparedStatement ps;
+		 
+		try {
+			ps = conn.prepareStatement("INSERT INTO sites (siteName) values(?);");
+			ps.setString(1, site.url);
+			ps.execute();
+			ps.close();
+			result = true;
+		} catch(Exception e) {
+			throw new Exception("Failed in getting site URL: " + e.getMessage());
+		}
+		return result;
+	 }
 }

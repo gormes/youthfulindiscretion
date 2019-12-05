@@ -20,17 +20,16 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
-import player.http.CreateVideoSegmentRequest;
-import player.http.CreateVideoSegmentResponse;
 import player.http.SiteCreateRequest;
+import player.http.SiteCreateResponse;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class UploadVideoSegmentsHandlerTest {
+public class AddSiteHandlerTest {
 
-    private final String CONTENT_TYPE = "ogg";
+    private final String CONTENT_TYPE = "image/jpeg";
     private S3Event event;
 
     @Mock
@@ -50,24 +49,22 @@ public class UploadVideoSegmentsHandlerTest {
 
     private Context createContext() {
         TestContext ctx = new TestContext();
-        ctx.setFunctionName("uploadVideoSegments");
-
+        ctx.setFunctionName("addSiteRequest");
         return ctx;
     }
 
     @Test
-    public void testUploadVideoSegmentsHandler() {
-        UploadVideoSegmentsHandler handler = new UploadVideoSegmentsHandler();
+    public void testAddSiteHandler() {
+        AddSiteHandler handler = new AddSiteHandler();
         Context ctx = createContext();
-        
+
         int x = (int)(Math.random()*(1000));
-        byte[] contents = {1,2,3,4,5};
-        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
-        CreateVideoSegmentResponse output = handler.handleRequest(request, ctx);
-        Assert.assertEquals(200, output.statusCode);      
-        Assert.assertEquals("File Name:" + x, output.vs.url);
+        SiteCreateRequest request = new SiteCreateRequest("Test: " + x);
+        SiteCreateResponse output = handler.handleRequest(request, ctx);
+        Assert.assertEquals("Test: " + x, output.url);
+        Assert.assertEquals(200, output.statusCode);
         
-        request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
+        request = new SiteCreateRequest("Test: " + x);
         output = handler.handleRequest(request, ctx);
         Assert.assertEquals(409, output.statusCode);
     }
