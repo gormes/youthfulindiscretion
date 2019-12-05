@@ -86,11 +86,11 @@ public class VideoSegmentDAO {
 		PreparedStatement ps;
 		try {
 			
-			ps = conn.prepareStatement("INSERT INTO videoSeg (videoSegID, actor, phrase, s3BucketURL) values(?,?,?,?);");
-			ps.setString(1, vs.id.toString());
-			ps.setString(2, vs.actor);
-			ps.setString(3, vs.phrase);
-			ps.setString(4, vs.url);
+			ps = conn.prepareStatement("INSERT INTO videoSeg (s3BucketURL, videoSegID, actor, phrase) values(?,?,?,?);");
+			ps.setString(1, vs.url);
+			ps.setString(3, vs.actor);
+			ps.setString(4, vs.phrase);
+			ps.setString(2, vs.id.toString());
 			ps.execute();
 			ps.close();
 			result = true;

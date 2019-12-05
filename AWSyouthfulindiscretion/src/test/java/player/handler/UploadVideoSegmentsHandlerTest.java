@@ -65,7 +65,7 @@ public class UploadVideoSegmentsHandlerTest {
         CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
         CreateVideoSegmentResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);      
-        Assert.assertEquals("File Name:" + x, output.vs.url);
+        Assert.assertEquals("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/File Name: " + x, output.vs.url);
         
         request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
         output = handler.handleRequest(request, ctx);
