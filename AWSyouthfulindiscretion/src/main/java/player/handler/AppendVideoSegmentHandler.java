@@ -30,10 +30,14 @@ public class AppendVideoSegmentHandler implements RequestHandler<AppendVideoSegm
 		
 		AppendVideoSegmentResponse response;
         try {
-        	appendVideoSegment(req.vsid, req.plid);
-        	response = new AppendVideoSegmentResponse(req.plid);
+        	if (appendVideoSegment(req.vsid, req.plid)) {
+        		response = new AppendVideoSegmentResponse(req.plid);
+        	}
+        	else {
+        		response = new AppendVideoSegmentResponse("Unable append video segment " + req.vsid + " to playlist " + req.plid, 409);
+        	}
         } catch (Exception e) {
-        	response = new AppendVideoSegmentResponse(e.getMessage(), 404);
+        	response = new AppendVideoSegmentResponse(e.getMessage(), 400);
         }
         return response;
 		
