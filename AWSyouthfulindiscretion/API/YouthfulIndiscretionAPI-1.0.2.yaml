@@ -55,8 +55,8 @@ paths:
           description: playlist created
         400:
           description: invalid input, object invalid
-        409:
-          description: duplicate playlist
+        422:
+          description: unable to create playlist
   /playlistdelete:
     post:
       tags:
@@ -367,12 +367,15 @@ definitions:
     - fileName
     - actor
     - phrase
+    - contents
     properties:
       fileName:
         type: string
       actor:
         type: string
       phrase:
+        type: string
+      contents:
         type: string
   VideoSegmentDeleteRequest:
     type: object
