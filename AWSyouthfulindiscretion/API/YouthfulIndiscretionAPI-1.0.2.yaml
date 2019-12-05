@@ -51,7 +51,7 @@ paths:
         schema:
           $ref: '#/definitions/PlaylistRequest'
       responses:
-        201:
+        200:
           description: playlist created
         400:
           description: invalid input, object invalid
@@ -117,7 +117,7 @@ paths:
         schema:
           $ref: '#/definitions/VideoSegmentCreateRequest'
       responses:
-        201:
+        200:
           description: video segment created
         400:
           description: input invalid
@@ -322,7 +322,7 @@ paths:
         schema:
           $ref: '#/definitions/SiteCreateRequest'
       responses: 
-        201:
+        200:
           description: site added
         400:
           description: invalid input
