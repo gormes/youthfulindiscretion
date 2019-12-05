@@ -50,6 +50,7 @@ public class DeleteVideoSegmentHandlerTest extends LambdaTest{
 		Context ctx = createContext();
 		
 		DeleteVideoSegmentHandler handler = new DeleteVideoSegmentHandler();
+		UploadVideoSegmentsHandler handler2= new UploadVideoSegmentsHandler();
 		
 		DeleteVideoSegmentRequest cpr = new DeleteVideoSegmentRequest();
 
@@ -59,6 +60,7 @@ public class DeleteVideoSegmentHandlerTest extends LambdaTest{
 		VideoSegmentDAO dao= new VideoSegmentDAO();
 		VideoSegment vs;
 		try {
+		
 			//with (old) video segment to test if it worked since no current create video segment
 			vs = dao.getVideoSegment("74512a96-ef17-4a4c-b623-96506d3c015a");
 
