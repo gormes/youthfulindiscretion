@@ -14,6 +14,7 @@ public class Playlist {
 	
 	public Playlist() {
 		this.id = UUID.randomUUID();
+		videoSegments = new ArrayList<VideoSegment>();
 	}
 	
 	@Override
