@@ -12,7 +12,7 @@ public class CreatePlaylistResponse {
 	
 	public CreatePlaylistResponse (String s) {
 		this.response = s;
-		this.httpCode = 201;
+		this.httpCode = 200;
 	}
 	
 	public String toString() {

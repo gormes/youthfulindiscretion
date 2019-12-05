@@ -81,8 +81,9 @@ public class PlaylistDAO {
 				ps.setString(2, "");
 				ps.execute();
 				ps.close();
+		        return true;
 			}
-	        return true;
+			else return false;
 		}
 		catch (Exception e) {
             throw new Exception("Failed to add Playlist: " + e.getMessage());

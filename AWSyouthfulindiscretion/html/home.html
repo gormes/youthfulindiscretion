@@ -78,9 +78,17 @@
 			var pvideo = playlistJson["videoSegments"];
 			var vidout = "";
 			for (var j = 0; j<pvideo.length; j++) {
+				if(!(pvideo[j]==(null))){
 				var vidJson = pvideo[j];
 				var url = vidJson["url"];
 				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
+				}
+				/**
+				console.log(pvideo[j])
+				var vidJson = pvideo[j];
+				var url = vidJson["url"];
+				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
+			*/
 			}
 			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleDeleteClick(this)\">Delete Playlist</button> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
 		
@@ -127,16 +135,17 @@
 	<h1>Playlist App</h1>
 
 	<h2>Playlists:</h2>
-	<button type="button" onClick="JavaScript:handleCreateClick(this)">Create New Playlist</button>
+	<button type="button" onClick="JavaScript:handleCreateClick(this)">Create
+		New Playlist</button>
 	<!--  get and display the current playlists -->
-	
+
 	<div id="PlaylistList"></div>
 
-	
+
 	<h2>Video Segments:</h2>
-	
+
 	<div id="VideoSegments"></div>
-	
+
 	<h3>Upload Video Segments</h3>
 
 	<!--Figure out the JavaScript:handleAddClick(this) for submiting a playlist  -->
@@ -146,7 +155,8 @@
 	</form>
 	<form id="uploadFile" method="post" action="#">
 		<input id="fileupload" type="file" /> <input type="submit"
-			value="Submit" id="submit" />
+			value="Submit" id="submit"
+			onClick="JavaScript:handleUploadVideoSegment" />
 	</form>
 
 	<h3>Search Video Segment</h3>
@@ -154,6 +164,8 @@
 	<input name="arg2" value="Phrase" />
 	<input type="button" value="Submit"
 		onClick="JavaScript:handleSearchClick(this)">
+	<input type ="button" value="Append"
+		onClick="JavaScript:handleAppendClick(this)">
 
 </body>
 </html>
