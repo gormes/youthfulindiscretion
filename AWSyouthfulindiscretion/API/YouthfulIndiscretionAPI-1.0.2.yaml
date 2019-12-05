@@ -51,12 +51,12 @@ paths:
         schema:
           $ref: '#/definitions/PlaylistRequest'
       responses:
-        201:
+        200:
           description: playlist created
         400:
           description: invalid input, object invalid
-        409:
-          description: duplicate playlist
+        422:
+          description: unable to create playlist
   /playlistdelete:
     post:
       tags:
@@ -117,7 +117,7 @@ paths:
         schema:
           $ref: '#/definitions/VideoSegmentCreateRequest'
       responses:
-        201:
+        200:
           description: video segment created
         400:
           description: input invalid
@@ -322,7 +322,7 @@ paths:
         schema:
           $ref: '#/definitions/SiteCreateRequest'
       responses: 
-        201:
+        200:
           description: site added
         400:
           description: invalid input
@@ -367,12 +367,15 @@ definitions:
     - fileName
     - actor
     - phrase
+    - contents
     properties:
       fileName:
         type: string
       actor:
         type: string
       phrase:
+        type: string
+      contents:
         type: string
   VideoSegmentDeleteRequest:
     type: object
