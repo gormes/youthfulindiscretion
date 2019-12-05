@@ -59,7 +59,7 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
 		try {
 			if(createVideoSegment(input.fileName, input.actor, input.phrase, input.contents)) {
 				VideoSegmentDAO dao = new VideoSegmentDAO();
-				response = new CreateVideoSegmentResponse(dao.getVideoSegmentFromName(input.fileName), 201);
+				response = new CreateVideoSegmentResponse(dao.getVideoSegmentFromName(input.fileName), 200);
 			} else {
 				response = new CreateVideoSegmentResponse(409, "Uploaded duplicate segment file: " + input.fileName);
 			}
