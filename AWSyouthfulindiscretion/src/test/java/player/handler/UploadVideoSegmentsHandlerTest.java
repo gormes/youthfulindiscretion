@@ -3,6 +3,7 @@ package player.handler;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -62,12 +63,13 @@ public class UploadVideoSegmentsHandlerTest {
         
         int x = (int)(Math.random()*(1000));
         byte[] contents = {1,2,3,4,5};
-        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
+        String encodedContents = Base64.getEncoder().encodeToString(contents);
+        CreateVideoSegmentRequest request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", encodedContents);
         CreateVideoSegmentResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);      
         Assert.assertEquals("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/File Name: " + x, output.vs.url);
         
-        request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", contents);
+        request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", encodedContents);
         output = handler.handleRequest(request, ctx);
         Assert.assertEquals(409, output.statusCode);
     }
