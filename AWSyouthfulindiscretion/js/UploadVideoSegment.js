@@ -1,33 +1,34 @@
 
-function handleCreateClick(e) {
-	//update with link for upload lambda function
-	var upload_url = ""
-		var form = document.addForm;
-	var arg1 = form.arg1.value;
-	var arg2 = form.arg2.value;
+function handleUploadClick(e) {
 
-	var data = {};
-	data["arg1"] = arg1;
-	data["arg2"] = arg2;
+  ///change the url to current lambda function
+	var add_url = "https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator"
+  var form = document.uploadFile;
+  var arg1 = form.arg1.value;
+  var arg2 = form.arg2.value;
 
-	var js = JSON.stringify(data);
-	console.log("JS:" + js);
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", upload_url, true);
+  var data = {};
+  data["arg1"] = arg1;
+  data["arg2"] = arg2;
 
-	// send the collected data as JSON
-	xhr.send(js);
+  var js = JSON.stringify(data);
+  console.log("JS:" + js);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", add_url, true);
 
-	// This will process results and update HTML as appropriate. 
-	xhr.onloadend = function () {
-		console.log(xhr);
-		console.log(xhr.request);
+  // send the collected data as JSON
+  xhr.send(js);
 
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(arg1, arg2, xhr.responseText);
-		} else {
-			processAddResponse(arg1, arg2, "N/A");
-		}
-	};
+  // This will process results and update HTML as appropriate. 
+  xhr.onloadend = function () {
+    console.log(xhr);
+    console.log(xhr.request);
+    
+    if (xhr.readyState == XMLHttpRequest.DONE) {
+      console.log ("XHR:" + xhr.responseText);
+      processAddResponse(arg1, arg2, xhr.responseText);
+    } else {
+      processAddResponse(arg1, arg2, "N/A");
+    }
+  };
 }
