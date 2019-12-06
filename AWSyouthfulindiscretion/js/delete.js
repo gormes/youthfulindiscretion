@@ -1,3 +1,5 @@
+//import random.js;
+
 function handleDeleteVsClick(e) {
 	
 	//var add_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/"
@@ -31,16 +33,19 @@ function handleDeleteVsClick(e) {
 	};
 }
 
-function handleDeletePlaylistClick(e) {
-	
+function handleDeletePlaylistClick(e, actualForm) {
+	console.log ("form:" + actualForm);
 	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/playlistdelete"
 	
-	var form = document.deletePlaylistForm;
-	var id = form.id.value;
+	//var form = document.deletePlaylistForm;
+	var form = document.getElementById(actualForm);
+	console.log("here is form:" + form);
+	var id = form.pid.value;
+	console.log(id)
 	//var arg2 = form.arg2.value;
 
 	var data = {};
-	data["id"] = id;
+	data["playlistName"] = id;
 	//data["arg2"] = arg2;
 
 	var js = JSON.stringify(data);
@@ -58,9 +63,12 @@ function handleDeletePlaylistClick(e) {
 
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(id, xhr.responseText);
+			//processAddResponse(id, xhr.responseText);
+			console.log("run");
+			refreshPlaylistList();
 		} else {
-			processAddResponse(arg1, arg2, "N/A");
+			//processAddResponse(id, "N/A");
+			console.log("no");
 		}
 	};
 }
