@@ -55,13 +55,13 @@ public class SiteDAO {
 		}
 	}
 	 
-	public boolean addSite(Site site) throws Exception {
+	public boolean addSite(String url) throws Exception {
 		boolean result = false;
 		PreparedStatement ps;
 		 
 		try {
 			ps = conn.prepareStatement("INSERT INTO sites (siteName) values(?);");
-			ps.setString(1, site.url);
+			ps.setString(1, url);
 			ps.execute();
 			ps.close();
 			result = true;

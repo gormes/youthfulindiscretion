@@ -68,4 +68,16 @@ public class AddSiteHandlerTest {
         output = handler.handleRequest(request, ctx);
         Assert.assertEquals(409, output.statusCode);
     }
+
+    @Test
+    public void testAddSiteHandlerFail() {
+        AddSiteHandler handler = new AddSiteHandler();
+        Context ctx = createContext();
+
+        SiteCreateRequest request = new SiteCreateRequest();
+        SiteCreateResponse output = handler.handleRequest(request, ctx);
+        
+        output = handler.handleRequest(request, ctx);
+        Assert.assertEquals(400, output.statusCode);
+    }
 }
