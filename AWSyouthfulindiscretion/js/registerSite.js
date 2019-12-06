@@ -9,10 +9,8 @@ function processRegisterSiteResponse(result) {
 function handleCreateClick(e) {
   var form = document.registerForm;
  
-  // var data = {};
-  // data["url"] = form.siteName.value;
-  
-  var data = form.url.value;
+  var data = {};
+  data["url"] = form.url.value;
   
 
   var js = JSON.stringify(data);
