@@ -1,17 +1,13 @@
-function SearchClick(e) {
-	
-	
-	//var add_url = "https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator"
-	//get the information
-	var form = document.searchForm;
-	var character = form.character.value;
-	var phrase = form.phrase.value;
+function handleAppendClick(e) {
+	var add_url = "https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator"
+		var form = document.addForm;
+	var arg1 = form.arg1.value;
+	var arg2 = form.arg2.value;
 
 	var data = {};
-	data["character"] = character;
-	data["phrase"] = phrase;
+	data["arg1"] = arg1;
+	data["arg2"] = arg2;
 
-	//search for the information
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
 	var xhr = new XMLHttpRequest();
