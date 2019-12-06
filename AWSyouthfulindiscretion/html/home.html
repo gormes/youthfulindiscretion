@@ -7,13 +7,16 @@
 <script type='text/javascript' src='../js/getVideoSegment.js'></script>
 <script type='text/javascript' src='../js/getPlaylist.js'></script>
 <script type='text/javascript' src='../js/api.js'></script>
+<link rel="stylesheet" type="text/css" href="home.css">
+
 
 <script type="text/javascript">
 	function initialize() {
 
-		// get all of the playlists (?) and video segments (?)
+		// get all of the playlists and video segments
 		refreshPlaylistList();
 		refreshVideoSegments();
+		displayPlaylists();
 	}
 	/**
 	 * Refresh constant list from server
@@ -51,9 +54,27 @@
 		xhr.onloadend = function () {
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				console.log ("XHR:" + xhr.responseText);
-				processListResponseV(xhr.responseText);
+				processResponseVs(xhr.responseText);
 			} else {
-				processListResponseV("N/A");
+				processResponseVs("N/A");
+			}
+		};
+	}
+	
+	function displayPlaylists() {
+		var xhr = new XMLHttpRequest();
+		xhr.open("GET", listp_url, true);
+		xhr.send();
+
+		console.log("sent");
+
+		// This will process results and update HTML as appropriate. 
+		xhr.onloadend = function () {
+			if (xhr.readyState == XMLHttpRequest.DONE) {
+				console.log ("XHR:" + xhr.responseText);
+				processDisplayResponse(xhr.responseText);
+			} else {
+				processDisplayResponse("N/A");
 			}
 		};
 	}
@@ -65,6 +86,7 @@
 	 */
 	function processListResponse(result) {
 		console.log("res:" + result);
+		console.log("hello from the other side");
 		// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 		var js = JSON.parse(result);
 		var playlistList = document.getElementById('PlaylistList');
@@ -91,6 +113,7 @@
 			*/
 			}
 			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleDeleteClick(this)\">Delete Playlist</button> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
+			console.log("helooooooo");
 		
 		}
 
@@ -103,7 +126,7 @@
 		 *
 		 * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
 		 */
-		function processListResponseV(result) {
+		function processResponseVs(result) {
 			console.log("res:" + result);
 			// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 			var js = JSON.parse(result);
@@ -124,6 +147,26 @@
 			// Update computation result
 			constList.innerHTML = output;
 		}
+		 
+		 function processDisplayResponse(result) {
+				console.log("res:" + result);
+				// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+				var js = JSON.parse(result);
+				var playlist = document.getElementById('PlaylistName');
+
+				var output = "";
+				for (var i = 0; i < js.list.length; i++) {
+					var playlistJson = js.list[i];
+					console.log(playlistJson);
+
+					var pid = playlistJson["id"];
+					var pvideo = playlistJson["videoSegments"];
+					var vidout = "";
+					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleAppendClick(this)\">"+pid+"</button> <br>";
+				}
+				// Update computation result
+				playlist.innerHTML = output;
+		 }
 
 
 </script>
@@ -137,35 +180,43 @@
 	<h2>Playlists:</h2>
 	<button type="button" onClick="JavaScript:handleCreateClick(this)">Create
 		New Playlist</button>
-	<!--  get and display the current playlists -->
+		
+	<!-- Displays the playlists -->
 
 	<div id="PlaylistList"></div>
 
 
 	<h2>Video Segments:</h2>
 
+<!-- Displays the video segments-->
 	<div id="VideoSegments"></div>
+	
 
 	<h3>Upload Video Segments</h3>
 
-	<!--Figure out the JavaScript:handleAddClick(this) for submiting a playlist  -->
-	<form name="addForm" method="post">
-		<input name="arg1" value="Character" /><input name="arg2"
-			value="Phrase" onClick="JavaScript:handleAddClick(this)" />
-	</form>
-	<form id="uploadFile" method="post" action="#">
+	<!--Upload video segments -->
+	<form name="uploadFile" method="post">
+		<input name="character" value="Character" /><input name="phrase"
+			value="Phrase"/>
 		<input id="fileupload" type="file" /> <input type="submit"
 			value="Submit" id="submit"
 			onClick="JavaScript:handleUploadVideoSegment" />
 	</form>
 
 	<h3>Search Video Segment</h3>
-	<input name="arg1" value="Character" />
-	<input name="arg2" value="Phrase" />
+	<!-- Search for video segments  -->
+	<form name="searchForm" method="post">
+	<input name="character" value="Character" />
+	<input name="phrase" value="Phrase" />
 	<input type="button" value="Submit"
-		onClick="JavaScript:handleSearchClick(this)">
-	<input type ="button" value="Append"
-		onClick="JavaScript:handleAppendClick(this)">
+		onClick="JavaScript:SearchClick(this)">
+	<div class="dropdown">
+		<button class="dropbtn">Append VS</button>
+		<div class="dropdown-content">
+			<div id="PlaylistName"> </div>
+		</div>
+	</div>
+	</form>
 
 </body>
 </html>
