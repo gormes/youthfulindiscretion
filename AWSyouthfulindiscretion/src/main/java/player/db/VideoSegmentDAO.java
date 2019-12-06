@@ -61,6 +61,26 @@ public class VideoSegmentDAO {
         }
 	}
 	
+	public VideoSegment getVideoSegmentFromURL(String url) throws Exception {	// not sure if I want it to take in String or UUID
+		try {															// will have to see based on implementation
+			VideoSegment vs = null;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM videoSeg WHERE s3BucketURL = ?;");
+			ps.setString(1, url);
+			ResultSet resultSet = ps.executeQuery();
+			
+			while(resultSet.next()) {
+				vs = generateVideoSegment(resultSet);
+			}
+			resultSet.close();
+			ps.close();
+			
+			return vs;
+			
+        } catch (Exception e) {
+            throw new Exception("Failed in getting Video Segment: " + e.getMessage());
+        }
+	}
+	
 	public List<VideoSegment> getAllVideoSegments() throws Exception {
 		List<VideoSegment> allVideoSegments = new ArrayList<VideoSegment>();
 	try {	
@@ -112,14 +132,14 @@ public class VideoSegmentDAO {
 		
 	}
 	
-	public boolean deleteVideoSegment(VideoSegment vs) throws Exception {
+	public boolean deleteVideoSegment(String url) throws Exception {
 		try {
-			if (getVideoSegment(vs.id.toString())==null) {
+			if (getVideoSegmentFromURL(url)==null) {
 				return false;
 			}
 			else {
-				PreparedStatement ps = conn.prepareStatement("DELETE FROM videoSeg WHERE VideoSegID = ?;");
-				ps.setString(1, vs.id.toString());
+				PreparedStatement ps = conn.prepareStatement("DELETE FROM videoSeg WHERE s3BucketURL = ?;");
+				ps.setString(1, url);
 				ps.execute();
 				ps.close();
 				

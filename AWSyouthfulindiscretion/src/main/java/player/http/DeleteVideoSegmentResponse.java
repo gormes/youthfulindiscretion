@@ -12,10 +12,10 @@ public class DeleteVideoSegmentResponse {
 	}
 
 	// 200 means success
-	public DeleteVideoSegmentResponse (String name, int statusCode, String errorMessage) {
+	public DeleteVideoSegmentResponse (String response, int statusCode, String errorMessage) {
 		this.statusCode = statusCode;
 		this.error = errorMessage;
-		this.response = name;
+		this.response = response;
 	}
 	
 	public String toString() {
