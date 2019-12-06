@@ -12,6 +12,7 @@ function handleCreateClick(e) {
   var data = {};
   data["url"] = form.url.value;
   
+  if(data["url"]!=""){
 
   var js = JSON.stringify(data);
   console.log("JS:" + js);
@@ -39,4 +40,9 @@ function handleCreateClick(e) {
     	processRegisterSiteResponse("N/A");
     }
   };
+  }
+  else {
+	  alert('Enter site URL before trying to add site');
+  }
+
 }
