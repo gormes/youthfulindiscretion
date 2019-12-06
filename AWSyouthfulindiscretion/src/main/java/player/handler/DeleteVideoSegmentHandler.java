@@ -22,28 +22,26 @@ public class DeleteVideoSegmentHandler implements RequestHandler<DeleteVideoSegm
 
 
 	@Override
-	public DeleteVideoSegmentResponse handleRequest(DeleteVideoSegmentRequest event, Context context) {
-		System.out.print("anything");
+	public DeleteVideoSegmentResponse handleRequest(DeleteVideoSegmentRequest req, Context context) {
 		DeleteVideoSegmentResponse response= null;
 
 		VideoSegmentDAO dao= new VideoSegmentDAO();
 		
 		//Where would i get the id/name of video segment -> where is the RequestHandler 
 		//(String actor, String phrase, String url, UUID id, boolean marked)
-		VideoSegment vs= new VideoSegment("","","",event.vsId);
 		
 		try {
-			if(dao.deleteVideoSegment(vs)) {
+			if(dao.deleteVideoSegment(req.s3BucketURL)) {
 				//it passes 
 				//same here- where does it go
-				response= new DeleteVideoSegmentResponse(event.vsId.toString(),200);
+				response= new DeleteVideoSegmentResponse(req.s3BucketURL,200);
 			}
 			else {
-				response = new DeleteVideoSegmentResponse(event.vsId.toString(), 409, "Unable to delete video segment.");
+				response = new DeleteVideoSegmentResponse(req.s3BucketURL, 409, "Unable to delete video segment " + req.s3BucketURL);
 			}
 		}
 		catch (Exception e) {
-			response = new DeleteVideoSegmentResponse(event.vsId.toString(), 403, "Unable to delete video segment: " + event.vsId + "(" + e.getMessage() + ")");
+			response = new DeleteVideoSegmentResponse(req.s3BucketURL, 403, "Unable to delete video segment: " + req.s3BucketURL + "(" + e.getMessage() + ")");
 		}
 		
 		return response;

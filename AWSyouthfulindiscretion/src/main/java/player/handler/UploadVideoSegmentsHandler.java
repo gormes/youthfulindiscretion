@@ -3,6 +3,7 @@ package player.handler;
 import java.io.ByteArrayInputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Base64;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.lambda.runtime.Context;
@@ -25,6 +26,8 @@ import player.model.VideoSegment;
 public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSegmentRequest, CreateVideoSegmentResponse> {
 
     private AmazonS3 s3 = null;
+    private byte[] contents = null;
+    
     public UploadVideoSegmentsHandler() {
     }
     
@@ -56,8 +59,10 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
     @Override
 	public CreateVideoSegmentResponse handleRequest(CreateVideoSegmentRequest input, Context context) {
 		CreateVideoSegmentResponse response;
+		contents = Base64.getDecoder().decode(input.encodedContents);
+		
 		try {
-			if(createVideoSegment(input.fileName, input.actor, input.phrase, input.contents)) {
+			if(createVideoSegment(input.fileName, input.actor, input.phrase, contents)) {
 				VideoSegmentDAO dao = new VideoSegmentDAO();
 				response = new CreateVideoSegmentResponse(dao.getVideoSegmentFromName(input.fileName), 200);
 			} else {

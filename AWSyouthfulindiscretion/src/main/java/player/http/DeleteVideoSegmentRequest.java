@@ -3,18 +3,20 @@ package player.http;
 import java.util.UUID;
 
 public class DeleteVideoSegmentRequest {
-	public final UUID vsId;
+	public String s3BucketURL;
 
-	public DeleteVideoSegmentRequest() {
-		vsId = UUID.randomUUID();
-	}
+	public String getvsID() {return this.s3BucketURL;}
+	
+	public void setvsId(String url) {this.s3BucketURL=url;}
+	
+	public DeleteVideoSegmentRequest() {}
 
 	public String toString() {
-		return "DeleteVideoSegment(" + vsId + ")";
+		return "DeleteVideoSegment(" + s3BucketURL + ")";
 	}
 	
-	public DeleteVideoSegmentRequest(UUID id) {
-		vsId= id;
+	public DeleteVideoSegmentRequest(String url) {
+		s3BucketURL = url;
 	}
 
 

@@ -26,6 +26,8 @@ import com.amazonaws.services.s3.model.S3Object;
 import player.db.VideoSegmentDAO;
 import player.http.AllVideoSegmentsResponse;
 import player.http.CreatePlaylistResponse;
+import player.http.CreateVideoSegmentRequest;
+import player.http.CreateVideoSegmentResponse;
 import player.http.DeletePlaylistResponse;
 import player.http.DeleteVideoSegmentRequest;
 import player.http.DeleteVideoSegmentResponse;
@@ -49,10 +51,9 @@ public class DeleteVideoSegmentHandlerTest extends LambdaTest{
 	public void testDeleteVideoSegmentHandler() {
 		Context ctx = createContext();
 		
-		DeleteVideoSegmentHandler handler = new DeleteVideoSegmentHandler();
-		UploadVideoSegmentsHandler handler2= new UploadVideoSegmentsHandler();
+		DeleteVideoSegmentHandler deleteHandler = new DeleteVideoSegmentHandler();
+		UploadVideoSegmentsHandler createHandler= new UploadVideoSegmentsHandler();
 		
-		DeleteVideoSegmentRequest cpr = new DeleteVideoSegmentRequest();
 
 
 		// CreatePlaylistResponse resp = new CreatePlaylistHandler().handleRequest(cpr, createContext("create"));
@@ -60,23 +61,25 @@ public class DeleteVideoSegmentHandlerTest extends LambdaTest{
 		VideoSegmentDAO dao= new VideoSegmentDAO();
 		VideoSegment vs;
 		try {
-		
-			//with (old) video segment to test if it worked since no current create video segment
-			vs = dao.getVideoSegment("74512a96-ef17-4a4c-b623-96506d3c015a");
+			String name = "testName";
+			CreateVideoSegmentRequest cvsr = new CreateVideoSegmentRequest(name, "testActor", "testPhrase", "Mi43MTgyODE4Mjg=");
+			CreateVideoSegmentResponse c_resp = createHandler.handleRequest(cvsr, ctx);
+			
+			vs = dao.getVideoSegmentFromName(name);
 
-			DeleteVideoSegmentRequest dpr = new DeleteVideoSegmentRequest(vs.id);
-
-			DeleteVideoSegmentResponse d_resp = handler.handleRequest(dpr, ctx);
+			DeleteVideoSegmentRequest dvsr = new DeleteVideoSegmentRequest(vs.url);
+			DeleteVideoSegmentResponse d_resp = deleteHandler.handleRequest(dvsr, ctx);
 			
 			//should pass
-			Assert.assertEquals(dpr.vsId.toString(), d_resp.response);
+			Assert.assertEquals(dvsr.s3BucketURL, d_resp.response);
+			Assert.assertEquals(200, d_resp.statusCode);
 			
 			//should fail 
-			 d_resp = new DeleteVideoSegmentHandler().handleRequest(dpr, ctx);
+			 d_resp = new DeleteVideoSegmentHandler().handleRequest(dvsr, ctx);
 		     Assert.assertEquals(409, d_resp.statusCode);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			fail("test failed"); 
+			fail("test failed: " + e.getMessage()); 
 		}
 
 	}
