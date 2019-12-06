@@ -25,18 +25,21 @@ public class AddSiteHandler implements RequestHandler<SiteCreateRequest, SiteCre
 	public AddSiteHandler() {}
 
     boolean addSite(String url) throws Exception{
-    	boolean result;
-    	
-    	SiteDAO dao = new SiteDAO();
-    	Site exist = dao.getSite(url);
-    	
-    	if (exist == null) {
-    		dao.addSite(new Site(url));
-    		result = true;
-    	} else {
-    		result = false;
+    	try {
+	    	SiteDAO dao = new SiteDAO();
+	
+	    	Site exist = dao.getSite(url);
+	    	
+	    	if (exist == null) {
+	    		dao.addSite(url);
+	    		return true;
+	    	} else {
+	    		return false;
+	    	}
     	}
-    	return result;
+    	catch (Exception e) {
+    		throw e;
+    	}
     }
     
     @Override
@@ -46,11 +49,11 @@ public class AddSiteHandler implements RequestHandler<SiteCreateRequest, SiteCre
     		if(addSite(request.url)) {
     			response = new SiteCreateResponse(request.url, 200);
     		} else {
-    			response = new SiteCreateResponse(409, "Invalid Input");
+    			response = new SiteCreateResponse(409, "Duplicate site");
     		}
     		
     	} catch (Exception e) {
-    		response = new SiteCreateResponse(400, "Unable to remove from the list");
+    		response = new SiteCreateResponse(400, "Unable to add site to the list");
     	}
     	return response;
     }

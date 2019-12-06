@@ -16,6 +16,7 @@ function refreshVideoSegments() {
 			console.log ("XHR:" + xhr.responseText);
 			processListResponseV(xhr.responseText);
 		} else {
+			console.log("Couldn't load segments");
 			processListResponseV("N/A");
 		}
 	};

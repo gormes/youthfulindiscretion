@@ -5,6 +5,7 @@
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/adminVideoSegments.js'></script>
 <script type='text/javascript' src='../js/adminSites.js'></script>
+<script type='text/javascript' src='../js/registerSite.js'></script>
 <link rel="stylesheet" type="text/css" href="adminstyle.css" />
 <title>Administrator View</title>
 </head>
@@ -21,11 +22,10 @@
 		</div>
 		<div class="column right">
 			<h2>Registered Remote Sites</h2>
-			<input type="url" id="registeredURL" />
-
-			<!-- Buttons for deleting or registering remote sites -->
-			<button id="registerSite" onClick="alert('Unable to register')">Register
-				Site</button>
+			<form name="registerForm" method="post">
+   				<input name="url" value="url" type="text"/>
+   				<input type="button" id="registerButton" value="Register Site" onClick="JavaScript:handleCreateClick(this)">
+			</form>
 
 			<!-- List of registered remote sites -->
 			<div id="unorderedSites"></div>
