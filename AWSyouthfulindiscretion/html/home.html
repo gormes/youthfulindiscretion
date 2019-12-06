@@ -113,9 +113,8 @@
 				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
 			*/
 			}
-			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleDeleteClick(this)\">Delete Playlist</button> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
-			console.log("helooooooo");
-		
+			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleDeletePlaylistClick(this)\">Delete Playlist</button> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
+			
 		}
 
 		// Update computation result
@@ -132,6 +131,7 @@
 			// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 			var js = JSON.parse(result);
 			var constList = document.getElementById('VideoSegments');
+			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
 
 			var output = "";
 			for (var i = 0; i < js.list.length; i++) {
@@ -142,11 +142,12 @@
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" + "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" </video> </div>";
+				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" onClick=\"JavaScript:handleDeleteVsClick(this)\">Delete vs</button>"+ "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
 			}
 
 			// Update computation result
 			constList.innerHTML = output;
+			videoSegSearch.innerHTML= output;
 		}
 		 
 		 function processDisplayResponse(result) {
@@ -163,7 +164,7 @@
 					var pid = playlistJson["id"];
 					var pvideo = playlistJson["videoSegments"];
 					var vidout = "";
-					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" onClick=\"JavaScript:handleAppendClick(this)\">"+pid+"</button> <br>";
+					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <form name=\"deletePlaylistForm\" method=\"post\"><input name=\"id\" value="+pid+" /> <button type=\"button\" onClick=\"JavaScript:handleAppendClick(this)\">"+pid+"</button> <br> </form>";
 				}
 				// Update computation result
 				playlist.innerHTML = output;
@@ -218,6 +219,10 @@
 		</div>
 	</div>
 	</form>
+	
+	<div id="VideoSegmentsSearch"> 
+	
+	</div>
 
 </body>
 </html>
