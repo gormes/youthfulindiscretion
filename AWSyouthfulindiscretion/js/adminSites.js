@@ -27,7 +27,7 @@ function processListResponseSites(result) {
 	console.log("res:" + result);
 	// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 	var js = JSON.parse(result);
-	var constList = document.getElementById('unorderedSites');
+	var siteList = document.getElementById('unorderedSites');
 
 	var output = "";
 	for (var i = 0; i < js.list.length; i++) {
@@ -39,7 +39,7 @@ function processListResponseSites(result) {
 	}
 
 	// Update computation result
-	constList.innerHTML = output;
+	siteList.innerHTML = output;
 }
 
 //Function to add site to list of registered sites
@@ -55,7 +55,7 @@ function addSite() {
 		los.appendChild(ns);
 	}
 	else{
-		//Error message if nothing is enetered into URL space
+		//Error message if nothing is entered into URL space
 		alert('Please input a URL for a remote site');
 	}
 }
