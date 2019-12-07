@@ -116,13 +116,13 @@ public class PlaylistDAO {
         return p;
 	}
 	
-	public boolean appendToPlaylist(String vsid, String pid) throws Exception {
+	public boolean appendToPlaylist(String url, String pid) throws Exception {
 		try {
 			Playlist p = getPlaylist(pid);
 			if (p == null) return false;
 			else if (p.videoSegments.isEmpty()) {
 				PreparedStatement ps = conn.prepareStatement("UPDATE playlist SET s3BucketURL=? WHERE playlistName=?;");
-				ps.setString(1, vsid);
+				ps.setString(1, url);
 				ps.setString(2, pid);
 				ps.execute();
 				ps.close();
@@ -131,14 +131,14 @@ public class PlaylistDAO {
 			else {
 				PreparedStatement ps = conn.prepareStatement("INSERT INTO playlist (playlistName, s3BucketURL) values(?,?);");
 				ps.setString(1, pid);
-				ps.setString(2, vsid);
+				ps.setString(2, url);
 				ps.execute();
 				ps.close();
 				return true;
 			}
 		}
 		catch (Exception e) {
-			throw new Exception("Failed to append video segment: " + vsid + " into playlist: " + pid + e.getMessage());
+			throw new Exception("Failed to append video segment: " + url + " into playlist: " + pid + e.getMessage());
 		}
 	}
 	

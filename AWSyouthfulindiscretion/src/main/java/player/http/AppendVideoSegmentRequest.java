@@ -1,12 +1,12 @@
 package player.http;
 
 public class AppendVideoSegmentRequest {
-	public String vsid;
+	public String vsurl;
 	public String plid;
 
 	public AppendVideoSegmentRequest(String vsid, String plid) {
 		this.plid = plid;
-		this.vsid = vsid;
+		this.vsurl = vsid;
 	}
 	
 	public AppendVideoSegmentRequest() {
@@ -14,10 +14,10 @@ public class AppendVideoSegmentRequest {
 	}
 	
 	public String getVideoSegmentID() {
-		return vsid;
+		return vsurl;
 	}
 	public void setVideoSegmentID(String vsid) {
-		this.vsid = vsid;
+		this.vsurl = vsid;
 	}
 	
 	public String getPlaylistID() {
@@ -28,7 +28,7 @@ public class AppendVideoSegmentRequest {
 	}	
 	
 	public String toString() {
-		return "AppendVideoSegment(" + vsid + " , " + vsid + ")";
+		return "AppendVideoSegment(" + vsurl + " , " + plid + ")";
 	}
 }
 

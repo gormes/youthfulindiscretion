@@ -15,13 +15,13 @@ public class AppendVideoSegmentHandler implements RequestHandler<AppendVideoSegm
 	 * 
 	 * @throws Exception 
 	 */
-	 boolean appendVideoSegment(String vsid, String plid) throws Exception {
+	 boolean appendVideoSegment(String vsurl, String plid) throws Exception {
 		if (logger != null) {logger.log("in appendVideoSegment");}
 		
 		//create DAOs
 		PlaylistDAO pdao = new PlaylistDAO();
 		//Append to playlist DAO
-		return pdao.appendToPlaylist(vsid, plid);
+		return pdao.appendToPlaylist(vsurl, plid);
 		
 	}
 	
@@ -30,11 +30,11 @@ public class AppendVideoSegmentHandler implements RequestHandler<AppendVideoSegm
 		
 		AppendVideoSegmentResponse response;
         try {
-        	if (appendVideoSegment(req.vsid, req.plid)) {
+        	if (appendVideoSegment(req.vsurl, req.plid)) {
         		response = new AppendVideoSegmentResponse(req.plid);
         	}
         	else {
-        		response = new AppendVideoSegmentResponse("Unable append video segment " + req.vsid + " to playlist " + req.plid, 409);
+        		response = new AppendVideoSegmentResponse("Unable append video segment " + req.vsurl + " to playlist " + req.plid, 409);
         	}
         } catch (Exception e) {
         	response = new AppendVideoSegmentResponse(e.getMessage(), 400);
