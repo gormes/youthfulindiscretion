@@ -2,7 +2,8 @@ function handleCreateVsClick(e) {
 	var create_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegment";
 	
 	var form = document.uploadFile;
-	var encodedContents = document.getElementById("fileupload");
+	var segments = document.uploadFile.base64Encoding.value.split(",");
+	var encodedContents = segments[1];
 	console.log("here is the form for uploading" + form.actor);
 	var actor= form.character.value;
 	var phrase= form.phrase.value;
