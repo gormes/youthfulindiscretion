@@ -16,6 +16,7 @@
 		// get all of the playlists and video segments
 		refreshPlaylistList();
 		refreshVideoSegments();
+		displayPlaylists();
 	}
 </script>
 </head>
@@ -88,7 +89,7 @@
 	<input type="button" value="Submit"
 		onClick="JavaScript:SearchClick(this)">
 	<div class="dropdown">
-		<button class="dropbtn">Append VS</button>
+		<button class="dropbtn" type="button">Append VS</button>
 		<div class="dropdown-content">
 			<div id="PlaylistName"> </div>
 		</div>

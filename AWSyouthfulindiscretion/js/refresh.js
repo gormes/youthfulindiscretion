@@ -35,7 +35,7 @@ function refreshPlaylistList() {
 		};
 	}
 	
-	/*
+	
 	function displayPlaylists() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", listp_url, true);
@@ -53,7 +53,7 @@ function refreshPlaylistList() {
 			}
 		};
 	}
-	*/
+	
 
 	/**
 	 * Respond to server JSON object.
@@ -129,10 +129,32 @@ function refreshPlaylistList() {
 
 			// Update computation result
 			constList.innerHTML = output;
-			videoSegSearch.innerHTML= output;
+			
+			//Append video segments 
+		
+			var js = JSON.parse(result);
+			var constList = document.getElementById('VideoSegments');
+			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
+
+			var output2 = "";
+			for (var i = 0; i < js.list.length; i++) {
+				var constantJson = js.list[i];
+				console.log(constantJson);
+
+				var actor = constantJson["actor"];
+				var phrase = constantJson["phrase"];
+				var url = constantJson["url"];
+				var id = constantJson["id"];
+				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVsform" + i + "\" onClick=\"JavaScript:handleDeleteAppendClick(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+			}
+			
+			
+			
+			
+			videoSegSearch.innerHTML= output2;
 			//console.log(output);
 		}
-		 /*
+		 //Append Playlist
 		 function processDisplayResponse(result) {
 				console.log("res:" + result);
 				// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
@@ -147,9 +169,9 @@ function refreshPlaylistList() {
 					var pid = playlistJson["id"];
 					var pvideo = playlistJson["videoSegments"];
 					var vidout = "";
-					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <form name=\"deletePlaylistForm\" method=\"post\"><input name=\"id\" value="+pid+" /> <button type=\"button\" onClick=\"JavaScript:handleAppendClick(this)\">"+pid+"</button> <br> </form>";
+					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" value="+pid+"onClick=\"JavaScript:handleAppendClick(this)\">"+pid+"</button> <br>";
 				}
 				// Update computation result
 				playlist.innerHTML = output;
 		 }
-		*/
+		
