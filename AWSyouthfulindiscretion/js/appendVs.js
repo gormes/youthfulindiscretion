@@ -3,9 +3,9 @@
 var selectedVs=null;
 
 //selecting video segment
-function handleAppendClick(e, url) {
+function handleAppendClick(e, id) {
 	
-	selectedVs=url;
+	selectedVs=document.getElementById(id).value;
 	
 	/*
 	var append_url = ""
