@@ -18,11 +18,11 @@ function searchByCharacter() {
 
 	var form = document.searchForm;
 	var data = {};
-	data["character"] = form.character.value;
+	data["character"] = form.character.value.toUpperCase();
 	console.log("character: " + data["character"]);
 
 	parent = document.getElementById('VideoSegmentsSearch');
-	console.log(parent.childNodes.length);
+	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
 		if (e.nodeType == 1){
@@ -36,7 +36,7 @@ function searchByCharacter() {
 	}
 
 	var foundVidList = document.getElementsByClassName(data["character"]);
-	console.log(foundVidList.length)
+	console.log("Found vids: " + foundVidList.length)
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);
@@ -47,11 +47,11 @@ function searchByCharacter() {
 function searchByPhrase() {
 	var form = document.searchForm;
 	var data = {};
-	data["phrase"] = form.phrase.value;
+	data["phrase"] = form.phrase.value.toUpperCase();
 	console.log("phrase: " + data["phrase"]);
 
 	parent = document.getElementById('VideoSegmentsSearch');
-	console.log(parent.childNodes.length);
+	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
 		if (e.nodeType == 1){
@@ -64,7 +64,7 @@ function searchByPhrase() {
 		}
 	}
 	var foundVidList = document.getElementsByClassName(data["phrase"]);
-	console.log(foundVidList.length)
+	console.log("Found vids: " + foundVidList.length)
 	var compare = false;
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
@@ -86,13 +86,13 @@ function searchByPhrase() {
 function searchByBoth() {
 	var form = document.searchForm;
 	var data = {};
-	data["character"] = form.character.value;
+	data["character"] = form.character.value.toUpperCase();
 	console.log("data character: " + data["character"]);
-	data["phrase"] = form.phrase.value;
+	data["phrase"] = form.phrase.value.toUpperCase();
 	console.log("data phrase: " + data["phrase"]);
 
 	parent = document.getElementById('VideoSegmentsSearch');
-	console.log(parent.childNodes.length);
+	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
 		if (e.nodeType == 1){
@@ -100,7 +100,7 @@ function searchByBoth() {
 		}
 	}
 	var foundVidList = document.getElementsByClassName(data["character"] + " " + data["phrase"]);
-	console.log(foundVidList.length)
+	console.log("Found vids: " + foundVidList.length)
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);

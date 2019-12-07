@@ -145,7 +145,7 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor + " " + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVsform" + i + "\"  onClick=\"JavaScript:handleAppendClick(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVsform" + i + "\"  onClick=\"JavaScript:handleAppendClick(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
 			}
 			
 			
