@@ -5,14 +5,14 @@ function handleDeleteVsClick(e,actualForm) {
 	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentdelete"
 	var form = document.getElementById(actualForm);
 	var url= form.value;
-
+	console.log(url);
 	var data = {};
-	data["s3BucketURLs"] = url;
+	data["s3BucketURL"] = url;
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", add_url, true);
+	xhr.open("POST", delete_url, true);
 
 	// send the collected data as JSON
 	xhr.send(js);

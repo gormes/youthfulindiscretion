@@ -1,7 +1,10 @@
 function handleCreateVsClick(e) {
 	
 	var create_url = ""
+		console.log("haaaahaaa");
 	var form = document.getElementById(actualForm);
+	console.log("haaaahaaa");
+	console.log(form);
 	var url= form.value;
 
 	var data = {};
