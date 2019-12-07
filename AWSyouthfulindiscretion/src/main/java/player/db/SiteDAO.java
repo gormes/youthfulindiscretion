@@ -70,4 +70,19 @@ public class SiteDAO {
 		}
 		return result;
 	 }
+	
+	public boolean removeSite(String url) throws Exception {
+		try {
+			if (getSite(url)==null)
+				return false;
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM sites WHERE siteName=?;");
+			ps.setString(1, url);
+			ps.execute();
+			ps.close();
+			return true;
+		}
+		catch (Exception e) {
+			throw new Exception("");
+		}
+	}
 }
