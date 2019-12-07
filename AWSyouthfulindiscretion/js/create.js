@@ -1,19 +1,24 @@
 function handleCreateVsClick(e) {
+	var create_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegment";
 	
-	var create_url = ""
-		console.log("haaaahaaa");
-	var form = document.getElementById(actualForm);
-	console.log("haaaahaaa");
-	console.log(form);
-	var url= form.value;
+	var form = document.uploadFile;
+	var encodedContents = document.getElementById("fileupload");
+	console.log("here is the form for uploading" + form.actor);
+	var actor= form.character.value;
+	var phrase= form.phrase.value;
+
 
 	var data = {};
-	data["s3BucketURLs"] = url;
+	data["phrase"] = phrase;
+	data["fileName"] = "file name";
+	data["actor"] = actor;
+	data["encodedContents"] = encodedContents;
+	
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", add_url, true);
+	xhr.open("POST", create_url, true);
 
 	// send the collected data as JSON
 	xhr.send(js);
@@ -26,11 +31,10 @@ function handleCreateVsClick(e) {
 
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
-			refreshVideoSegments();
-			//processAddResponse(url, xhr.responseText);
+			//refreshVideoSegments();
 		} else {
-			//processAddResponse(url, "N/A");
-		}
+			console.log("no");
+			}
 	};
 }
 
