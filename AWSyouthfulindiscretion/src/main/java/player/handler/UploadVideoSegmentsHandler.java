@@ -11,6 +11,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.S3Event;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -46,7 +47,7 @@ public class UploadVideoSegmentsHandler implements RequestHandler<CreateVideoSeg
         	ObjectMetadata omd = new ObjectMetadata();
         	omd.setContentLength(contents.length);
         		
-        	PutObjectResult res = s3.putObject(new PutObjectRequest("3733youthfulindiscretion", "videoSegments/" + fileName, bais, omd));
+        	PutObjectResult res = s3.putObject(new PutObjectRequest("3733youthfulindiscretion", "videoSegments/" + fileName, bais, omd).withCannedAcl(CannedAccessControlList.PublicRead));
         	
         	VideoSegment vs = new VideoSegment(actor, phrase, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/" + fileName);
         	return dao.addVideoSegment(vs);
