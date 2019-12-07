@@ -41,6 +41,9 @@ function processListResponse(result) {
 		console.log(constantJson);
 		var cname = constantJson["name"];
 		var cval = constantJson["value"];
+		
+		
+		
 		var sysvar = constantJson["system"];
 		if (sysvar) {
 			output = output + "<div id=\"const" + cname + "\"><b>" + cname + ":</b> = " + cval + "<br></div>";
