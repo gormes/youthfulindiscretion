@@ -1,15 +1,13 @@
 //import random.js;
 
-function handleDeleteVsClick(e) {
+function handleDeleteVsClick(e,actualForm) {
 	
-	//var add_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/"
-	var form = document.deleteForm;
-	var arg1 = form.arg1.value;
-	var arg2 = form.arg2.value;
+	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentdelete"
+	var form = document.getElementById(actualForm);
+	var url= form.value;
 
 	var data = {};
-	data["arg1"] = arg1;
-	data["arg2"] = arg2;
+	data["s3BucketURLs"] = url;
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
@@ -23,12 +21,14 @@ function handleDeleteVsClick(e) {
 	xhr.onloadend = function () {
 		console.log(xhr);
 		console.log(xhr.request);
+		console.log("helloooooo");
 
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(arg1, arg2, xhr.responseText);
+			refreshVideoSegments();
+			//processAddResponse(url, xhr.responseText);
 		} else {
-			processAddResponse(arg1, arg2, "N/A");
+			//processAddResponse(url, "N/A");
 		}
 	};
 }
