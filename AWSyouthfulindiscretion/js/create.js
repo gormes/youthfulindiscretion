@@ -11,7 +11,7 @@ function handleCreateVsClick(e) {
 
 	var data = {};
 	data["phrase"] = phrase;
-	data["fileName"] = "file name";
+	data["fileName"] = phrase + "_" + actor + ".ogg";
 	data["actor"] = actor;
 	data["encodedContents"] = encodedContents;
 	
