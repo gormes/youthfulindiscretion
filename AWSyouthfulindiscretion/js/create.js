@@ -1,34 +1,11 @@
-/**
- * Respond to server JSON object.
- *
- */
-function processAddResponse(arg1, arg2, result) {
-	// Can grab any DIV or SPAN HTML element and can then manipulate its
-	// contents dynamically via javascript
-	console.log("result:" + result);
-	var js = JSON.parse(result);
-
-	var computation = js["result"];
-	var status      = js["statusCode"];
-
-	if (status == 200) {
-		// Update computation result
-		document.addForm.result.value = computation
-	} else {
-		var msg = js["error"];
-		document.addForm.result.value = "error:" + msg
-	}
-}
-
-function handleCreateClick(e) {
-	var add_url = "https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator"
-		var form = document.addForm;
-	var arg1 = form.arg1.value;
-	var arg2 = form.arg2.value;
+function handleCreateVsClick(e) {
+	
+	var create_url = ""
+	var form = document.getElementById(actualForm);
+	var url= form.value;
 
 	var data = {};
-	data["arg1"] = arg1;
-	data["arg2"] = arg2;
+	data["s3BucketURLs"] = url;
 
 	var js = JSON.stringify(data);
 	console.log("JS:" + js);
@@ -42,13 +19,47 @@ function handleCreateClick(e) {
 	xhr.onloadend = function () {
 		console.log(xhr);
 		console.log(xhr.request);
+		console.log("helloooooo");
 
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(arg1, arg2, xhr.responseText);
+			refreshVideoSegments();
+			//processAddResponse(url, xhr.responseText);
 		} else {
-			processAddResponse(arg1, arg2, "N/A");
+			//processAddResponse(url, "N/A");
 		}
 	};
 }
 
+function handleCreatePlaylistClick(e) {
+	
+	var create_url =  "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/playlist"
+	
+
+	var data = {};
+	//data["arg2"] = arg2;
+
+	var js = JSON.stringify(data);
+	console.log("JS:" + js);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", create_url, true);
+
+	// send the collected data as JSON
+	xhr.send(js);
+
+	// This will process results and update HTML as appropriate. 
+	xhr.onloadend = function () {
+		console.log(xhr);
+		console.log(xhr.request);
+
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			console.log ("XHR:" + xhr.responseText);
+			//processAddResponse(id, xhr.responseText);
+			console.log("run");
+			refreshPlaylistList();
+		} else {
+			//processAddResponse(id, "N/A");
+			console.log("no");
+		}
+	};
+}
