@@ -14,7 +14,7 @@ import player.http.PlaylistRequest;
 public class DeletePlaylistHandlerTest extends LambdaTest {
 
 	@Test
-    public void testCreateAndDeleteConstant() {
+    public void testCreateAndDeletePlaylist() {
         PlaylistRequest cpr = new PlaylistRequest();
         
         CreatePlaylistResponse resp = new CreatePlaylistHandler().handleRequest(cpr, createContext("create"));
