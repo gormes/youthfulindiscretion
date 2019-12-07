@@ -1,35 +1,109 @@
 function SearchClick(e) {
-	
-	
-	//var add_url = "https://q0ec12olg0.execute-api.us-east-1.amazonaws.com/beta/calculator"
-	//get the information
 	var form = document.searchForm;
-	var character = form.character.value;
-	var phrase = form.phrase.value;
-
 	var data = {};
-	data["character"] = character;
-	data["phrase"] = phrase;
+	data["character"] = form.character.value;
+	data["phrase"] = form.phrase.value;
+	if (data["character"]!="" && data["phrase"]!=""){
+		searchByBoth();
+	}
+	if (data["character"]!="" && data["phrase"]==""){
+		searchByCharacter();
+	}
+	if (data["character"]=="" && data["phrase"]!=""){
+		searchByPhrase();
+	}
+}
 
-	//search for the information
-	var js = JSON.stringify(data);
-	console.log("JS:" + js);
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", add_url, true);
+function searchByCharacter() {
 
-	// send the collected data as JSON
-	xhr.send(js);
+	var form = document.searchForm;
+	var data = {};
+	data["character"] = form.character.value;
+	console.log("character: " + data["character"]);
 
-	// This will process results and update HTML as appropriate. 
-	xhr.onloadend = function () {
-		console.log(xhr);
-		console.log(xhr.request);
-
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(arg1, arg2, xhr.responseText);
-		} else {
-			processAddResponse(arg1, arg2, "N/A");
+	parent = document.getElementById('VideoSegmentsSearch');
+	console.log(parent.childNodes.length);
+	for(i = 0; i < parent.childNodes.length; i++){
+		var e = parent.childNodes[i];
+		if (e.nodeType == 1){
+			if(data["character"]!=""){
+				e.style.display = "none";
+			}
+			else {
+				e.style.display = "block";
+			}
 		}
-	};
+	}
+
+	var foundVidList = document.getElementsByClassName(data["character"]);
+	console.log(foundVidList.length)
+	for (i = 0; i < foundVidList.length; i++) {
+		var vid = foundVidList[i];
+		console.log(vid);
+		vid.style.display = "block";
+	}
+}
+
+function searchByPhrase() {
+	var form = document.searchForm;
+	var data = {};
+	data["phrase"] = form.phrase.value;
+	console.log("phrase: " + data["phrase"]);
+
+	parent = document.getElementById('VideoSegmentsSearch');
+	console.log(parent.childNodes.length);
+	for(i = 0; i < parent.childNodes.length; i++){
+		var e = parent.childNodes[i];
+		if (e.nodeType == 1){
+			if(data["phrase"]!=""){
+				e.style.display = "none";
+			}
+			else {
+				e.style.display = "block";
+			}
+		}
+	}
+	var foundVidList = document.getElementsByClassName(data["phrase"]);
+	console.log(foundVidList.length)
+	var compare = false;
+	for (i = 0; i < foundVidList.length; i++) {
+		var vid = foundVidList[i];
+		console.log(vid);
+		for (j = 1; j < vid.className.split(' ').length; j++){
+			if(vid.className.split(' ')[j]==data["phrase"].split(' ')[j-1]){
+				compare = true;
+			}
+			else {
+				compare = false;
+			}
+		}
+		if(compare){
+			vid.style.display = "block";
+		}
+	}
+}
+
+function searchByBoth() {
+	var form = document.searchForm;
+	var data = {};
+	data["character"] = form.character.value;
+	console.log("data character: " + data["character"]);
+	data["phrase"] = form.phrase.value;
+	console.log("data phrase: " + data["phrase"]);
+
+	parent = document.getElementById('VideoSegmentsSearch');
+	console.log(parent.childNodes.length);
+	for(i = 0; i < parent.childNodes.length; i++){
+		var e = parent.childNodes[i];
+		if (e.nodeType == 1){
+			e.style.display = "none";
+		}
+	}
+	var foundVidList = document.getElementsByClassName(data["character"] + " " + data["phrase"]);
+	console.log(foundVidList.length)
+	for (i = 0; i < foundVidList.length; i++) {
+		var vid = foundVidList[i];
+		console.log(vid);
+		vid.style.display = "block";
+	}
 }
