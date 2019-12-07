@@ -110,7 +110,7 @@ public class PlaylistDAO {
 	private Playlist appendToPlaylist(ResultSet resultSet, Playlist p) throws Exception {
 		VideoSegmentDAO dao = new VideoSegmentDAO();
 		String currid = resultSet.getString("s3BucketURL");
-		VideoSegment currvs = dao.getVideoSegment(currid);
+		VideoSegment currvs = dao.getVideoSegmentFromURL(currid);
 		if (currvs!=null)
 			p.videoSegments.add(currvs);
         return p;
