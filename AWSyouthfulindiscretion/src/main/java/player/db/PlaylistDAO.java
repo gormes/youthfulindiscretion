@@ -2,7 +2,10 @@ package player.db;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import player.model.Playlist;
@@ -43,33 +46,49 @@ public class PlaylistDAO {
 	}
 	
 	public List<Playlist> getAllPlaylists() throws Exception {
-		List<Playlist> allPlaylists = new ArrayList<Playlist>();
-		Playlist lastPlaylist = null;
-		Playlist currPlaylist = null;
+		
 		try {	
 			Statement statement = conn.createStatement();
 			String query = "SELECT * FROM playlist;";
 			ResultSet resultSet = statement.executeQuery(query);
-			
+
+			HashMap<UUID, ArrayList<String>> list = new HashMap<UUID, ArrayList<String>>();
 			while (resultSet.next()) {
 				UUID currID = UUID.fromString(resultSet.getString("playlistName"));
-				if (lastPlaylist == null)
-					currPlaylist = new Playlist(currID);
-				else if (!lastPlaylist.id.equals(currID)) { 
-					allPlaylists.add(lastPlaylist);
-					currPlaylist = new Playlist(currID);
-				} else currPlaylist = lastPlaylist;
-				appendToPlaylist(resultSet, currPlaylist);
-				lastPlaylist = currPlaylist;
-	        }
-			allPlaylists.add(currPlaylist);
+				ArrayList<String> vslist = (list.get(currID)==null) ? new ArrayList<String>(): list.get(currID);
+				String entry = resultSet.getString("s3BucketURL");
+				if (null!=entry&&!"".equals(entry)) vslist.add(entry);
+				list.put(currID,vslist);
+			}
 	        resultSet.close();
 	        statement.close();
-			return allPlaylists;
+			return listify(list);
 	
 	    } catch (Exception e) {
 	        throw new Exception("Failed in getting Playlist: " + e.getMessage());
 	    }
+	}
+	
+	private static List<Playlist> listify(HashMap<UUID,ArrayList<String>> map) throws Exception {
+		List<Playlist> ret = new ArrayList<Playlist>();
+		Playlist currPlaylist = null;
+		VideoSegmentDAO dao = new VideoSegmentDAO();
+		try {
+		    Iterator<Entry<UUID, ArrayList<String>>> it = map.entrySet().iterator();
+		    while (it.hasNext()) {
+		        HashMap.Entry<UUID, ArrayList<String>> pair = (HashMap.Entry<UUID, ArrayList<String>>)it.next();
+		        currPlaylist = new Playlist(pair.getKey());
+		        for (String s : pair.getValue()) {
+		        	currPlaylist.videoSegments.add(dao.getVideoSegmentFromURL(s));
+		        }
+		        ret.add(currPlaylist);
+		        it.remove(); // avoids a ConcurrentModificationException
+		    }
+		    return ret;
+		}
+		catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 	
 	public boolean addPlaylist(Playlist p) throws Exception {
