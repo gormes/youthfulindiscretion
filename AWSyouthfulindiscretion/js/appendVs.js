@@ -12,7 +12,7 @@ function handleAppend(e, id) {
 
 //selecting playlist and uses the selected video segment 
 function handleAppendClick(e,id,number) {
-	
+	console.log("APPENDING TO PLAYLIST");
 	if (number==0){
 		var append_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentappend";
 		var playlistId= document.getElementById("playlist"+id);
