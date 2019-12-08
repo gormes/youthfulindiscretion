@@ -40,7 +40,15 @@ function searchByCharacter() {
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);
-		vid.style.display = "block";
+		if(vid.className.split(' ')[0]==data["character"]){
+			compare = true;
+		}
+		else {
+			compare = false;
+		}
+		if(compare){
+			vid.style.display = "block";
+		}
 	}
 }
 
