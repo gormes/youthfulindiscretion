@@ -1,0 +1,31 @@
+swagger: '2.0'
+info:
+  description: API for accessing remote files
+  version: 1.0.0
+  title: Remote API Youthful Indiscretion
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /inventory:
+    get:
+      summary: returns public video segments
+      operationId: getPublicVideoSegments
+      description: |
+        Returns a list of the publicly available video
+        segments for remote use on another admin's site
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: results matching criteria
+        404:
+          description: video clips not found
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /YouthfulIndiscretion/RemoteAPI/1.0.0
+schemes:
+ - https
