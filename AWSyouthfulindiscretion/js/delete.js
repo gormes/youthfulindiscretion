@@ -5,7 +5,7 @@ function handleDeleteVsClick(e,actualForm) {
 	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentdelete"
 	console.log(actualForm);
 	var form = document.getElementById(actualForm);
-	console.log(form);
+	console.log("actual form "+form);
 	var url= form.value;
 	console.log(url);
 	var data = {};
