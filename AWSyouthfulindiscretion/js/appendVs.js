@@ -3,9 +3,11 @@
 var selectedVs=null;
 
 //selecting video segment
-function handleAppendClick(e, id) {
+function handleAppend(e, id) {
 	
 	selectedVs=document.getElementById(id).value;
+	console.log("selected vs "+selectedVs);
+}
 	
 	/*
 	var append_url = ""
@@ -43,18 +45,19 @@ function handleAppendClick(e, id) {
 //selecting playlist
 function handleAppendClick(e,id,number) {
 	
-	if number==0{
+	if (number==0){
 		var append_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentappend";
-		var playlistId= "playlist"+document.getElementById(id);
+		var playlistId= document.getElementById("playlist"+id);
+		console.log("id is: "+id);
 		
 		var data= {};
-		data["vsurl"]= selectedVs;
-		data["plid"]= playlistId;
+		data["vsid"]= selectedVs;
+		data["plid"]= id;
 		
 		var js = JSON.stringify(data);
 		console.log("JS:" + js);
 		var xhr = new XMLHttpRequest();
-		xhr.open("POST", add_url, true);
+		xhr.open("POST", append_url, true);
 
 		// send the collected data as JSON
 		xhr.send(js);
@@ -66,10 +69,8 @@ function handleAppendClick(e,id,number) {
 
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				console.log ("XHR:" + xhr.responseText);
-				processAddResponse(arg1, arg2, xhr.responseText);
-			} else {
-				processAddResponse(arg1, arg2, "N/A");
-			}
+				
+			} 
 		};
 	}
 }
