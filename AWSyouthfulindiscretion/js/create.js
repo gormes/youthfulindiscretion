@@ -34,6 +34,7 @@ function handleCreateVsClick(e) {
 
 		if (xhr.readyState == XMLHttpRequest.DONE) {
 			console.log ("XHR:" + xhr.responseText);
+			refreshVideoSegments();
 			//refreshVideoSegments();
 		} else {
 			console.log("no");
