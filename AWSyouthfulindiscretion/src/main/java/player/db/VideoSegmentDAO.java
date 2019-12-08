@@ -101,6 +101,23 @@ public class VideoSegmentDAO {
     }
 	}
 	
+	public List<VideoSegment> getAllUnmarkedVideoSegments() throws Exception {
+		List<VideoSegment> allUnmarkedVideoSegments = new ArrayList<VideoSegment>();
+		try {	
+			Statement statement = conn.createStatement();
+			String query = "SELECT * FROM videoSeg WHERE marked=0;";
+			ResultSet resultSet = statement.executeQuery(query);
+			
+			while (resultSet.next()) {
+	            VideoSegment vs = generateVideoSegment(resultSet);
+	            allUnmarkedVideoSegments.add(vs);
+	        }
+			return allUnmarkedVideoSegments;
+		} catch (Exception e) {
+			throw new Exception("Failed in getting public Video Segments: " + e.getMessage());
+		}
+	}
+	
 	public boolean addVideoSegment( VideoSegment vs) throws Exception {
 		boolean result = false;
 		PreparedStatement ps;
