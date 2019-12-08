@@ -1,3 +1,4 @@
+//displaying the playlists
 function refreshPlaylistList() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", listp_url, true);
@@ -16,7 +17,7 @@ function refreshPlaylistList() {
 		};
 	}
 	
-	
+//displaying the video segments 
 	function refreshVideoSegments() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", listv_url, true);
@@ -35,7 +36,7 @@ function refreshPlaylistList() {
 		};
 	}
 	
-	
+//displaying the playlists in the drop down menu
 	function displayPlaylists() {
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", listp_url, true);
@@ -90,7 +91,7 @@ function refreshPlaylistList() {
 				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
 			*/
 			}
-			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <form id=\"deleteForm" + i + "\" name=\"deleteForm" + i + "\"> <input name=\"pid\" value=\""+pid+"\"> </form> <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
+			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <form id=\"deleteForm" + i + "\" \"> <input name=\"pid\" value=\""+pid+"\"> </form> <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
 		}
 
 		// Update computation result
@@ -124,7 +125,7 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"deleteVs" + i + "\" onClick=\"JavaScript:handleDeleteVsClick(this,'deleteVs" + i + "')\">Delete vs</button>"+ "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"deleteVs" + i + "\" onClick=\"JavaScript:handleDeleteVsClick(this,'deleteVs" + i + "')\">Delete vs</button>"+ "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
 			}
 
 			// Update computation result
@@ -145,7 +146,7 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
 			}
 			
 			
