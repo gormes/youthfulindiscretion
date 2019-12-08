@@ -37,6 +37,7 @@ function handleAppendClick(e,id,number) {
 
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				console.log ("XHR:" + xhr.responseText);
+				refreshPlaylistList();
 				
 			} 
 		};
