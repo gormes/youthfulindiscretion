@@ -1,3 +1,4 @@
+//it refreshes the sites in the admin website 
 function refreshSites() {
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", lists_url, true);
@@ -17,12 +18,7 @@ function refreshSites() {
 }
 
 
-//TODO
-/**
- * Respond to server JSON object.
- *
- * Replace the contents of 'constantList' with a <br>-separated list of name,value pairs.
- */
+//lists the sites 
 function processListResponseSites(result) {
 	console.log("res:" + result);
 	// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript

@@ -1,3 +1,5 @@
+
+//uploading a video segment 
 function handleCreateVsClick(e) {
 	var create_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegment";
 	
@@ -39,6 +41,7 @@ function handleCreateVsClick(e) {
 	};
 }
 
+//creating a playlist
 function handleCreatePlaylistClick(e) {
 	
 	var create_url =  "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/playlist"

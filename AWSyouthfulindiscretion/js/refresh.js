@@ -170,7 +170,7 @@ function refreshPlaylistList() {
 					//pid = "\""+pid+"\"";
 					var pvideo = playlistJson["videoSegments"];
 					var vidout = "";
-					output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <button type=\"button\" value="+pid+" onClick=\"JavaScript:handleAppendClick(this,'" + pid + "',0)\">"+pid+"</button> <br>";
+					output = output + "<div id=\"playlist" + pid + "\"><button type=\"button\" value="+pid+" onClick=\"JavaScript:handleAppendClick(this,'" + pid + "',0)\">"+"Playlist "+pid+"</button> <br>";
 				}
 				// Update computation result
 				playlist.innerHTML = output;

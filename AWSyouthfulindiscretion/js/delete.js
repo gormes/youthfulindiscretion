@@ -1,5 +1,6 @@
 //import random.js;
 
+//deleting a video segment 
 function handleDeleteVsClick(e,actualForm) {
 	
 	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentdelete"
@@ -35,6 +36,7 @@ function handleDeleteVsClick(e,actualForm) {
 	};
 }
 
+//deleting a playlist
 function handleDeletePlaylistClick(e, actualForm) {
 	console.log ("form:" + actualForm);
 	var delete_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/playlistdelete"

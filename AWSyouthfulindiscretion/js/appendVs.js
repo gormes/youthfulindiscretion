@@ -2,47 +2,15 @@
 
 var selectedVs=null;
 
-//selecting video segment
+//selecting video segment, saves it one at a time
 function handleAppend(e, id) {
 	
 	selectedVs=document.getElementById(id).value;
 	console.log("selected vs "+selectedVs);
 }
 	
-	/*
-	var append_url = ""
-		var form = document.addForm;
-	var arg1 = form.arg1.value;
-	var arg2 = form.arg2.value;
 
-	var data = {};
-	data["arg1"] = arg1;
-	data["arg2"] = arg2;
-
-	var js = JSON.stringify(data);
-	console.log("JS:" + js);
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", add_url, true);
-
-	// send the collected data as JSON
-	xhr.send(js);
-
-	// This will process results and update HTML as appropriate. 
-	xhr.onloadend = function () {
-		console.log(xhr);
-		console.log(xhr.request);
-
-		if (xhr.readyState == XMLHttpRequest.DONE) {
-			console.log ("XHR:" + xhr.responseText);
-			processAddResponse(arg1, arg2, xhr.responseText);
-		} else {
-			processAddResponse(arg1, arg2, "N/A");
-		}
-	};
-}
-*/
-
-//selecting playlist
+//selecting playlist and uses the selected video segment 
 function handleAppendClick(e,id,number) {
 	
 	if (number==0){
