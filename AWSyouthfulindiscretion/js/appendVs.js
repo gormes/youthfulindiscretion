@@ -19,7 +19,7 @@ function handleAppendClick(e,id,number) {
 		console.log("id is: "+id);
 		
 		var data= {};
-		data["vsid"]= selectedVs;
+		data["vsurl"]= selectedVs;
 		data["plid"]= id;
 		
 		var js = JSON.stringify(data);

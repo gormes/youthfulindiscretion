@@ -13,7 +13,7 @@ public class AppendVideoSegmentHandler implements RequestHandler<AppendVideoSegm
 	
 	/** Store into RDS.
 	 * 
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	 boolean appendVideoSegment(String vsurl, String plid) throws Exception {
 		if (logger != null) {logger.log("in appendVideoSegment");}

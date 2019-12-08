@@ -38,7 +38,7 @@ public class AppendVideoSegmentHandlerTest extends LambdaTest {
 		VideoSegmentDAO vdao = new VideoSegmentDAO();
 		Playlist p = new Playlist();
 		VideoSegment vs1 = new VideoSegment("Kirk", "are you","https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/areyou_kirk.ogg");
-		VideoSegment vs2 = new VideoSegment("mmcoy", "captain", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/captain_mmcoy.ogg");
+		VideoSegment vs2 = new VideoSegment("mccoy", "captain", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/captain_mccoy.ogg");
 		try {
 			pdao.addPlaylist(p);
 			
