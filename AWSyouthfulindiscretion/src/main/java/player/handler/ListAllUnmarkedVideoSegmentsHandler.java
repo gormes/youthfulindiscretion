@@ -1,5 +1,6 @@
 package player.handler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +13,9 @@ import player.db.VideoSegmentDAO;
 import player.http.AllUnmarkedVideoSegmentsResponse;
 import player.model.VideoSegment;
 
-public class ListAllUnmarkedVideoSegmentsHandler implements RequestHandler<S3Event, AllUnmarkedVideoSegmentsResponse>{
+import player.http.RemoteSegmentResponseObject;
+
+public class ListAllUnmarkedVideoSegmentsHandler implements RequestHandler<Object, AllUnmarkedVideoSegmentsResponse>{
 
     private AmazonS3 s3 = null;
 
@@ -23,19 +26,23 @@ public class ListAllUnmarkedVideoSegmentsHandler implements RequestHandler<S3Eve
         this.s3 = s3;
     }
 
-    List<VideoSegment> listAllUnmarkedVideoSegments() throws Exception{
+    List<RemoteSegmentResponseObject> listAllUnmarkedVideoSegments() throws Exception{
+    	List<RemoteSegmentResponseObject> ret = new ArrayList<RemoteSegmentResponseObject>();
     	VideoSegmentDAO dao = new VideoSegmentDAO();
-    	
-    	return dao.getAllUnmarkedVideoSegments();
+    	List<VideoSegment> tmp = dao.getAllUnmarkedVideoSegments();
+    	for(VideoSegment vs : tmp) {
+    		ret.add(new RemoteSegmentResponseObject(vs.url, vs.actor, vs.phrase));
+    	}
+    	return ret;
     }
     
     @Override
-    public AllUnmarkedVideoSegmentsResponse handleRequest(S3Event event, Context context) {
-        context.getLogger().log("Received event: " + event);
+    public AllUnmarkedVideoSegmentsResponse handleRequest(Object input, Context context) {
+        context.getLogger().log("Loading Java Lambda handler to list all remote segments");
 
         AllUnmarkedVideoSegmentsResponse response;
         try {
-        	List<VideoSegment> list = listAllUnmarkedVideoSegments();
+        	List<RemoteSegmentResponseObject> list = listAllUnmarkedVideoSegments();
         	response = new AllUnmarkedVideoSegmentsResponse(list, 200);
         } catch (Exception e) {
         	response = new AllUnmarkedVideoSegmentsResponse(404, e.getMessage());

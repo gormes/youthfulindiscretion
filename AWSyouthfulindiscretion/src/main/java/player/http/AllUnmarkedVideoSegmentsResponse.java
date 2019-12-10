@@ -3,21 +3,19 @@ package player.http;
 import java.util.ArrayList;
 import java.util.List;
 
-import player.model.VideoSegment;
-
 public class AllUnmarkedVideoSegmentsResponse {
-	public final List<VideoSegment> segments;
+	public final List<RemoteSegmentResponseObject> segments;
 	public final int statusCode;
 	public final String error;
 	
-	public AllUnmarkedVideoSegmentsResponse (List<VideoSegment> list, int code) {
+	public AllUnmarkedVideoSegmentsResponse (List<RemoteSegmentResponseObject> list, int code) {
 		this.segments = list;
 		this.statusCode = code;
 		this.error = "";
 	}
 	
 	public AllUnmarkedVideoSegmentsResponse (int code, String errorMessage) {
-		this.segments = new ArrayList<VideoSegment>();
+		this.segments = new ArrayList<RemoteSegmentResponseObject>();
 		this.statusCode = code;
 		this.error = errorMessage;
 	}

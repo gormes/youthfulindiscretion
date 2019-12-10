@@ -15,6 +15,7 @@ import com.amazonaws.services.s3.model.S3Object;
 
 import player.handler.ListAllUnmarkedVideoSegmentsHandler;
 import player.http.AllUnmarkedVideoSegmentsResponse;
+import player.http.RemoteSegmentResponseObject;
 import player.model.VideoSegment;
 
 public class AllUnmarkedVideoSegmentHandlerTest extends LambdaTest {
@@ -38,8 +39,9 @@ public class AllUnmarkedVideoSegmentHandlerTest extends LambdaTest {
 	@Test
 	public void test() {
 		AllUnmarkedVideoSegmentsResponse resp = new ListAllUnmarkedVideoSegmentsHandler().handleRequest(event, createContext("list"));
-		for (VideoSegment vs : resp.segments) {
-			System.out.println(vs);
+		System.out.println(resp.segments);
+		for (RemoteSegmentResponseObject rsro : resp.segments) {
+			System.out.println(rsro);
 		}
 	}
 
