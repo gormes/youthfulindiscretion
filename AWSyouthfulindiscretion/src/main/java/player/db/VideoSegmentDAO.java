@@ -168,4 +168,24 @@ public class VideoSegmentDAO {
             throw new Exception("Failed to insert constant: " + e.getMessage());
 		}
 	}
+	
+	public boolean markVideoSegment(VideoSegment vs) throws Exception {
+		boolean response = false;
+		PreparedStatement ps;
+		try {
+			ps = conn.prepareStatement("UPDATE 'innodb'.'videoSeg' SET 'marked' = '?' WHERE ('s3BucketURL' = ?); values(?,?);");
+			if(vs.marked) {
+				ps.setLong(1, 1);
+			} else {
+				ps.setLong(1, 0);
+			}
+			ps.setString(2, vs.url);
+			ps.execute();
+			ps.close();
+			response = true;
+		} catch (Exception e) {
+			throw new Exception("Failed in marking Video Segment: " + e.getMessage());
+		}
+		return response;
+	}
 }
