@@ -20,7 +20,18 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.http.AppendVideoSegmentRequest;
+import player.http.AppendVideoSegmentResponse;
+import player.http.CreatePlaylistResponse;
+import player.http.CreateVideoSegmentRequest;
+import player.http.CreateVideoSegmentResponse;
+import player.http.PlaylistRequest;
 import player.http.RemoveVideoSegmentPlaylistRequest;
+import player.http.RemoveVideoSegmentPlaylistResponse;
+import player.http.VideoSegmentMarkRequest;
+import player.http.VideoSegmentMarkResponse;
+import player.model.Playlist;
+import player.model.VideoSegment;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
@@ -62,12 +73,24 @@ public class RemoveVideoSegmentHandlerTest {
     @Test
     public void testRemoveVideoSegmentHandler() {
         RemoveVideoSegmentHandler handler = new RemoveVideoSegmentHandler();
-        RemoveVideoSegmentRequest request = new RemoveVideoSegmentPlaylistRequest(CONTENT_TYPE, CONTENT_TYPE);
         Context ctx = createContext();
+        
+        UploadVideoSegmentsHandler handlerVS = new UploadVideoSegmentsHandler();
+        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("markTest", "actor", "phrase", "contents");
+        CreateVideoSegmentResponse responseVS = handlerVS.handleRequest(requestVS, ctx);
+        VideoSegment vs = responseVS.vs;
+        
+        PlaylistRequest requestP = new PlaylistRequest("playlistTest");
+        CreatePlaylistHandler handlerP = new CreatePlaylistHandler();
+        CreatePlaylistResponse responseP = handlerP.handleRequest(requestP, ctx);
+        
+        AppendVideoSegmentRequest requestA = new AppendVideoSegmentRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest", "playlistTest");
+        AppendVideoSegmentHandler handlerA = new AppendVideoSegmentHandler();
+        AppendVideoSegmentResponse responseA = handlerA.handleRequest(requestA, ctx);
+        
+        RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest("playlistTest", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest");
+        RemoveVideoSegmentPlaylistResponse output = handler.handleRequest(request, ctx);
+        Assert.assertEquals(200, output.statusCode);
 
-        String output = handler.handleRequest(event, ctx);
-
-        // TODO: validate output here if needed.
-        Assert.assertEquals(CONTENT_TYPE, output);
     }
 }

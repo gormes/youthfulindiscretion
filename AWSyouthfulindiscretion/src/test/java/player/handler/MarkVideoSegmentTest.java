@@ -71,7 +71,7 @@ public class MarkVideoSegmentTest {
         CreateVideoSegmentResponse responseVS = handlerVS.handleRequest(requestVS, ctx);
         VideoSegment vs = responseVS.vs;
         	
-        VideoSegmentMarkRequest request = new VideoSegmentMarkRequest("-----ADD HEADER-----markTest", true);
+        VideoSegmentMarkRequest request = new VideoSegmentMarkRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest", true);
         VideoSegmentMarkResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);
        output = handler.handleRequest(request, ctx);
