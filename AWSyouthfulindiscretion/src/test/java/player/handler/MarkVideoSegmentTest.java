@@ -21,6 +21,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.db.VideoSegmentDAO;
 import player.http.CreateVideoSegmentRequest;
 import player.http.CreateVideoSegmentResponse;
 import player.http.VideoSegmentMarkRequest;
@@ -66,6 +67,7 @@ public class MarkVideoSegmentTest {
     @Test
     public void testMarkVideoSegment() {
     	try {
+    		VideoSegmentDAO dao = new VideoSegmentDAO();
 	        MarkVideoSegmentHandler handler = new MarkVideoSegmentHandler();
 	        Context ctx = createContext();
 	        
@@ -74,13 +76,15 @@ public class MarkVideoSegmentTest {
 	        UploadVideoSegmentsHandler handlerVS = new UploadVideoSegmentsHandler();
 	        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("Mark Test: " + x, "actor", "phrase", "contents");
 	        CreateVideoSegmentResponse responseVS = handlerVS.handleRequest(requestVS, ctx);
-	        VideoSegment vs = responseVS.vs;
-	        	
 	        VideoSegmentMarkRequest request = new VideoSegmentMarkRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Mark Test: " + x, true);
 	        VideoSegmentMarkResponse output = handler.handleRequest(request, ctx);
 	        Assert.assertEquals(200, output.statusCode);
 	        output = handler.handleRequest(request, ctx);
 	        Assert.assertEquals(400, output.statusCode);
+	        request = new VideoSegmentMarkRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Mark Test: " + x, false);
+	        output = handler.handleRequest(request, ctx);
+	        Assert.assertEquals(200, output.statusCode);
+	        dao.deleteVideoSegment("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Mark Test: " + x);
     	}
     	catch (Exception e) {
     		fail("test failed: " + e.getMessage());
