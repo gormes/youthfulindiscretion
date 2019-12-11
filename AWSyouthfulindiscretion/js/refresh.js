@@ -82,7 +82,11 @@ function refreshPlaylistList() {
 				if(!(pvideo[j]==(null))){
 				var vidJson = pvideo[j];
 				var url = vidJson["url"];
-				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
+				//vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
+			    vidout += "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\"";
+			    //if (j == 0) { vidout += " controls"; } else{}
+			    vidout += " controls"
+			    vidout += "><source src=\""+url+"\"type=\"video/ogg\"> </video>";
 				}
 				/**
 				console.log(pvideo[j])
@@ -91,7 +95,7 @@ function refreshPlaylistList() {
 				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
 			*/
 			}
-			output = output + "<div id=\"playlist" + pid + "\"><b>Playlist "+pid+"</b> <form id=\"deleteForm" + i + "\" \"> <input name=\"pid\" value=\""+pid+"\"> </form> <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
+			output = output + "<div id=\"playlist" + pid + "\" class=\"playlist\"> <b>Playlist "+pid+"</b> <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
 		}
 
 		// Update computation result
@@ -125,7 +129,7 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"deleteVs" + i + "\" onClick=\"JavaScript:handleDeleteVsClick(this,'deleteVs" + i + "')\">Delete vs</button>"+ "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
+				output = output + "<div id=\"vs" + actor + "" + phrase+ "\">" +"<button type=\"button\" value=\""+url+"\" id=\"deleteVs" + i + "\" onClick=\"JavaScript:handleDeleteVsClick(this,'deleteVs" + i + "')\">Delete vs</button>"+ "<video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+"<br>Phrase: "+phrase;
 			}
 
 			// Update computation result
@@ -146,7 +150,9 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
+				//output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
+				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+				output2 = output2 + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
 			}
 			
 			
