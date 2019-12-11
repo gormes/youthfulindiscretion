@@ -168,7 +168,6 @@ function processResponseSearchVS(result) {
 		var id = constantJson["id"];
 		output = output + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
 		output = output + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
-		console.log(output);
 	}
 	
 	videoSegSearch.innerHTML= output;
