@@ -95,7 +95,7 @@ function refreshPlaylistList() {
 				vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
 			*/
 			}
-			output = output + "<div id=\"playlist" + pid + "\" class=\"playlist\"> <b>Playlist "+pid+"</b> <input type=\"button\" value=\"Delete\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
+			output = output + "<div id=\"deleteForm"+i+"\" class=\"playlist\" title=\""+pid+"\"> <b>Playlist "+pid+"</b> <input type=\"button\" value=\"Delete\" id=\""+pid+"\" onClick=\"JavaScript:handleDeletePlaylistClick(this, 'deleteForm" + i + "')\"> <br> <div class=\"playlist" + i + "vids\">" + vidout + "</div></div>";
 		}
 
 		// Update computation result
@@ -103,7 +103,6 @@ function refreshPlaylistList() {
 		console.log("============");
 		console.log (output);
 		console.log*("--------");
-		console.log(document.getElementById('deleteForm0'));
 	}
 	 
 	 /**
@@ -115,7 +114,9 @@ function refreshPlaylistList() {
 		 //VIDEO SEGMENT
 		function processResponseVs(result) {
 			console.log("res:" + result);
-			// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+			
+			
+			//Displaying in the Video Segment Section
 			var js = JSON.parse(result);
 			var constList = document.getElementById('VideoSegments');
 			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
@@ -135,12 +136,11 @@ function refreshPlaylistList() {
 			// Update computation result
 			constList.innerHTML = output;
 			
-			//Append video segments 
-		
+			
+			//Displaying video segments in the Search Video Segment section (add the remote video segments)
 			var js = JSON.parse(result);
-			var constList = document.getElementById('VideoSegments');
 			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
-
+			
 			var output2 = "";
 			for (var i = 0; i < js.list.length; i++) {
 				var constantJson = js.list[i];
@@ -150,17 +150,14 @@ function refreshPlaylistList() {
 				var phrase = constantJson["phrase"];
 				var url = constantJson["url"];
 				var id = constantJson["id"];
-				//output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div> Character: "+actor+" Phrase: "+phrase;
+				
 				output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
 				output2 = output2 + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
 			}
 			
-			
-			
-			
 			videoSegSearch.innerHTML= output2;
-			//console.log(output);
 		}
+		
 		 //Append Playlist
 		 function processDisplayResponse(result) {
 				console.log("res:" + result);

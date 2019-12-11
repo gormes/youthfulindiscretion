@@ -44,7 +44,7 @@ function handleDeletePlaylistClick(e, actualForm) {
 	//var form = document.deletePlaylistForm;
 	var form = document.getElementById(actualForm);
 	console.log("here is form:" + form);
-	var id = form.pid.value;
+	var id = form.title;
 	console.log(id)
 	//var arg2 = form.arg2.value;
 
