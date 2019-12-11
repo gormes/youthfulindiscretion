@@ -180,11 +180,20 @@ public class PlaylistDAO {
 
 	public void deleteFromPlaylist(String pID, String vsURL) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM playlist WHERE (playlistName = ? AND s3BucketURL = ?) limit 1;");
-			ps.setString(1, pID);
-			ps.setString(2, vsURL);
-			int response = ps.executeUpdate();
-			ps.close();
+			if (getPlaylist(pID).videoSegments.isEmpty()) {
+				PreparedStatement ps = conn.prepareStatement("UPDATE playlist SET s3BucketURL=? WHERE playlistName=?;");
+				ps.setString(1, "");
+				ps.setString(2, pID);
+				ps.execute();
+				ps.close();
+			}
+			else {
+				PreparedStatement ps = conn.prepareStatement("DELETE FROM playlist WHERE (playlistName = ? AND s3BucketURL = ?) limit 1;");
+				ps.setString(1, pID);
+				ps.setString(2, vsURL);
+				int response = ps.executeUpdate();
+				ps.close();
+			}
 		} catch (Exception e) {
 			throw new Exception("Unable to remove " + vsURL + " from " + pID);
 		}

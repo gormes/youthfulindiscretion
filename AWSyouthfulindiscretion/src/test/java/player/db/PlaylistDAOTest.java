@@ -23,7 +23,9 @@ public class PlaylistDAOTest {
 			
 			assertEquals(true, response);
 			
-			response = dao.appendToPlaylist(vs.id.toString(), p.id.toString());
+			response = dao.appendToPlaylist(vs.url, p.id.toString());
+			
+			dao.deletePlaylist(p);
 			
 			assertEquals(true, response);
 		}
@@ -33,7 +35,7 @@ public class PlaylistDAOTest {
 	}
 	
 	@Test
-	public void testFind() {
+	public void testFindandDeleteFrom() {
 		PlaylistDAO dao = new PlaylistDAO();
 		
 		try {
@@ -45,6 +47,8 @@ public class PlaylistDAOTest {
 			
 			assertTrue(dao.findVideoSegment(p.id.toString(), vs1.url));
 			assertFalse(dao.findVideoSegment(p.id.toString(), vs2.url));
+			
+			dao.deleteFromPlaylist(p.id.toString(),vs1.url);
 			
 			dao.deletePlaylist(p);
 		}
