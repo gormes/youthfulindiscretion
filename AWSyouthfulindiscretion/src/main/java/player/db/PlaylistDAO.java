@@ -180,7 +180,7 @@ public class PlaylistDAO {
 
 	public void deleteFromPlaylist(String pID, String vsURL) throws Exception {
 		try {
-			if (getPlaylist(pID).videoSegments.isEmpty()) {
+			if (getPlaylist(pID).videoSegments.size()==1) {
 				PreparedStatement ps = conn.prepareStatement("UPDATE playlist SET s3BucketURL=? WHERE playlistName=?;");
 				ps.setString(1, "");
 				ps.setString(2, pID);

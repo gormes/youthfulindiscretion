@@ -39,16 +39,18 @@ public class PlaylistDAOTest {
 		PlaylistDAO dao = new PlaylistDAO();
 		
 		try {
-			VideoSegment vs1 = new VideoSegment("testActor1", "testPhrase1", "testURL1");
-			VideoSegment vs2 = new VideoSegment("testActor1", "testPhrase2", "testURL2");
+			VideoSegment vs1 = new VideoSegment("testActor1", "testPhrase1", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/oh_mccoy.ogg");
+			VideoSegment vs2 = new VideoSegment("testActor2", "testPhrase2", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/captain_mccoy.ogg");
 			Playlist p = new Playlist();
 			dao.addPlaylist(p);
 			dao.appendToPlaylist(vs1.url, p.id.toString());
 			
 			assertTrue(dao.findVideoSegment(p.id.toString(), vs1.url));
 			assertFalse(dao.findVideoSegment(p.id.toString(), vs2.url));
-			
+			dao.appendToPlaylist(vs2.url, p.id.toString());
+
 			dao.deleteFromPlaylist(p.id.toString(),vs1.url);
+			dao.deleteFromPlaylist(p.id.toString(),vs2.url);
 			
 			dao.deletePlaylist(p);
 		}
