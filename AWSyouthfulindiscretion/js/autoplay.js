@@ -54,12 +54,12 @@ function autoPlaylists() {
 		  var vidDiv = document.getElementsByClassName("playlist"+k+"vids")[0];
 		  var vidList = vidDiv.getElementsByTagName("VIDEO");
 		  for (var i = 0; i < vidList.length-1; i++) {
-			  if (priorVid!=null){
-				  var priorVid = document.getElementById("p" + k + "v" + i);
-				  callBackFunction = makePlayFunction("p" + k + "v" + (i+1));
-				  priorVid.addEventListener("ended", callBackFunction);
-			  }
+			var priorVid = document.getElementById("p" + k + "v" + i);
+			callBackFunction = makePlayFunction("p" + k + "v" + (i+1));
+			if (priorVid!=null){
+				priorVid.addEventListener("ended", callBackFunction);
 		  }
 	  }
 
 	}
+}	  
