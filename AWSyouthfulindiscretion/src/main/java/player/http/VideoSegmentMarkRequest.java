@@ -29,6 +29,6 @@ public class VideoSegmentMarkRequest {
 	}
 	
 	public String toString() {
-		return "VideoSegmentMarkRequest(" + id + "," + marked + ")"; 
+		return "VideoSegmentMarkRequest(" + url + "," + marked + ")"; 
 	}
 }
