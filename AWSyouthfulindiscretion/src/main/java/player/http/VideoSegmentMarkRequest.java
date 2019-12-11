@@ -6,6 +6,8 @@ public class VideoSegmentMarkRequest {
 	private String url;
 	private boolean marked;
 	
+	public VideoSegmentMarkRequest() {}
+	
 	public VideoSegmentMarkRequest(String url, boolean marked) {
 		this.url = url;
 		this.marked = marked;
@@ -24,7 +26,7 @@ public class VideoSegmentMarkRequest {
 		return marked;
 	}
 	
-	public void setMarked() {
+	public void setMarked(boolean marked) {
 		this.marked = marked;
 	}
 	
