@@ -173,11 +173,11 @@ public class VideoSegmentDAO {
 		boolean response = false;
 		PreparedStatement ps;
 		try {
-			ps = conn.prepareStatement("UPDATE 'innodb'.'videoSeg' SET 'marked' = '?' WHERE ('s3BucketURL' = ?); values(?,?);");
+			ps = conn.prepareStatement("UPDATE innodb.videoSeg SET marked = ? WHERE(s3BucketURL = ?);");
 			if(vs.marked) {
-				ps.setLong(1, 1);
+				ps.setInt(1, 1);
 			} else {
-				ps.setLong(1, 0);
+				ps.setInt(1, 0);
 			}
 			ps.setString(2, vs.url);
 			ps.execute();

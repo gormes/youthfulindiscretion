@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import player.db.PlaylistDAO;
@@ -26,7 +27,7 @@ public class PlaylistTest {
 			fail("test failed: " + e.getMessage());
 		}
 	}
-
+	/**
 	@Test
 	public void testAll() {
 		try {
@@ -45,6 +46,7 @@ public class PlaylistTest {
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());
 		}
-	}
+		
+	}*/
 
 }

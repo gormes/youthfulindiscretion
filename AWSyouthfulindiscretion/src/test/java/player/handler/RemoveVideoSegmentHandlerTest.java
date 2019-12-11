@@ -75,20 +75,22 @@ public class RemoveVideoSegmentHandlerTest {
         RemoveVideoSegmentHandler handler = new RemoveVideoSegmentHandler();
         Context ctx = createContext();
         
+        int x = (int)(Math.random()*(1000));
+        
         UploadVideoSegmentsHandler handlerVS = new UploadVideoSegmentsHandler();
-        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("markTest", "actor", "phrase", "contents");
+        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("Remove Test: " + x, "actor", "phrase", "contents");
         CreateVideoSegmentResponse responseVS = handlerVS.handleRequest(requestVS, ctx);
         VideoSegment vs = responseVS.vs;
         
-        PlaylistRequest requestP = new PlaylistRequest("playlistTest");
+        PlaylistRequest requestP = new PlaylistRequest();
         CreatePlaylistHandler handlerP = new CreatePlaylistHandler();
         CreatePlaylistResponse responseP = handlerP.handleRequest(requestP, ctx);
         
-        AppendVideoSegmentRequest requestA = new AppendVideoSegmentRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest", "playlistTest");
+        AppendVideoSegmentRequest requestA = new AppendVideoSegmentRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x, responseP.response);
         AppendVideoSegmentHandler handlerA = new AppendVideoSegmentHandler();
         AppendVideoSegmentResponse responseA = handlerA.handleRequest(requestA, ctx);
         
-        RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest("playlistTest", "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest");
+        RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest(responseP.response, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x);
         RemoveVideoSegmentPlaylistResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);
 
