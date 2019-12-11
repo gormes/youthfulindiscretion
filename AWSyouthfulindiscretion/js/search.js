@@ -44,7 +44,7 @@ function searchByCharacter() {
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);
-		if(vid.className.split(' ')[0]==data["character"]){
+		if(vid.className.split(' ')[0].indexOf(data["character"])!=-1){
 			compare = true;
 		}
 		else {
@@ -81,7 +81,7 @@ function searchByPhrase() {
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);
-		for (j = 1; j < vid.className.split(' ').length; j++){
+		/*for (j = 1; j < vid.className.split(' ').length; j++){
 			if(vid.className.split(' ')[j]==data["phrase"].split(' ')[j-1]){
 				compare = true;
 			}
@@ -91,7 +91,19 @@ function searchByPhrase() {
 		}
 		if(compare){
 			vid.style.display = "block";
+		}*/
+		
+		for (j = 1; j < vid.className.split(' ').length; j++){
+		//if(data["phrase"].includes(vid.className.split(' ')[j])){
+		//	vid.style.display = "block";
+		//}
+		if(vid.className.split(' ')[j].includes(data["phrase"])){
+			vid.style.display = "block";
 		}
+		
+
+	}
+		
 	}
 }
 
