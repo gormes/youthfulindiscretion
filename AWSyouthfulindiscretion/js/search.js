@@ -12,6 +12,10 @@ function SearchClick(e) {
 	if (data["character"]=="" && data["phrase"]!=""){
 		searchByPhrase();
 	}
+	if (data["character"]=="" && data["phrase"]==""){
+		refreshSearchVideoSegments();
+	}
+	
 }
 
 function searchByCharacter() {
@@ -114,4 +118,47 @@ function searchByBoth() {
 		console.log(vid);
 		vid.style.display = "block";
 	}
+}
+
+//displaying the video segments 
+function refreshSearchVideoSegments() {
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", listv_url, true);
+	xhr.send();
+
+	console.log("sent");
+
+	// This will process results and update HTML as appropriate. 
+	xhr.onloadend = function () {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+			console.log ("XHR:" + xhr.responseText);
+			processResponseSearchVS(xhr.responseText);
+		} else {
+			processResponseSearchVS("N/A");
+		}
+	};
+}
+
+function processResponseSearchVS(result) {
+	console.log("res:" + result);
+	// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
+	var js = JSON.parse(result);
+	var videoSegSearch= document.getElementById('VideoSegmentsSearch');
+	var output = "";
+	
+	for (var i = 0; i < js.list.length; i++) {
+		var constantJson = js.list[i];
+		console.log(constantJson);
+		
+		var actor = constantJson["actor"];
+		var phrase = constantJson["phrase"];
+		var url = constantJson["url"];
+		var id = constantJson["id"];
+		output = output + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+		output = output + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
+		console.log(output);
+	}
+	
+	videoSegSearch.innerHTML= output;
+	//console.log(output);
 }
