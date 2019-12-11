@@ -1,5 +1,6 @@
 package player.handler;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.db.VideoSegmentDAO;
 import player.http.CreateVideoSegmentRequest;
 import player.http.CreateVideoSegmentResponse;
 import player.http.SiteCreateRequest;
@@ -58,6 +60,7 @@ public class UploadVideoSegmentsHandlerTest {
 
     @Test
     public void testUploadVideoSegmentsHandler() {
+    	VideoSegmentDAO dao = new VideoSegmentDAO();
         UploadVideoSegmentsHandler handler = new UploadVideoSegmentsHandler();
         Context ctx = createContext();
         
@@ -72,5 +75,12 @@ public class UploadVideoSegmentsHandlerTest {
         request = new CreateVideoSegmentRequest("File Name: " + x, "actor", "phrase", encodedContents);
         output = handler.handleRequest(request, ctx);
         Assert.assertEquals(409, output.statusCode);
+        try {
+        	dao.deleteVideoSegment("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/File Name: " + x);
+        }
+        catch (Exception e) {
+        	fail("test failed: " + e.getMessage());
+        }
+        
     }
 }

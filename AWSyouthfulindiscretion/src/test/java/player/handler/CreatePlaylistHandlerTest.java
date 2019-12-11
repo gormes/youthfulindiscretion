@@ -21,14 +21,6 @@ public class CreatePlaylistHandlerTest extends LambdaTest{
 		CreatePlaylistResponse resp = handler.handleRequest(req, createContext("create"));
         Assert.assertEquals(200, resp.httpCode);
     }
-	
-    void testFailInput(String incoming, int failureCode) throws IOException {
-    	CreatePlaylistHandler handler = new CreatePlaylistHandler();
-    	PlaylistRequest req = new Gson().fromJson(incoming, PlaylistRequest.class);
-
-    	CreatePlaylistResponse resp = handler.handleRequest(req, createContext("create"));
-        Assert.assertEquals(failureCode, resp.httpCode);
-    }
     
     @Test
     public void testShouldBeOk() {

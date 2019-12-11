@@ -12,6 +12,9 @@ public class SiteTest {
 	@Test
 	public void test() {
 		Site site = new Site("TestURL");
-		assertEquals(site.equals(site), true);
+		assertEquals(true, site.equals(site));
+		assertEquals(false, site.equals(new Object()));
+		assertEquals(false, site.equals(null));
+		
 	}
 }
