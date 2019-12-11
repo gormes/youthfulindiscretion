@@ -90,7 +90,7 @@ public class RemoveVideoSegmentHandlerTest {
         AppendVideoSegmentHandler handlerA = new AppendVideoSegmentHandler();
         AppendVideoSegmentResponse responseA = handlerA.handleRequest(requestA, ctx);
         
-        RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest(responseP.response, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest");
+        RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest(responseP.response, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x);
         RemoveVideoSegmentPlaylistResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);
 
