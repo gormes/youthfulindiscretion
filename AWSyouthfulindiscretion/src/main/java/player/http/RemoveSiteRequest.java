@@ -12,9 +12,6 @@ public class RemoveSiteRequest {
 	public RemoveSiteRequest(String url) {
 		this.url = url;
 	}
-	
-	public String toString() {
-		return "RemoveSite(" + url.toString() + ")";
-	}
+
 
 }

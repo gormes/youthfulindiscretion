@@ -18,11 +18,4 @@ public class DeletePlaylistResponse {
 		this.response = name;
 	}
 	
-	public String toString() {
-		if (statusCode / 100 == 2) {  // too cute?
-			return "DeleteResponse(" + response + ")";
-		} else {
-			return "ErrorResult(" + response + ", statusCode=" + statusCode + ", err=" + error + ")";
-		}
-	}
 }

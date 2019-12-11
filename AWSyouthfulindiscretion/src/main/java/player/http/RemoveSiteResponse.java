@@ -18,11 +18,4 @@ public class RemoveSiteResponse {
 		this.response = name;
 	}
 	
-	public String toString() {
-		if (statusCode == 200) {
-			return "DeleteResponse(" + response + ")";
-		} else {
-			return "ErrorResult(" + response + ", statusCode=" + statusCode + ", err=" + error + ")";
-		}
-	}
 }

@@ -29,8 +29,5 @@ public class VideoSegmentMarkRequest {
 	public void setMarked(boolean marked) {
 		this.marked = marked;
 	}
-	
-	public String toString() {
-		return "VideoSegmentMarkRequest(" + url + "," + marked + ")"; 
-	}
+
 }

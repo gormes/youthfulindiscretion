@@ -20,8 +20,4 @@ public class AllUnmarkedVideoSegmentsResponse {
 		this.error = errorMessage;
 	}
 	
-	public String toString() {
-		if (segments == null) { return "EmptyListOfVideoSegments"; }
-		return "AllUnmarkedVideoSegments(" + segments.size() + ")";
-	}
 }

@@ -22,9 +22,4 @@ public class AllSitesResponse  {
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
-	
-	public String toString() {
-		if (list == null) { return "EmptySites"; }
-		return "AllSites(" + list.size() + ")";
-	}
 }

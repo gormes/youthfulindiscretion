@@ -43,8 +43,4 @@ public class CreateVideoSegmentRequest {
 		this.phrase = phrase;
 		this.encodedContents = encodedContents;
 	}
-	
-	public String toString() {
-		return "CreateVideoSegmentRequest(" + fileName + "," + actor + "," + phrase + ")"; 
-	}
 }

@@ -26,9 +26,5 @@ public class AppendVideoSegmentRequest {
 	public void setPlaylistID(String plid) {
 		this.plid = plid;
 	}	
-	
-	public String toString() {
-		return "AppendVideoSegment(" + vsurl + " , " + plid + ")";
-	}
 }
 

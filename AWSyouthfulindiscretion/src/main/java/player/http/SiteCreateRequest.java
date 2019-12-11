@@ -17,7 +17,4 @@ public class SiteCreateRequest {
 		this.url = url;
 	}
 
-	public String toString() {
-		return "SiteCreateRequest(" + url + ")";
-	}
 }

@@ -15,14 +15,5 @@ public class SiteCreateResponse {
 		this.url = "";
 		this.statusCode = statusCode;
 		this.error = error;
-	}
-	
-	public String toString() {
-		if(statusCode / 100 == 2) {
-			return "DeleteRequest(" + url + ");";
-		} else {
-			return "ErrorResult(" + url + ", Status Code: " + statusCode + ", Error:" + error + ");";
-		}
-	}
-	
+	}	
 }
