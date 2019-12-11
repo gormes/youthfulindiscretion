@@ -1,5 +1,6 @@
 package player.handler;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.db.SiteDAO;
 import player.http.SiteCreateRequest;
 import player.http.SiteCreateResponse;
 
@@ -55,6 +57,7 @@ public class AddSiteHandlerTest {
 
     @Test
     public void testAddSiteHandler() {
+    	SiteDAO dao = new SiteDAO();
         AddSiteHandler handler = new AddSiteHandler();
         Context ctx = createContext();
 
@@ -67,6 +70,12 @@ public class AddSiteHandlerTest {
         request = new SiteCreateRequest("Test: " + x);
         output = handler.handleRequest(request, ctx);
         Assert.assertEquals(409, output.statusCode);
+        try {
+        	dao.removeSite("Test: " + x);
+        }
+        catch (Exception e) {
+        	fail("test failed: " + e.getMessage());
+        }
     }
 
     @Test
