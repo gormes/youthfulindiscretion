@@ -13,6 +13,21 @@ import player.model.VideoSegment;
 public class VideoSegmentDAOTest {
 
 	@Test
+	public void testGetVideoSegment() {
+		VideoSegmentDAO dao = new VideoSegmentDAO();
+		try {
+			VideoSegment vs = new VideoSegment("testActor", "testPhrase", "testURL");
+			dao.addVideoSegment(vs);
+			VideoSegment vsBack = dao.getVideoSegment(vs.id.toString());
+			assertTrue(vs.equals(vsBack));
+			dao.deleteVideoSegment(vs.url);
+		}
+		catch (Exception e) {
+			fail("test failed: " + e.getMessage());
+		}
+	}
+	
+	@Test
 	public void testGetVideoSegments() {
 		VideoSegmentDAO dao = new VideoSegmentDAO();
 		try {
