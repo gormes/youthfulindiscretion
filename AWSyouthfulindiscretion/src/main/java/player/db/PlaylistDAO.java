@@ -164,9 +164,13 @@ public class PlaylistDAO {
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlist WHERE playlistName = ? AND s3BucketURL = ?;");
 			ps.setString(1, pID);
 			ps.setString(2, vsURL);
-			ps.execute();
+			ResultSet resultSet = ps.executeQuery();
+			while(resultSet.next()) {
+				response = true;
+			}
+			resultSet.close();
 			ps.close();
-			response = true;
+			
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 			response = false;
