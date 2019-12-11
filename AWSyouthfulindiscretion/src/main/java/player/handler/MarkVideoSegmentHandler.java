@@ -15,8 +15,7 @@ import player.model.VideoSegment;
 
 public class MarkVideoSegmentHandler implements RequestHandler<VideoSegmentMarkRequest, VideoSegmentMarkResponse> {
 	
-    private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
-
+    private AmazonS3 s3 = null;
     public MarkVideoSegmentHandler() {}
 
     // Test purpose only.
@@ -34,7 +33,7 @@ public class MarkVideoSegmentHandler implements RequestHandler<VideoSegmentMarkR
 			if(vs.marked == request.getMarked()) {
 				response = new VideoSegmentMarkResponse(400, "Invalid Input: this segment is already marked/unmarked");
 			} else {
-				vs.marked = request.getMarked();
+				vs.setMarked(request.getMarked());
 				dao.markVideoSegment(vs);
 				response = new VideoSegmentMarkResponse(200, vs.toString());
 			}

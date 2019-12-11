@@ -19,7 +19,7 @@ import player.model.VideoSegment;
 
 public class RemoveVideoSegmentHandler implements RequestHandler<RemoveVideoSegmentPlaylistRequest, RemoveVideoSegmentPlaylistResponse> {
 
-    private AmazonS3 s3 = AmazonS3ClientBuilder.standard().build();
+    private AmazonS3 s3 = null;
 
     public RemoveVideoSegmentHandler() {}
 
@@ -37,10 +37,9 @@ public class RemoveVideoSegmentHandler implements RequestHandler<RemoveVideoSegm
 		String vsURL = input.getVideoSegmentURL();
 		String pID = input.getPlaylistID();
 		try {
-			Playlist p = dao.getPlaylist(pID);
-			VideoSegment vs = daoVS.getVideoSegmentFromURL(vsURL);
-			if(dao.findVideoSegment(p, vs)) {
-				dao.deleteFromPlaylist(p, vs);
+
+			if(dao.findVideoSegment(pID, vsURL)) {
+				dao.deleteFromPlaylist(pID, vsURL);
 				response = new RemoveVideoSegmentPlaylistResponse(200, vsURL + " Removed");
 			} else {
 				response = new RemoveVideoSegmentPlaylistResponse(400, "VideoSegment not in Playlist" + input.getVideoSegmentURL());

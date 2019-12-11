@@ -66,15 +66,17 @@ public class MarkVideoSegmentTest {
         MarkVideoSegmentHandler handler = new MarkVideoSegmentHandler();
         Context ctx = createContext();
         
+        int x = (int)(Math.random()*(1000));
+        
         UploadVideoSegmentsHandler handlerVS = new UploadVideoSegmentsHandler();
-        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("markTest", "actor", "phrase", "contents");
+        CreateVideoSegmentRequest requestVS = new CreateVideoSegmentRequest("Mark Test: " + x, "actor", "phrase", "contents");
         CreateVideoSegmentResponse responseVS = handlerVS.handleRequest(requestVS, ctx);
         VideoSegment vs = responseVS.vs;
         	
-        VideoSegmentMarkRequest request = new VideoSegmentMarkRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/markTest", true);
+        VideoSegmentMarkRequest request = new VideoSegmentMarkRequest("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Mark Test: " + x, true);
         VideoSegmentMarkResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);
-       output = handler.handleRequest(request, ctx);
+        output = handler.handleRequest(request, ctx);
         Assert.assertEquals(400, output.statusCode);
     }
 }

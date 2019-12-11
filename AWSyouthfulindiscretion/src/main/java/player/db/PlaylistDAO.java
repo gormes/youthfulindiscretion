@@ -158,31 +158,31 @@ public class PlaylistDAO {
 		}
 	}
 
-	public boolean findVideoSegment(Playlist p, VideoSegment vs) {
+	public boolean findVideoSegment(String pID, String vsURL) {
 		boolean response = false;
 		try {
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM playlist WHERE playlistName = ? AND s3BucketURL = ? values(?,?;");
-			ps.setString(1, p.id.toString());
-			ps.setString(2, vs.url);
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlist WHERE playlistName = ? AND s3BucketURL = ?;");
+			ps.setString(1, pID);
+			ps.setString(2, vsURL);
 			ps.execute();
 			ps.close();
 			response = true;
 		} catch (Exception e) {
+			System.out.print(e.getMessage());
 			response = false;
 		}
 		return response;
 	}
 
-	public void deleteFromPlaylist(Playlist p , VideoSegment vs) throws Exception {
+	public void deleteFromPlaylist(String pID, String vsURL) throws Exception {
 		try {
-			PreparedStatement ps = conn.prepareStatement("DELETE FROM playlist WHERE playlistName=? AND s3BucketURL = ? values(?,?);");
-			ps.setString(1, p.id.toString());
-			ps.setString(2, vs.url);
+			PreparedStatement ps = conn.prepareStatement("DELETE FROM playlist WHERE (playlistName = ? AND s3BucketURL = ?);");
+			ps.setString(1, pID);
+			ps.setString(2, vsURL);
 			ps.execute();
 			ps.close();
 		} catch (Exception e) {
-			throw new Exception("Unable to remove " + vs.url + " from " + p);
+			throw new Exception("Unable to remove " + vsURL + " from " + pID);
 		}
 	}
 
