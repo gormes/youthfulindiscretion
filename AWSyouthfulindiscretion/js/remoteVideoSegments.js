@@ -6,6 +6,9 @@
  */
 
 //get the urls from the admin website 
+
+var output2 = "";
+	
 function refreshRemoteVideoSegments() {
 
 	remote_url="https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/site";
@@ -32,7 +35,6 @@ function processRemoteResponse(result) {
 	// Can grab any DIV or SPAN HTML element and can then manipulate its contents dynamically via javascript
 	var js = JSON.parse(result);
 	var constList = document.getElementById('VideoSegmentsRemote');
-	var output = "";
 
 	for (var i = 0; i < js.list.length; i++) {
 		var constantJson = js.list[i];
@@ -56,7 +58,7 @@ function processRemoteResponse(result) {
 			console.log(xhr.readyState == XMLHttpRequest.DONE);
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				console.log ("XHR:" + xhr.responseText);
-				loadVideoSegments(xhr.responseText);
+				loadVideoSegments2(xhr.responseText);
 			} else {
 				console.log("couldn't do it :(");
 			}
@@ -66,12 +68,11 @@ function processRemoteResponse(result) {
 }
 
 //getting the urls to be ready to display
-function loadVideoSegments(result) {
+function loadVideoSegments2(result) {
 	//Displaying in the Video Segment Section
 	var js = JSON.parse(result);
 	console.log(js);
 
-	var output2 = "";
 	var js2= js.segments;
 	var js3= js2[0].url;
 	for (var i = 0; i < js.segments.length; i++) {
@@ -87,8 +88,6 @@ function loadVideoSegments(result) {
 
 		output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs00" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs00" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
 		output2 = output2 + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
-
-
 	}
 
 	videoSegSearch.innerHTML= output2;
