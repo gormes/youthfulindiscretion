@@ -83,10 +83,12 @@ function refreshPlaylistList() {
 				var vidJson = pvideo[j];
 				var url = vidJson["url"];
 				//vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
-			    vidout += "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\"";
+			    console.log("Video Segment: "+j);
+				vidout += "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\"";
 			    //if (j == 0) { vidout += " controls"; } else{}
 			    vidout += " controls"
 			    vidout += "><source src=\""+url+"\"type=\"video/ogg\"> </video>";
+			    console.log(vidout);
 				}
 				/**
 				console.log(pvideo[j])
