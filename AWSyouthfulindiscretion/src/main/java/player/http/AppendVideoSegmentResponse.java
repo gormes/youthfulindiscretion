@@ -14,13 +14,5 @@ public class AppendVideoSegmentResponse {
 		this.code = 200;
 		this.response = s;
 	}
-	
-	
-	public String toString() {
-		if(code==400) { return "Error";}
-		else {
-		return response;
-		}
-	}
 
 }

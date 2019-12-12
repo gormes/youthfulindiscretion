@@ -24,12 +24,13 @@ import com.amazonaws.services.s3.model.S3Object;
 
 import player.model.Playlist;
 import player.model.VideoSegment;
+import player.http.AllPlaylistsResponse;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ListAllPlaylistsHandlerTest {
+public class ListAllPlaylistsHandlerTest extends LambdaTest {
 
     private final String CONTENT_TYPE = "image/jpeg";
     private S3Event event;
@@ -37,7 +38,7 @@ public class ListAllPlaylistsHandlerTest {
     @Mock
     private AmazonS3 s3Client;
     @Mock
-    private S3Object s3Object;
+    private S3Event s3Event;
 
     @Captor
     private ArgumentCaptor<GetObjectRequest> getObjectRequest;
@@ -53,22 +54,14 @@ public class ListAllPlaylistsHandlerTest {
         //when(s3Client.getObject(getObjectRequest.capture())).thenReturn(s3Object);
     }
 
-    private Context createContext() {
-        TestContext ctx = new TestContext();
-
-        // TODO: customize your context here if needed.
-        ctx.setFunctionName("Your Function Name");
-
-        return ctx;
-    }
-
     @Test
     public void testListAllPlaylistsHandler() {
         ListAllPlaylistsHandler handler = new ListAllPlaylistsHandler();
         
         try {
         	handler = new ListAllPlaylistsHandler(AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_2).build());
-        	java.util.List<Playlist> resultList = handler.listAllPlaylists();
+        	AllPlaylistsResponse resp = handler.handleRequest(s3Event,createContext("get"));
+        	java.util.List<Playlist> resultList = resp.list;
         	for(int i = 0; i < resultList.size(); i ++) {
         		System.out.println("Result " + i + ": " + resultList.get(i).id + ", " + resultList.get(i).videoSegments.toString());
         	}

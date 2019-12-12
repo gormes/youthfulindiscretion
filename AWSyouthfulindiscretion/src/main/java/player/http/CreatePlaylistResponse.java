@@ -14,9 +14,5 @@ public class CreatePlaylistResponse {
 		this.response = s;
 		this.httpCode = 200;
 	}
-	
-	public String toString() {
-		return "Response(" + response + ")";
-	}
 
 }

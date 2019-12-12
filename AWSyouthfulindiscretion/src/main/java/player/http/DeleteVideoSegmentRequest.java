@@ -10,10 +10,6 @@ public class DeleteVideoSegmentRequest {
 	public void setvsId(String url) {this.s3BucketURL=url;}
 	
 	public DeleteVideoSegmentRequest() {}
-
-	public String toString() {
-		return "DeleteVideoSegment(" + s3BucketURL + ")";
-	}
 	
 	public DeleteVideoSegmentRequest(String url) {
 		s3BucketURL = url;

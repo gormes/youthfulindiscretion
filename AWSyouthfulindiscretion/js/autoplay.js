@@ -30,7 +30,7 @@ function makePlayFunction(id) {
   return function(e) {
 	  console.log("play function");
 	  document.getElementById(id).play();
-  	}
+  	};
 }
 
 function playVids(j) {
@@ -50,14 +50,16 @@ function autoPlaylists() {
 	  var playlists = document.getElementsByClassName("playlist");
 	  console.log("Total playlists: " + playlists.length);
 	  for (var k = 0; k < playlists.length; k++){
-		  console.log("Inside playlist: "+k);
+		  console.log("Enabling autoplay on playlist: "+(k+1));
 		  var vidDiv = document.getElementsByClassName("playlist"+k+"vids")[0];
 		  var vidList = vidDiv.getElementsByTagName("VIDEO");
 		  for (var i = 0; i < vidList.length-1; i++) {
-			  var priorVid = document.getElementById("p" + k + "v" + i);
-			  callBackFunction = makePlayFunction("p" + k + "v" + (i+1));
-			  priorVid.addEventListener("ended", callBackFunction);
+			var priorVid = document.getElementById("p" + k + "v" + i);
+			callBackFunction = makePlayFunction("p" + k + "v" + (i+1));
+			if (priorVid!=null){
+				priorVid.addEventListener("ended", callBackFunction);
 		  }
 	  }
 
 	}
+}	  

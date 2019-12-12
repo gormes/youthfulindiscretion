@@ -18,8 +18,5 @@ public class CreateVideoSegmentResponse {
 		this.statusCode = statusCode;
 		this.error = error;
 	}
-	
-	public String toString() {
-		return "CreateVideoSegmentResponse(" + vs + ")";
-	}
+
 }

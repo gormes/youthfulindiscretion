@@ -8,8 +8,5 @@ public class VideoSegmentMarkResponse {
 		this.statusCode = statusCode;
 		this.message = message;
 	}
-	
-	public String toString() {
-		return "MarkVideoSegmentResponse(" + statusCode + "," + message + ")";
-	}
+
 }

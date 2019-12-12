@@ -12,8 +12,5 @@ public class PlaylistRequest {
 	public PlaylistRequest(String name) {
 		playlistName = name;
 	}
-	
-	public String toString() {
-		return "CreatePlaylist(" + playlistName + ")";
-	}
+
 }

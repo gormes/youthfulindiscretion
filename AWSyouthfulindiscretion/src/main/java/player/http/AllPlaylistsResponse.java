@@ -21,10 +21,5 @@ public class AllPlaylistsResponse {
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
-	
-	public String toString() {
-		if (list == null) { return "EmptyPlaylists"; }
-		return "AllPlaylists(" + list.size() + ")";
-	}
 
 }

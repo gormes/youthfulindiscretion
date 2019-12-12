@@ -18,11 +18,4 @@ public class DeleteVideoSegmentResponse {
 		this.response = response;
 	}
 	
-	public String toString() {
-		if (statusCode / 100 == 2) {  // too cute?
-			return "DeleteResponse(" + response + ")";
-		} else {
-			return "ErrorResult(" + response + ", statusCode=" + statusCode + ", err=" + error + ")";
-		}
-	}
 }

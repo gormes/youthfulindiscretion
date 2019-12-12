@@ -27,6 +27,7 @@ public class AppendVideoSegmentHandlerTest extends LambdaTest {
 			AppendVideoSegmentResponse response;
 			response = handler.handleRequest(request, createContext("append"));
 			Assert.assertEquals(request.plid, response.response);
+			pdao.deletePlaylist(p);
 		}
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());
@@ -48,6 +49,7 @@ public class AppendVideoSegmentHandlerTest extends LambdaTest {
 			Assert.assertEquals(request1.plid, response.response);
 			response = new AppendVideoSegmentHandler().handleRequest(request2, createContext("append"));
 			Assert.assertEquals(request2.plid, response.response);
+			pdao.deletePlaylist(p);
 		}
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());

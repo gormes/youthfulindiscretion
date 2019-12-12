@@ -21,9 +21,5 @@ public class AllVideoSegmentsResponse  {
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
-	
-	public String toString() {
-		if (list == null) { return "EmptyVideoSegments"; }
-		return "AllVideoSegments(" + list.size() + ")";
-	}
+
 }
