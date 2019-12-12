@@ -172,7 +172,6 @@ public class PlaylistDAO {
 			ps.close();
 			
 		} catch (Exception e) {
-			System.out.print(e.getMessage());
 			response = false;
 		}
 		return response;
@@ -184,7 +183,7 @@ public class PlaylistDAO {
 				PreparedStatement ps = conn.prepareStatement("UPDATE playlist SET s3BucketURL=? WHERE playlistName=?;");
 				ps.setString(1, "");
 				ps.setString(2, pID);
-				ps.execute();
+				ps.executeUpdate();
 				ps.close();
 			}
 			else {

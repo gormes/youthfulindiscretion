@@ -1,8 +1,31 @@
-package player.http;
+package player;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import player.http.AllPlaylistsResponse;
+import player.http.AllSitesResponse;
+import player.http.AllUnmarkedVideoSegmentsResponse;
+import player.http.AllVideoSegmentsResponse;
+import player.http.AppendVideoSegmentRequest;
+import player.http.AppendVideoSegmentResponse;
+import player.http.CreatePlaylistResponse;
+import player.http.CreateVideoSegmentRequest;
+import player.http.CreateVideoSegmentResponse;
+import player.http.DeletePlaylistResponse;
+import player.http.DeleteVideoSegmentRequest;
+import player.http.DeleteVideoSegmentResponse;
+import player.http.PlaylistRequest;
+import player.http.RemoteSegmentResponseObject;
+import player.http.RemoveSiteRequest;
+import player.http.RemoveSiteResponse;
+import player.http.RemoveVideoSegmentPlaylistRequest;
+import player.http.RemoveVideoSegmentPlaylistResponse;
+import player.http.SiteCreateRequest;
+import player.http.SiteCreateResponse;
+import player.http.VideoSegmentMarkRequest;
+import player.http.VideoSegmentMarkResponse;
 
 @RunWith(JUnit4.class)
 public class InstantiateRequestResponse {
