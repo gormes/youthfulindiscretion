@@ -26,6 +26,7 @@ public class PlaylistTest {
 			assertEquals(add.id, ret.id);
 			Playlist add2 = new Playlist();
 			assertEquals(add.equals(add2), false);
+			pdao.deletePlaylist(add);
 		}
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());

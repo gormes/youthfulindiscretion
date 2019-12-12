@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,6 +22,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
 
+import player.db.PlaylistDAO;
 import player.db.VideoSegmentDAO;
 import player.http.AppendVideoSegmentRequest;
 import player.http.AppendVideoSegmentResponse;
@@ -75,6 +77,7 @@ public class RemoveVideoSegmentHandlerTest {
     @Test
     public void testRemoveVideoSegmentHandler() {
     	VideoSegmentDAO dao = new VideoSegmentDAO();
+    	PlaylistDAO pdao = new PlaylistDAO();
         RemoveVideoSegmentHandler handler = new RemoveVideoSegmentHandler();
         Context ctx = createContext();
         
@@ -98,6 +101,7 @@ public class RemoveVideoSegmentHandlerTest {
         Assert.assertEquals(200, output.statusCode);
         try {
         	dao.deleteVideoSegment("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x);
+        	pdao.deletePlaylist(new Playlist(UUID.fromString(requestP.playlistName)));
         }
         catch (Exception e) {
         	fail("test failed: " + e.getMessage());
