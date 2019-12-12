@@ -15,7 +15,7 @@ function handleAppendClick(e,id,number) {
 	console.log("APPENDING TO PLAYLIST");
 	if (number==0){
 		var append_url = "https://lccdd1zx4e.execute-api.us-east-2.amazonaws.com/alpha/videosegmentappend";
-		var playlistId= document.getElementById("playlist"+id);
+		var playlistId= document.getElementById(id);
 		console.log("id is: "+id);
 		
 		var data= {};
@@ -32,14 +32,13 @@ function handleAppendClick(e,id,number) {
 
 		// This will process results and update HTML as appropriate. 
 		xhr.onloadend = function () {
-			console.log(xhr);
-			console.log(xhr.request);
-
 			if (xhr.readyState == XMLHttpRequest.DONE) {
 				console.log ("XHR:" + xhr.responseText);
 				refreshPlaylistList();
-				
 			} 
+			else {
+				console.log("appending a video segment didn't work");
+			}
 		};
 	}
 }
