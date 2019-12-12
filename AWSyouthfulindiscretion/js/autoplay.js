@@ -1,29 +1,3 @@
-/*function playVids(j){
-	var vidDiv = document.getElementsByClassName("playlist"+j+"vids")[0];
-	var vidList = vidDiv.getElementsByTagName("VIDEO");
-	console.log(vidList.length);
-	var i = 0;
-	while (i< vidList.length) {
-		var vid = vidList[i];
-		if(i<(vidList.length-1)){
-			var vid2 = vidList[i+1];
-		}
-		vid.play();
-		vid.addEventListener("ended", function() {vid2.play(); });
-		console.log("vid1:" + vid);
-		console.log("vid2:" + vid2);
-		
-		//var ifEnd = false;
-		//while (!ifEnd){
-		//	if(vid.ended){
-		//		ifEnd = true;
-		//		console.log(ifEnd);
-		//	}
-		//}
-		i++;
-	}
-}
-*/
 function makePlayFunction(id) {
 	console.log("make play function");
   // we are returning a function to be the event handler that plays 'id'

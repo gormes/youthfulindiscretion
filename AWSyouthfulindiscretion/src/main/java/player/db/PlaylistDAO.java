@@ -79,7 +79,12 @@ public class PlaylistDAO {
 				HashMap.Entry<UUID, ArrayList<String>> pair = (HashMap.Entry<UUID, ArrayList<String>>) it.next();
 				currPlaylist = new Playlist(pair.getKey());
 				for (String s : pair.getValue()) {
-					currPlaylist.videoSegments.add(dao.getVideoSegmentFromURL(s));
+					if (s.equals("")) currPlaylist.videoSegments.add(null);
+					else {
+						VideoSegment vs = dao.getVideoSegmentFromURL(s);
+						if (null == vs) currPlaylist.videoSegments.add(new VideoSegment("remoteActor", "remotePhrase", s));
+						else currPlaylist.videoSegments.add(vs);
+					}
 				}
 				ret.add(currPlaylist);
 				it.remove(); // avoids a ConcurrentModificationException
