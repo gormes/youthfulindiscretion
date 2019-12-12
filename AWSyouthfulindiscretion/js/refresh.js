@@ -70,6 +70,7 @@ function refreshPlaylistList() {
 		var playlistList = document.getElementById('PlaylistList');
 
 		var output = "";
+		//playlists
 		for (var i = 0; i < js.list.length; i++) {
 			var playlistJson = js.list[i];
 			console.log("hello");
@@ -78,17 +79,17 @@ function refreshPlaylistList() {
 			var pid = playlistJson["id"];
 			var pvideo = playlistJson["videoSegments"];
 			var vidout = "";
+			//video segments inside the playlists
 			for (var j = 0; j<pvideo.length; j++) {
 				if(!(pvideo[j]==(null))){
 				var vidJson = pvideo[j];
 				var url = vidJson["url"];
 				//vidout = vidout + "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\"> </video>";
 			    console.log("Video Segment: "+j);
-				vidout += "<video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\"";
+				vidout += "<button type=\"button\" value=\"Delete\" id=\""+"deleteFromPlaylist"+j+"\" onClick=\"JavaScript:handleDeleteFromPlaylist(this, \'" + url + "','"+ pid + "')\"> Delete From Playlist</button><video id=\"p"+i+"v"+j+"\" width=\"300\" height=\"220\"";
 			    //if (j == 0) { vidout += " controls"; } else{}
 			    vidout += " controls"
 			    vidout += "><source src=\""+url+"\"type=\"video/ogg\"> </video>";
-			    console.log(vidout);
 				}
 				/**
 				console.log(pvideo[j])
@@ -102,9 +103,6 @@ function refreshPlaylistList() {
 
 		// Update computation result
 		playlistList.innerHTML = output;
-		console.log("============");
-		console.log (output);
-		console.log*("--------");
 	}
 	 
 	 /**
