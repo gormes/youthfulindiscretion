@@ -25,6 +25,10 @@ public class RemoveSiteHandlerTest extends LambdaTest {
 			RemoveSiteRequest rsr = new RemoveSiteRequest("UnitTest");
 			RemoveSiteResponse r_resp = new RemoveSiteHandler().handleRequest(rsr, createContext("remove"));
 			assertEquals(rsr.url, r_resp.response);
+			
+
+			rsr = new RemoveSiteRequest(null);
+			r_resp = new RemoveSiteHandler().handleRequest(rsr, createContext("remove"));
 		}
 		catch (Exception e) {
 			fail("test failed: " + e.getMessage());

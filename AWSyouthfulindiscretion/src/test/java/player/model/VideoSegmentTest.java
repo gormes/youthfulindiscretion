@@ -29,6 +29,7 @@ public class VideoSegmentTest {
 			
 			String notAVS = new String();
 			Assert.assertEquals(vs2.equals(notAVS), false);
+			Assert.assertEquals(vs2.equals(null), false);
 			
 			VideoSegment vs3 = new VideoSegment("Kirk", "Are you", "url", vs.id);
 			Assert.assertEquals(vs3.id, vs2.id);
