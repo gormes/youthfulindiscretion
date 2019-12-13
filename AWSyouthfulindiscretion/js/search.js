@@ -28,7 +28,7 @@ function searchByCharacter(div) {
 	var data = {};
 	data["character"] = form.character.value.toUpperCase();
 	console.log("character: " + data["character"]);
-
+	
 	parent = document.getElementById(div);
 	
 	for(i = 0; i < parent.childNodes.length; i++){
@@ -136,6 +136,22 @@ function searchByBoth(div) {
 	}
 }
 
+
+function refreshAllSearchVideoSegments(div){
+	
+	var parent = document.getElementById(div)
+	
+	for(i = 0; i < parent.childNodes.length; i++){
+		var e = parent.childNodes[i];
+		if (e.nodeType == 1){
+				e.style.display = "block";
+
+		}
+	}
+}
+
+//doesn't seem to be necessary 
+/*
 //displaying the video segments 
 function refreshSearchVideoSegments() {
 	var xhr = new XMLHttpRequest();
@@ -177,16 +193,4 @@ function processResponseSearchVS(result) {
 	videoSegSearch.innerHTML= output;
 	//console.log(output);
 }
-
-function refreshAllSearchVideoSegments(div){
-	
-	var parent = document.getElementById(div)
-	
-	for(i = 0; i < parent.childNodes.length; i++){
-		var e = parent.childNodes[i];
-		if (e.nodeType == 1){
-				e.style.display = "block";
-
-		}
-	}
-}
+*/

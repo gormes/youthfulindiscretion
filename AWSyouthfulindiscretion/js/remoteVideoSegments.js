@@ -76,7 +76,7 @@ function loadVideoSegments2(result) {
 	
 	output2="";
 	
-	var videoSegSearch= document.getElementById('Example');
+	var videoSegSearch= document.getElementById('VideoSegmentsRemote');
 	
 	//var videoSegSearch1= document.getElementById('VideoSegmentsSearch');
 	//var videoSegSearch= videoSegSearch1.getElementsByClassName('VideoSegmentsRemote');
