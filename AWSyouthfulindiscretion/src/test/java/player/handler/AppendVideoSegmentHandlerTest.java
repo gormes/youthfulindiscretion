@@ -45,6 +45,7 @@ public class AppendVideoSegmentHandlerTest extends LambdaTest {
 			
 			AppendVideoSegmentRequest request1 = new AppendVideoSegmentRequest(vs1.url, p.id.toString());
 			AppendVideoSegmentRequest request2 = new AppendVideoSegmentRequest(vs2.url, p.id.toString());
+			AppendVideoSegmentRequest request3 = new AppendVideoSegmentRequest("doesn't exist", "doesn't work");
 			AppendVideoSegmentResponse response = new AppendVideoSegmentHandler().handleRequest(request1, createContext("append"));
 			Assert.assertEquals(request1.plid, response.response);
 			response = new AppendVideoSegmentHandler().handleRequest(request2, createContext("append"));

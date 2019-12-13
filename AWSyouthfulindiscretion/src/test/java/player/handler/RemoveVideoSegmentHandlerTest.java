@@ -99,6 +99,10 @@ public class RemoveVideoSegmentHandlerTest {
         RemoveVideoSegmentPlaylistRequest request = new RemoveVideoSegmentPlaylistRequest(responseP.response, "https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x);
         RemoveVideoSegmentPlaylistResponse output = handler.handleRequest(request, ctx);
         Assert.assertEquals(200, output.statusCode);
+        
+        RemoveVideoSegmentPlaylistRequest requestError = new RemoveVideoSegmentPlaylistRequest(responseP.response, "Doesn't exist");
+        RemoveVideoSegmentPlaylistResponse outputError = handler.handleRequest(requestError, ctx);
+        Assert.assertEquals(400, outputError.statusCode);
         try {
         	dao.deleteVideoSegment("https://3733youthfulindiscretion.s3.us-east-2.amazonaws.com/videoSegments/Remove Test: " + x);
         	pdao.deletePlaylist(new Playlist(UUID.fromString(requestP.playlistName)));

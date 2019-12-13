@@ -23,6 +23,7 @@ public class CreatePlaylistHandlerTest extends LambdaTest{
        
 		CreatePlaylistResponse resp = handler.handleRequest(req, createContext("create"));
         Assert.assertEquals(200, resp.httpCode);
+       
     }
     
     @Test
