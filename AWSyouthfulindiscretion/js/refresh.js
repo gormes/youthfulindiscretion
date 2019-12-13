@@ -119,7 +119,6 @@ function refreshPlaylistList() {
 			//Displaying in the Video Segment Section
 			var js = JSON.parse(result);
 			var constList = document.getElementById('VideoSegments');
-			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
 
 			var output = "";
 			for (var i = 0; i < js.list.length; i++) {
@@ -140,7 +139,7 @@ function refreshPlaylistList() {
 			
 			//Displaying video segments in the Search Video Segment section (add the remote video segments)
 			var js = JSON.parse(result);
-			var videoSegSearch= document.getElementById('VideoSegmentsSearch');
+			var videoSegSearch= document.getElementById('VideoSegmentsLocal');
 			
 			var output2 = "";
 			for (var i = 0; i < js.list.length; i++) {

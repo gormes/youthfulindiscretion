@@ -49,6 +49,9 @@ public class AppendVideoSegmentHandlerTest extends LambdaTest {
 			Assert.assertEquals(request1.plid, response.response);
 			response = new AppendVideoSegmentHandler().handleRequest(request2, createContext("append"));
 			Assert.assertEquals(request2.plid, response.response);
+			AppendVideoSegmentRequest request3 = new AppendVideoSegmentRequest("vsID", "this doesnt exist");
+			response = new AppendVideoSegmentHandler().handleRequest(request3, createContext("appendFail"));
+			Assert.assertEquals(response.code, 409);
 			pdao.deletePlaylist(p);
 		}
 		catch (Exception e) {

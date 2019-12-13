@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Assert;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -51,6 +52,8 @@ public class PlaylistDAOTest {
 
 			dao.deleteFromPlaylist(p.id.toString(),vs1.url);
 			dao.deleteFromPlaylist(p.id.toString(),vs2.url);
+			
+			assertEquals(p, dao.getPlaylist(p.id.toString()));
 			
 			dao.deletePlaylist(p);
 		}

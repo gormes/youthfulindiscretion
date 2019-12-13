@@ -4,28 +4,32 @@ function SearchClick(e) {
 	data["character"] = form.character.value;
 	data["phrase"] = form.phrase.value;
 	if (data["character"]!="" && data["phrase"]!=""){
-		searchByBoth();
+		searchByBoth("VideoSegmentsLocal");
+		searchByBoth("VideoSegmentsRemote");
 	}
 	if (data["character"]!="" && data["phrase"]==""){
-		searchByCharacter();
+		searchByCharacter("VideoSegmentsLocal");
+		searchByCharacter("VideoSegmentsRemote");
 	}
 	if (data["character"]=="" && data["phrase"]!=""){
-		searchByPhrase();
+		searchByPhrase("VideoSegmentsLocal");
+		searchByPhrase("VideoSegmentsRemote");
 	}
 	if (data["character"]=="" && data["phrase"]==""){
-		refreshSearchVideoSegments();
+		refreshAllSearchVideoSegments("VideoSegmentsLocal");
+		refreshAllSearchVideoSegments("VideoSegmentsRemote");
 	}
 	
 }
 
-function searchByCharacter() {
+function searchByCharacter(div) {
 
 	var form = document.searchForm;
 	var data = {};
 	data["character"] = form.character.value.toUpperCase();
 	console.log("character: " + data["character"]);
 
-	parent = document.getElementById('VideoSegmentsSearch');
+	parent = document.getElementById(div);
 	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
@@ -56,13 +60,13 @@ function searchByCharacter() {
 	}
 }
 
-function searchByPhrase() {
+function searchByPhrase(div) {
 	var form = document.searchForm;
 	var data = {};
 	data["phrase"] = form.phrase.value.toUpperCase();
 	console.log("phrase: " + data["phrase"]);
 
-	parent = document.getElementById('VideoSegmentsSearch');
+	parent = document.getElementById(div);
 	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
@@ -107,7 +111,7 @@ function searchByPhrase() {
 	}
 }
 
-function searchByBoth() {
+function searchByBoth(div) {
 	var form = document.searchForm;
 	var data = {};
 	data["character"] = form.character.value.toUpperCase();
@@ -115,7 +119,7 @@ function searchByBoth() {
 	data["phrase"] = form.phrase.value.toUpperCase();
 	console.log("data phrase: " + data["phrase"]);
 
-	parent = document.getElementById('VideoSegmentsSearch');
+	parent = document.getElementById(div);
 	
 	for(i = 0; i < parent.childNodes.length; i++){
 		var e = parent.childNodes[i];
@@ -172,4 +176,17 @@ function processResponseSearchVS(result) {
 	
 	videoSegSearch.innerHTML= output;
 	//console.log(output);
+}
+
+function refreshAllSearchVideoSegments(div){
+	
+	var parent = document.getElementById(div)
+	
+	for(i = 0; i < parent.childNodes.length; i++){
+		var e = parent.childNodes[i];
+		if (e.nodeType == 1){
+				e.style.display = "block";
+
+		}
+	}
 }
