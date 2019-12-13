@@ -20,14 +20,14 @@
 		refreshVideoSegments();
 		displayPlaylists();
 		refreshRemoteVideoSegments();
-		
+
 	}
 	/*
 	function handleAppendClick(e, id) {
 		console.log(document.getElementById(id));
 		selectedVs=document.getElementById(id).value;
 	}
-	*/
+	 */
 </script>
 </head>
 
@@ -37,10 +37,12 @@
 	<h1>PLAYLIST APP</h1>
 
 	<h2>Playlists:</h2>
-	<button type="button" onClick="JavaScript:handleCreatePlaylistClick(this)">Create
+	<button type="button"
+		onClick="JavaScript:handleCreatePlaylistClick(this)">Create
 		New Playlist</button>
-	<input type="button" onClick="JavaScript:autoPlaylists()" value="Enable Playlist Autoplay">
-		
+	<input type="button" onClick="JavaScript:autoPlaylists()"
+		value="Enable Playlist Autoplay">
+
 	<!-- Displays the playlists -->
 
 	<div id="PlaylistList"></div>
@@ -48,71 +50,71 @@
 
 	<h2>Video Segments:</h2>
 
-<!-- Displays the video segments-->
+	<!-- Displays the video segments-->
 	<div id="VideoSegments"></div>
-	
+
 
 	<h3>Upload Video Segments</h3>
 
 	<!--Upload video segments -->
 	<form name="uploadFile" method="post">
-		<input name="base64Encoding" hidden value=""/>
-		<input name="character" placeholder="Character" value=""/>
-		<input name="phrase" placeholder="Phrase" value=""/>
-		<input id="fileupload" type="file" /> <input type="button"
-			value="Submit" id="submit" 
-			onClick="JavaScript:handleCreateVsClick(this)" /> 
+		<input name="base64Encoding" hidden value="" /> <input
+			name="character" placeholder="Character" value="" /> <input
+			name="phrase" placeholder="Phrase" value="" /> <input
+			id="fileupload" type="file" /> <input type="button" value="Submit"
+			id="submit" onClick="JavaScript:handleCreateVsClick(this)" />
 	</form>
-	
-	
-<script>
 
-  // prepares the base64-encoded string and enabled button
-  function getBase64(file) {
-	var reader = new FileReader();
-	reader.readAsDataURL(file);
 
-	reader.onload = function () {
-	  document.uploadFile.base64Encoding.value = reader.result;
-	};
-  }
+	<script>
+		// prepares the base64-encoded string and enabled button
+		function getBase64(file) {
+			var reader = new FileReader();
+			reader.readAsDataURL(file);
 
-  // When file is selected, stash base64 value in the encoding field.  
-  function handleFileSelect(evt) {
-    var files = evt.target.files; 
-    if (files[0].size > 250000) {  // make as large or small as you need
-    	document.uploadFile.base64Encoding.value = "";
-    	alert("File size too large to use:" + files[0].size + " bytes");
-    } else {
-    	getBase64(files[0]); // request the load (async)
-    }
-  }
-  
-  // register
-  document.getElementById('fileupload').addEventListener('change', handleFileSelect, false);
-</script>
+			reader.onload = function() {
+				document.uploadFile.base64Encoding.value = reader.result;
+			};
+		}
+
+		// When file is selected, stash base64 value in the encoding field.  
+		function handleFileSelect(evt) {
+			var files = evt.target.files;
+			if (files[0].size > 250000) { // make as large or small as you need
+				document.uploadFile.base64Encoding.value = "";
+				alert("File size too large to use:" + files[0].size + " bytes");
+			} else {
+				getBase64(files[0]); // request the load (async)
+			}
+		}
+
+		// register
+		document.getElementById('fileupload').addEventListener('change',
+				handleFileSelect, false);
+	</script>
 
 	<h3>Search Video Segment</h3>
-	
-	<p> When appending a video segment to a playlist, please select the video segment first and then select the playlist from the drop down menu </p>
+
+	<p>When appending a video segment to a playlist, please select the
+		video segment first and then select the playlist from the drop down
+		menu</p>
 	<!-- Search for video segments  -->
 	<form name="searchForm">
-	<input name="character" placeholder="Character" value="" />
-	<input name="phrase" placeholder="Phrase" value="" />
-	<input type="button" value="Submit"
-		onClick="JavaScript:SearchClick(this)">
-	<div class="dropdown">
-		<button class="dropbtn" type="button">Append VS</button>
-		<div class="dropdown-content">
-			<div id="PlaylistName"> </div>
+		<input name="character" placeholder="Character" value="" /> <input
+			name="phrase" placeholder="Phrase" value="" /> <input type="button"
+			value="Submit" onClick="JavaScript:SearchClick(this)">
+		<div class="dropdown">
+			<button class="dropbtn" type="button">Append VS</button>
+			<div class="dropdown-content">
+				<div id="PlaylistName"></div>
+			</div>
 		</div>
-	</div>
 	</form>
-	<div id="VideoSegmentsSearch"> 
-	<div id="VideoSegmentsSearch"> 
+	<div id="VideoSegmentsSearch2">
+		<div id="VideoSegmentsSearch"></div>
+		<div class="VideoSegmentsRemote"></div>
 	</div>
-	<div id="VideoSegmentsRemote">
-	</div>
+	<div id="Example">
 	</div>
 
 </body>
