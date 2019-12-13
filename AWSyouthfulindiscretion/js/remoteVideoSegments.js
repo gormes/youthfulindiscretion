@@ -93,8 +93,8 @@ function loadVideoSegments2(result) {
 		var phrase = text;
 		var url = url;
 
-		output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + "| " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs00" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs00" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
-		output2 = output2 + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + "| " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
+		output2 = output2 + "<div id=\"vs" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " | " + phrase.toUpperCase() + "\">" +"<button type=\"button\" value=\""+url+"\" id=\"appendVs00" + i + "\"  onClick=\"JavaScript:handleAppend(this,'appendVs00" + i + "')\">Select</button> <video id=\"video1\" width=\"300\" height=\"220\" controls> <source src=\""+url+"\"type=\"video/ogg\" <\/video> </div>";
+		output2 = output2 + "<div id=\"text" + actor + "" + phrase+ "\"class=\"" + actor.toUpperCase() + " | " + phrase.toUpperCase()+ "\"> <p> Character: "+actor+"<br>Phrase: "+phrase+" </p> </div> ";
 	}
 	//return output2;
 	console.log(videoSegSearch);
