@@ -137,8 +137,6 @@ public class PlaylistDAO {
 			if (null == currvs) p.videoSegments.add(new VideoSegment("remoteActor", "remotePhrase", currid));
 			else p.videoSegments.add(currvs);
 		}
-		if (currvs != null)
-			p.videoSegments.add(currvs);
 		return p;
 	}
 
