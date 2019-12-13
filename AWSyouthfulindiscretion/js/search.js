@@ -48,7 +48,7 @@ function searchByCharacter(div) {
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
 		console.log(vid);
-		if(vid.className.split(' ')[0].indexOf(data["character"])!=-1){
+		if(vid.className.split('|')[0].indexOf(data["character"])!=-1){
 			compare = true;
 		}
 		else {
@@ -97,16 +97,17 @@ function searchByPhrase(div) {
 			vid.style.display = "block";
 		}*/
 		
-		for (j = 1; j < vid.className.split(' ').length; j++){
+		//for (j = 1; j < vid.className.split('|').length; j++){
 		//if(data["phrase"].includes(vid.className.split(' ')[j])){
 		//	vid.style.display = "block";
 		//}
-		if(vid.className.split(' ')[j].includes(data["phrase"])){
+		
+		if(vid.className.split('|')[1].includes(data["phrase"])){
 			vid.style.display = "block";
 		}
 		
 
-	}
+	//}
 		
 	}
 }
@@ -127,7 +128,7 @@ function searchByBoth(div) {
 			e.style.display = "none";
 		}
 	}
-	var foundVidList = document.getElementsByClassName(data["character"] + " " + data["phrase"]);
+	var foundVidList = document.getElementsByClassName(data["character"] + "| " + data["phrase"]);
 	console.log("Found vids: " + foundVidList.length)
 	for (i = 0; i < foundVidList.length; i++) {
 		var vid = foundVidList[i];
